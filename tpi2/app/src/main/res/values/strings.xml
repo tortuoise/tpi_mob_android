@@ -1,6 +1,0 @@
-<resources>
-    <string name="app_name">tpi</string>
-    <string name="login">Make user</string>
-    <string name="alert_dialog_login_username">Email</string>
-    <string name="alert_dialog_login_password">Name</string>
-</resources>
