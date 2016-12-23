@@ -44,6 +44,7 @@ public class VenueFragment extends Fragment {
     private CustomEditText mEtName;
     private CustomTextView mPossiton;
     private Button mSend;
+    private HashMap<String,Float> mLocation = new HashMap<>();
 
     @Nullable
     @Override
@@ -54,6 +55,8 @@ public class VenueFragment extends Fragment {
         mSend = (Button) view.findViewById(R.id.buttonSend);
         mPossiton = (CustomTextView) view.findViewById(R.id.possition);
         mPossiton.setText("Longitude " + MainActivity.longitude + " Latitude " + MainActivity.latitude);
+        mLocation.put("Lat",Float.parseFloat(""+MainActivity.latitude));
+        mLocation.put("Lng",Float.parseFloat(""+MainActivity.longitude));
 
         mSend.setOnClickListener(new View.OnClickListener() {
 
@@ -73,9 +76,9 @@ public class VenueFragment extends Fragment {
 
 
         Map<String, Object> params = new HashMap<String, Object>();
-
+       // JSONObject ob = new JSONObject(mLocation);
         params.put("name", mEtName.getText().toString());
-        params.put("location", MainActivity.location);
+        params.put("location", mLocation);
         JsonObjectRequest stringReguest = new JsonObjectRequest(Request.Method.POST, Constant.VENUES,
 
                 new JSONObject(params),

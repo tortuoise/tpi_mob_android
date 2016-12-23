@@ -67,7 +67,6 @@ public class ThaliListFragment extends Fragment {
                     new Response.Listener<String>() {
                         @Override
                         public void onResponse(String response) {
-                            Log.e("tamara", response);
                             try {
                                 JSONArray response1 = new JSONArray(response);
                                 for (int i = 0; i < response1.length(); i++) {

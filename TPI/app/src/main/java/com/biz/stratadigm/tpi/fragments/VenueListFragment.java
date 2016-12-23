@@ -63,6 +63,7 @@ public class VenueListFragment extends Fragment{
                     @Override
                     public void onResponse(String response) {
                         try {
+                            Log.e("tamara",response);
                             JSONArray response1 = new JSONArray(response);
                             for (int i = 0; i < response1.length(); i++) {
                                 String id = response1.getJSONObject(i).getString("id");
