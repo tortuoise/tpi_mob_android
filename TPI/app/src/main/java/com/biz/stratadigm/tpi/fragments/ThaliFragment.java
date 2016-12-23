@@ -1,12 +1,15 @@
 package com.biz.stratadigm.tpi.fragments;
 
 import android.content.ActivityNotFoundException;
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.text.InputType;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -59,35 +62,8 @@ public class ThaliFragment extends Fragment {
     private CheckBox north, west, east, south;
     String region;
     private String filePath;
-    private WebView mIvPicture;
+    private SharedPreferences sharedPreferences;
 
-    // callbacks for image upload
-    private ValueCallback<Uri> mUploadMessage;
-    public ValueCallback<Uri[]> uploadMessage;
-    public static final int REQUEST_SELECT_FILE = 100;
-    private final static int FILECHOOSER_RESULTCODE = 1;
-
-    @Override
-    public void onActivityResult(int requestCode, int resultCode, Intent intent) {
-        // Inspect type of Android SDK and upload image on server
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-            if (requestCode == REQUEST_SELECT_FILE) {
-                if (uploadMessage == null)
-                    return;
-                uploadMessage.onReceiveValue(WebChromeClient.FileChooserParams.parseResult(resultCode, intent));
-                uploadMessage = null;
-            }
-        } else if (requestCode == FILECHOOSER_RESULTCODE) {
-            if (null == mUploadMessage)
-                return;
-            // Use MainActivity.RESULT_OK if you're implementing WebView inside Fragment
-            // Use RESULT_OK only if you're implementing WebView inside an Activity
-            Uri result = intent == null || resultCode != MainActivity.RESULT_OK ? null : intent.getData();
-            mUploadMessage.onReceiveValue(result);
-            mUploadMessage = null;
-        } else
-            Toast.makeText(getActivity().getApplicationContext(), "Failed to Upload Image", Toast.LENGTH_LONG).show();
-    }
 
     @Nullable
     @Override
@@ -95,10 +71,13 @@ public class ThaliFragment extends Fragment {
         View view = inflater.inflate(R.layout.thail_framgent, container, false);
 
         // Init components and listneres
+        sharedPreferences = getActivity().getSharedPreferences(Constant.TAG, Context.MODE_PRIVATE);
         mButSend = (Button) view.findViewById(R.id.btsend);
         target = (CustomEditText) view.findViewById(R.id.taget);
         price = (CustomEditText) view.findViewById(R.id.price);
         venue = (CustomEditText) view.findViewById(R.id.venue);
+        venue.setInputType(InputType.TYPE_NULL);
+        venue.setText(sharedPreferences.getString("venue",""));
 
         switcher = (Switch) view.findViewById(R.id.limited);
         north = (CheckBox) view.findViewById(R.id.north);
@@ -159,74 +138,9 @@ public class ThaliFragment extends Fragment {
                 sendThail();
             }
         });
-        // Upload picture on server
-        mIvPicture = (WebView) view.findViewById(R.id.image);
-
-        // Upload on thali id (needs id ot thali to upload image on it)
-        mIvPicture.loadUrl(Constant.UPLOAD + "1000016");
-        mIvPicture.setVisibility(View.VISIBLE);
-        WebSettings mWebSettings = mIvPicture.getSettings();
-        mWebSettings.setJavaScriptEnabled(true);
-        mWebSettings.setSupportZoom(false);
-        mWebSettings.setAllowFileAccess(true);
-        mWebSettings.setAllowFileAccess(true);
-        mWebSettings.setAllowContentAccess(true);
-
-        mIvPicture.setWebChromeClient(new WebChromeClient() {
-            // For 3.0+ Devices (Start)
-            // onActivityResult attached before constructor
-            protected void openFileChooser(ValueCallback uploadMsg, String acceptType) {
-                mUploadMessage = uploadMsg;
-                Intent i = new Intent(Intent.ACTION_GET_CONTENT);
-                i.addCategory(Intent.CATEGORY_OPENABLE);
-                i.setType("image/*");
-                startActivityForResult(Intent.createChooser(i, "File Browser"), FILECHOOSER_RESULTCODE);
-            }
-
-            // For Lollipop 5.0+ Devices
-            public boolean onShowFileChooser(WebView mWebView, ValueCallback<Uri[]> filePathCallback, WebChromeClient.FileChooserParams fileChooserParams) {
-                if (uploadMessage != null) {
-                    uploadMessage.onReceiveValue(null);
-                    uploadMessage = null;
-                }
-
-                uploadMessage = filePathCallback;
-
-                Intent intent = null;
-                if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.LOLLIPOP) {
-                    intent = fileChooserParams.createIntent();
-                }
-                try {
-                    startActivityForResult(intent, REQUEST_SELECT_FILE);
-                } catch (ActivityNotFoundException e) {
-                    uploadMessage = null;
-                    Toast.makeText(getActivity().getApplicationContext(), "Cannot Open File Chooser", Toast.LENGTH_LONG).show();
-                    return false;
-                }
-                return true;
-            }
-
-            //For Android 4.1 only
-            protected void openFileChooser(ValueCallback<Uri> uploadMsg, String acceptType, String capture) {
-                mUploadMessage = uploadMsg;
-                Intent intent = new Intent(Intent.ACTION_GET_CONTENT);
-                intent.addCategory(Intent.CATEGORY_OPENABLE);
-                intent.setType("image/*");
-                startActivityForResult(Intent.createChooser(intent, "File Browser"), FILECHOOSER_RESULTCODE);
-            }
-
-            protected void openFileChooser(ValueCallback<Uri> uploadMsg) {
-                mUploadMessage = uploadMsg;
-                Intent i = new Intent(Intent.ACTION_GET_CONTENT);
-                i.addCategory(Intent.CATEGORY_OPENABLE);
-                i.setType("image/*");
-                startActivityForResult(Intent.createChooser(i, "File Chooser"), FILECHOOSER_RESULTCODE);
-            }
-        });
-
-
         return view;
     }
+    // Upload picture on server
 
     /**
      * Sending thali on server
@@ -286,5 +200,9 @@ public class ThaliFragment extends Fragment {
         };
         RequestQueue requestQueue = Volley.newRequestQueue(getActivity().getApplicationContext());
         requestQueue.add(stringReguest);
+    }
+
+    public void selected() {
+        venue.setText(sharedPreferences.getString("venue",""));
     }
 }

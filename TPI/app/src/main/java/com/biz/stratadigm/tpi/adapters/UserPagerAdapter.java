@@ -4,6 +4,7 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
 
+import com.biz.stratadigm.tpi.fragments.LoginFragment;
 import com.biz.stratadigm.tpi.fragments.USerFragment;
 
 
@@ -13,7 +14,7 @@ import com.biz.stratadigm.tpi.fragments.USerFragment;
  */
 public class UserPagerAdapter extends FragmentStatePagerAdapter {
     int mNumOfTabs;
-    USerFragment tab1;
+    LoginFragment tab1;
     USerFragment tab2;
 
     public UserPagerAdapter(FragmentManager fm, int NumOfTabs) {
@@ -27,7 +28,7 @@ public class UserPagerAdapter extends FragmentStatePagerAdapter {
 
         switch (position) {
             case 0:
-                tab1 = new USerFragment();
+                tab1 = new LoginFragment();
                 return tab1;
 
             case 1:

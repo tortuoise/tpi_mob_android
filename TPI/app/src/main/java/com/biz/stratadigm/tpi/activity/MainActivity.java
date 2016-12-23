@@ -2,6 +2,7 @@ package com.biz.stratadigm.tpi.activity;
 
 import android.Manifest;
 import android.content.Context;
+import android.icu.text.DecimalFormat;
 import android.support.design.widget.TabLayout;
 import android.content.pm.PackageManager;
 import android.location.Location;
@@ -16,6 +17,7 @@ import android.widget.Toast;
 
 import com.biz.stratadigm.tpi.adapters.JobPagerAdapter;
 import com.biz.stratadigm.tpi.R;
+import com.biz.stratadigm.tpi.fragments.ThaliFragment;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.location.LocationServices;
@@ -25,7 +27,7 @@ import com.google.android.gms.location.LocationServices;
  * Activity shows 4 fragment on for venue and thali
  * Use client current location and send it on server
  */
-public class MainActivity extends AppCompatActivity implements GoogleApiClient.ConnectionCallbacks, GoogleApiClient.OnConnectionFailedListener {
+public class MainActivity extends AppCompatActivity {
 
 
     private static final int PERMISSION_ACCESS_COARSE_LOCATION = 1;
@@ -44,31 +46,32 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.C
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        LocationManager locationManager;
+        locationManager = (LocationManager) getSystemService
+                (Context.LOCATION_SERVICE);
+
+        Location location = locationManager.getLastKnownLocation
+                (LocationManager.PASSIVE_PROVIDER);
+
+        if (location != null) {
+            latitude = location.getLatitude();
+            longitude = location.getLongitude();
+
+        } else {
+
+        }
 
         // Get user location and check for permission
-        if (ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION)
-                != PackageManager.PERMISSION_GRANTED) {
-            ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.ACCESS_COARSE_LOCATION},
-                    PERMISSION_ACCESS_COARSE_LOCATION);
-        }
-        googleApiClient = new GoogleApiClient.Builder(this, this, this).addApi(LocationServices.API).build();
-
-
-        lm = (LocationManager) getApplicationContext()
-                .getSystemService(Context.LOCATION_SERVICE);
-        location = lm.getLastKnownLocation(LocationManager.GPS_PROVIDER);
-        longitude = location.getLongitude();
-        latitude = location.getLatitude();
-
         // Set up tab layout
         mTabLayout = (TabLayout) findViewById(R.id.tab_layout);
         mTabLayout.addTab(mTabLayout.newTab().setText("Add venue"));
         mTabLayout.addTab(mTabLayout.newTab().setText("List of venue"));
         mTabLayout.addTab(mTabLayout.newTab().setText("List of thali"));
         mTabLayout.addTab(mTabLayout.newTab().setText("Add thali"));
+        mTabLayout.addTab(mTabLayout.newTab().setText("Add photo"));
 
         mTabLayout.setTabGravity(TabLayout.GRAVITY_FILL);
-        mPagerAdapter = new JobPagerAdapter(getSupportFragmentManager(), mTabLayout.getTabCount());
+        mPagerAdapter = new JobPagerAdapter(getSupportFragmentManager(), 5);
 
         mViewPagerJob = (ViewPager) findViewById(R.id.pager);
         // mViewPagerJob.setPageTransformer(true, new StackTransformer());
@@ -95,29 +98,7 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.C
         super.onStop();
     }
 
-    @Override
-    public void onConnected(Bundle bundle) {// Get location
 
-        if (ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION)
-                == PackageManager.PERMISSION_GRANTED) {
-            Location lastLocation = LocationServices.FusedLocationApi.getLastLocation(googleApiClient);
-
-            latitude = lastLocation.getLatitude();
-            longitude = lastLocation.getLongitude();
-
-
-        }
-    }
-
-    @Override
-    public void onConnectionSuspended(int i) {
-
-    }
-
-    @Override
-    public void onConnectionFailed(ConnectionResult connectionResult) {
-
-    }
 
     @Override
     public void onRequestPermissionsResult(int requestCode, String[] permissions, int[] grantResults) {
@@ -140,14 +121,7 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.C
             public void onTabSelected(TabLayout.Tab tab) {
                 mPagerAdapter.getItem(tab.getPosition()).onAttach(getApplicationContext());
                 mViewPagerJob.setCurrentItem(tab.getPosition());
-                if (tab.getPosition() == 0) {
 
-                }
-                if (tab.getPosition() == 1) {
-
-                }
-                if (tab.getPosition() == 2) {
-                }
             }
 
             @Override

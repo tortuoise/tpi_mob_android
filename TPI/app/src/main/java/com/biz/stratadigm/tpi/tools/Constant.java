@@ -17,4 +17,9 @@ public class Constant {
     public static String USERLIST = "https://thalipriceindex.appspot.com/jsonlist/users";
     public static String VENUESLIST = "https://thalipriceindex.appspot.com/jsonlist/venues";
     public static String THAILSLIST = "https://thalipriceindex.appspot.com/jsonlist/thalis";
+
+    public static String TEST = "https://thalipriceindex.appspot.com/hello";
+
+    public static String TAG="tpi";
 }
+

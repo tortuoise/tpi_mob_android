@@ -2,6 +2,7 @@ package com.biz.stratadigm.tpi.adapters;
 
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.SharedPreferences;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.RecyclerView;
 import android.text.InputType;
@@ -13,10 +14,12 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 
 import com.biz.stratadigm.tpi.DataVenue;
 import com.biz.stratadigm.tpi.R;
 import com.biz.stratadigm.tpi.components.CustomTextView;
+import com.biz.stratadigm.tpi.tools.Constant;
 
 import java.util.ArrayList;
 
@@ -27,16 +30,17 @@ import java.util.ArrayList;
 public class VenueAdapter extends RecyclerView.Adapter<VenueAdapter.Holder> {
     private ArrayList<DataVenue> mDataset = new ArrayList<>();
     private Context mContext;
-
+    private SharedPreferences sharedPreferences;
 
 
 
     public class Holder extends RecyclerView.ViewHolder {
         public CustomTextView id,name,lat,lng,submitted,thalis;
+        public LinearLayout mRoot;
 
         public Holder(View view) {
             super(view);
-
+            mRoot=(LinearLayout)view.findViewById(R.id.root);
             id = (CustomTextView) view.findViewById(R.id.id);
             name = (CustomTextView) view.findViewById(R.id.name);
             submitted = (CustomTextView) view.findViewById(R.id.submitted);
@@ -50,6 +54,7 @@ public class VenueAdapter extends RecyclerView.Adapter<VenueAdapter.Holder> {
     public VenueAdapter(ArrayList<DataVenue> myDataset, Context context) {
         mDataset = myDataset;
         mContext = context;
+        sharedPreferences = mContext.getSharedPreferences(Constant.TAG, Context.MODE_PRIVATE);
     }
 
     // Create new views (invoked by the layout manager)
@@ -75,6 +80,15 @@ public class VenueAdapter extends RecyclerView.Adapter<VenueAdapter.Holder> {
         holder.lat.setText("Lat: "+venue.lat);
         holder.lng.setText("Lng: "+venue.lnh);
         holder.thalis.setText("Thalis: "+venue.thalis);
+
+        holder.mRoot.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                SharedPreferences.Editor editor = sharedPreferences.edit();
+                editor.putString("venue",venue.id);
+                editor.apply();
+            }
+        });
 
     }
 
