@@ -4,7 +4,8 @@
     android:id="@+id/root"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_margin="10dp"
+    android:background="#e9e9e9"
+    android:layout_margin="20dp"
     android:orientation="vertical">
 
     <com.biz.stratadigm.tpi.components.CustomTextView
@@ -110,6 +111,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
-        android:layout_margin="@dimen/margin_right"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        android:layout_marginTop="10dp"
         android:textSize="@dimen/text_size" />
 </LinearLayout>

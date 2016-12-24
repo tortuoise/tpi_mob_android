@@ -19,6 +19,7 @@ import android.widget.LinearLayout;
 import com.biz.stratadigm.tpi.DataVenue;
 import com.biz.stratadigm.tpi.R;
 import com.biz.stratadigm.tpi.components.CustomTextView;
+import com.biz.stratadigm.tpi.fragments.ThaliFragment;
 import com.biz.stratadigm.tpi.tools.Constant;
 
 import java.util.ArrayList;
@@ -86,6 +87,7 @@ public class VenueAdapter extends RecyclerView.Adapter<VenueAdapter.Holder> {
             public void onClick(View view) {
                 SharedPreferences.Editor editor = sharedPreferences.edit();
                 editor.putString("venue",venue.id);
+                ThaliFragment.venue.setText(venue.id);
                 editor.apply();
             }
         });

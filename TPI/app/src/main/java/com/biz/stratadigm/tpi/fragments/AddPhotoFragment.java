@@ -39,7 +39,7 @@ public class AddPhotoFragment extends Fragment {
     public static final int REQUEST_SELECT_FILE = 100;
     private final static int FILECHOOSER_RESULTCODE = 1;
     private SharedPreferences sharedPreferences;
-    private String id="";
+    public static String id="";
 
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent intent) {

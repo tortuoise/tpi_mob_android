@@ -5,6 +5,21 @@
     android:layout_height="match_parent"
     android:gravity="center"
     android:background="@drawable/edit_text_alert">
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:background="@color/blue">
+
+        <com.biz.stratadigm.tpi.components.CustomTextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="TPI"
+            android:textAlignment="center"
+            android:textSize="18dp"
+            android:textColor="#fff"
+            android:layout_gravity="center_horizontal|center_vertical"
+            />
+    </LinearLayout>
 
     <android.support.design.widget.TabLayout
         android:background="@color/blue"

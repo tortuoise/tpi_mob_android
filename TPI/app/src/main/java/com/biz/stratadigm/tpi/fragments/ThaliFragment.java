@@ -37,6 +37,7 @@ import com.android.volley.error.TimeoutError;
 import com.android.volley.error.VolleyError;
 import com.android.volley.request.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
+import com.biz.stratadigm.tpi.components.CustomTextView;
 import com.biz.stratadigm.tpi.tools.Constant;
 import com.biz.stratadigm.tpi.R;
 import com.biz.stratadigm.tpi.activity.MainActivity;
@@ -56,7 +57,8 @@ public class ThaliFragment extends Fragment {
 
     // components
     private static final int PICK_IMAGE_REQUEST = 1;
-    private CustomEditText target, price, venue;
+    private CustomEditText target, price;
+    public static CustomEditText venue;
     private Button mButSend;
     private Switch switcher;
     private CheckBox north, west, east, south;

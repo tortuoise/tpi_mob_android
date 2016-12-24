@@ -13,6 +13,7 @@ import com.biz.stratadigm.tpi.DataThali;
 import com.biz.stratadigm.tpi.DataVenue;
 import com.biz.stratadigm.tpi.R;
 import com.biz.stratadigm.tpi.components.CustomTextView;
+import com.biz.stratadigm.tpi.fragments.AddPhotoFragment;
 import com.biz.stratadigm.tpi.tools.Constant;
 
 import java.util.ArrayList;
@@ -91,6 +92,7 @@ public class ThaliAdapter extends RecyclerView.Adapter<ThaliAdapter.Holder> {
             public void onClick(View view) {
                 SharedPreferences.Editor editor = sharedPreferences.edit();
                 editor.putString("thali",thali.id);
+                AddPhotoFragment.id=thali.id;
                 editor.apply();
             }
         });

@@ -36,11 +36,8 @@ public class MainActivity extends AppCompatActivity {
     private JobPagerAdapter mPagerAdapter;
     public static ViewPager mViewPagerJob;
 
-    private LocationManager lm;
-    public static Location location;
     public static double longitude;
     public static double latitude;
-    private GoogleApiClient googleApiClient;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -82,22 +79,6 @@ public class MainActivity extends AppCompatActivity {
 
 
     }
-
-
-    @Override
-    protected void onStart() {
-        super.onStart();
-        if (googleApiClient != null) {
-            googleApiClient.connect();// connect google location api
-        }
-    }
-
-    @Override
-    protected void onStop() {
-        googleApiClient.disconnect();// disconnect google location api
-        super.onStop();
-    }
-
 
 
     @Override
