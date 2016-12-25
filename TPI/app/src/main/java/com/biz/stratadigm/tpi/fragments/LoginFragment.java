@@ -56,7 +56,7 @@ public class LoginFragment extends Fragment {
             @Override
             public void onClick(View view) {
                 registerUser();
-                startActivity(new Intent(getActivity().getApplicationContext(), MainActivity.class));
+              //  startActivity(new Intent(getActivity().getApplicationContext(), MainActivity.class));
             }
         });
         return view;
@@ -95,8 +95,8 @@ public class LoginFragment extends Fragment {
                 new Response.ErrorListener() {
                     @Override
                     public void onErrorResponse(VolleyError error) {
-                        Log.e("tamara", error.getLocalizedMessage());
-                        Toast.makeText(getActivity().getApplicationContext(), error.toString(), Toast.LENGTH_SHORT).show();
+//
+                        Toast.makeText(getActivity().getApplicationContext(), "No that user", Toast.LENGTH_SHORT).show();
                     }
                 }) {
 

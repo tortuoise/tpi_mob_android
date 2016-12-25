@@ -57,8 +57,8 @@ public class MainActivity extends AppCompatActivity {
         mTabLayout = (TabLayout) findViewById(R.id.tab_layout);
         mTabLayout.addTab(mTabLayout.newTab().setText("Add venue"));
         mTabLayout.addTab(mTabLayout.newTab().setText("List of venue"));
-        mTabLayout.addTab(mTabLayout.newTab().setText("List of thali"));
         mTabLayout.addTab(mTabLayout.newTab().setText("Add thali"));
+        mTabLayout.addTab(mTabLayout.newTab().setText("List of thali"));
         mTabLayout.addTab(mTabLayout.newTab().setText("Add photo"));
 
         mTabLayout.setTabGravity(TabLayout.GRAVITY_FILL);
