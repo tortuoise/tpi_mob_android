@@ -37,20 +37,20 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-//        LocationManager locationManager;
-//        locationManager = (LocationManager) getSystemService
-//                (Context.LOCATION_SERVICE);
-//
-//        Location location = locationManager.getLastKnownLocation
-//                (LocationManager.PASSIVE_PROVIDER);
-//
-//        if (location != null) {
-//            latitude = location.getLatitude();
-//            longitude = location.getLongitude();
-//
-//        } else {
-//
-//        }
+        LocationManager locationManager;
+        locationManager = (LocationManager) getSystemService
+                (Context.LOCATION_SERVICE);
+
+        Location location = locationManager.getLastKnownLocation
+                (LocationManager.PASSIVE_PROVIDER);
+
+        if (location != null) {
+            latitude = location.getLatitude();
+            longitude = location.getLongitude();
+
+        } else {
+
+        }
 
         // Get user location and check for permission
         // Set up tab layout
