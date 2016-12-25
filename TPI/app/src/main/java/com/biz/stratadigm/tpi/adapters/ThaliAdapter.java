@@ -12,6 +12,7 @@ import android.widget.LinearLayout;
 import com.biz.stratadigm.tpi.DataThali;
 import com.biz.stratadigm.tpi.DataVenue;
 import com.biz.stratadigm.tpi.R;
+import com.biz.stratadigm.tpi.activity.MainActivity;
 import com.biz.stratadigm.tpi.components.CustomTextView;
 import com.biz.stratadigm.tpi.fragments.AddPhotoFragment;
 import com.biz.stratadigm.tpi.tools.Constant;
@@ -94,6 +95,7 @@ public class ThaliAdapter extends RecyclerView.Adapter<ThaliAdapter.Holder> {
                 editor.putString("thali",thali.id);
                 AddPhotoFragment.id=thali.id;
                 editor.apply();
+                MainActivity.mViewPagerJob.setCurrentItem(4);
             }
         });
 

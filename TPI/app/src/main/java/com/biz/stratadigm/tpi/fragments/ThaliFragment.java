@@ -164,6 +164,7 @@ public class ThaliFragment extends Fragment {
                 new Response.Listener<JSONObject>() {
                     @Override
                     public void onResponse(JSONObject response) {
+                        Toast.makeText(getActivity().getApplicationContext(),response.toString(),Toast.LENGTH_SHORT).show();
                         Log.e("tamara", response.toString());
                     }
                 },

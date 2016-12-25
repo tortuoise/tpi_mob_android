@@ -74,8 +74,7 @@ public class USerFragment extends Fragment {
                 new Response.Listener<JSONObject>() {
                     @Override
                     public void onResponse(JSONObject response) {
-                        Toast.makeText(getActivity().getApplicationContext(), "Register", Toast.LENGTH_SHORT).show();
-                        startActivity(new Intent(getActivity().getApplicationContext(), MainActivity.class));
+                        Toast.makeText(getActivity().getApplicationContext(),response.toString(),Toast.LENGTH_SHORT).show();
                     }
                 },
                 new Response.ErrorListener() {

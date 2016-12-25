@@ -71,7 +71,7 @@ public class AddPhotoFragment extends Fragment {
         mIvPicture = (WebView) view.findViewById(R.id.image);
         sharedPreferences = getActivity().getSharedPreferences(Constant.TAG, Context.MODE_PRIVATE);
         // Upload on thali id (needs id ot thali to upload image on it)
-        mIvPicture.loadUrl(Constant.UPLOAD + sharedPreferences.getString("thali",""));
+        mIvPicture.loadUrl(Constant.UPLOAD + sharedPreferences.getString("thali","1"));
         WebSettings mWebSettings = mIvPicture.getSettings();
         mWebSettings.setJavaScriptEnabled(true);
         mWebSettings.setSupportZoom(false);

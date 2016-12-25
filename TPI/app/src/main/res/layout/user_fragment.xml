@@ -15,7 +15,7 @@
             android:textSize="27dp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Make user"/>
+            android:text="Login"/>
 
         <com.biz.stratadigm.tpi.components.CustomEditText
             android:textSize="13dp"

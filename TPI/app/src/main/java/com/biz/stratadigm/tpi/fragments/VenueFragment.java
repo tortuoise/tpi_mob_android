@@ -88,6 +88,7 @@ public class VenueFragment extends Fragment {
                         try {
                             JSONObject o = new JSONObject(String.valueOf(response));
                             Log.e("tamara", response.toString());
+                            Toast.makeText(getActivity().getApplicationContext(),response.toString(),Toast.LENGTH_SHORT).show();
                         } catch (JSONException e) {
                             e.printStackTrace();
                         }

@@ -2,13 +2,10 @@ package com.biz.stratadigm.tpi.activity;
 
 import android.Manifest;
 import android.content.Context;
-import android.icu.text.DecimalFormat;
 import android.support.design.widget.TabLayout;
 import android.content.pm.PackageManager;
 import android.location.Location;
 import android.location.LocationManager;
-import android.support.v4.app.ActivityCompat;
-import android.support.v4.content.ContextCompat;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -17,10 +14,7 @@ import android.widget.Toast;
 
 import com.biz.stratadigm.tpi.adapters.JobPagerAdapter;
 import com.biz.stratadigm.tpi.R;
-import com.biz.stratadigm.tpi.fragments.ThaliFragment;
-import com.google.android.gms.common.ConnectionResult;
-import com.google.android.gms.common.api.GoogleApiClient;
-import com.google.android.gms.location.LocationServices;
+
 
 /**
  * Starting activity.
@@ -43,20 +37,20 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        LocationManager locationManager;
-        locationManager = (LocationManager) getSystemService
-                (Context.LOCATION_SERVICE);
-
-        Location location = locationManager.getLastKnownLocation
-                (LocationManager.PASSIVE_PROVIDER);
-
-        if (location != null) {
-            latitude = location.getLatitude();
-            longitude = location.getLongitude();
-
-        } else {
-
-        }
+//        LocationManager locationManager;
+//        locationManager = (LocationManager) getSystemService
+//                (Context.LOCATION_SERVICE);
+//
+//        Location location = locationManager.getLastKnownLocation
+//                (LocationManager.PASSIVE_PROVIDER);
+//
+//        if (location != null) {
+//            latitude = location.getLatitude();
+//            longitude = location.getLongitude();
+//
+//        } else {
+//
+//        }
 
         // Get user location and check for permission
         // Set up tab layout

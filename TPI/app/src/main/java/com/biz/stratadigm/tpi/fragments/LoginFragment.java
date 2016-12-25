@@ -1,6 +1,8 @@
 package com.biz.stratadigm.tpi.fragments;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -21,10 +23,12 @@ import com.android.volley.request.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.biz.stratadigm.tpi.R;
 import com.biz.stratadigm.tpi.activity.MainActivity;
+import com.biz.stratadigm.tpi.activity.StartActivity;
 import com.biz.stratadigm.tpi.components.CustomEditText;
 import com.biz.stratadigm.tpi.tools.Constant;
 
 import org.apache.http.entity.StringEntity;
+import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.HashMap;
@@ -37,6 +41,7 @@ import java.util.Map;
 public class LoginFragment extends Fragment {
     private CustomEditText mEtPass, mEtEmail;
     private Button mConfirm;
+    private SharedPreferences sharedPreferences;
 
     @Nullable
     @Override
@@ -45,12 +50,13 @@ public class LoginFragment extends Fragment {
         mEtEmail = (CustomEditText) view.findViewById(R.id.editTextEmail);
         mEtPass = (CustomEditText) view.findViewById(R.id.editTextPass);
         mConfirm = (Button) view.findViewById(R.id.buttonLogin);
+        sharedPreferences = getActivity().getSharedPreferences(Constant.TAG, Context.MODE_PRIVATE);
 
         mConfirm.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-              // trysm();
-               startActivity(new Intent(getActivity().getApplicationContext(), MainActivity.class));
+                registerUser();
+                startActivity(new Intent(getActivity().getApplicationContext(), MainActivity.class));
             }
         });
         return view;
@@ -75,12 +81,22 @@ public class LoginFragment extends Fragment {
                     @Override
                     public void onResponse(JSONObject response) {
                         Log.e("tamara", response.toString());
+                        try {
+                            String token = response.getString("token");
+                            SharedPreferences.Editor editor = sharedPreferences.edit();
+                            editor.putString("token", token);
+                            editor.apply();
+                            loginToken(token);
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
                     }
                 },
                 new Response.ErrorListener() {
                     @Override
                     public void onErrorResponse(VolleyError error) {
                         Log.e("tamara", error.getLocalizedMessage());
+                        Toast.makeText(getActivity().getApplicationContext(), error.toString(), Toast.LENGTH_SHORT).show();
                     }
                 }) {
 
@@ -96,7 +112,7 @@ public class LoginFragment extends Fragment {
         requestQueue.add(stringReguest);//post request on queue
     }
 
-    public void trysm() {
+    public void loginToken(final String token) {
         final Map<String, String> params = new HashMap<String, String>();
 
         //making json object of params
@@ -106,12 +122,15 @@ public class LoginFragment extends Fragment {
                     @Override
                     public void onResponse(String response) {
                         Log.e("tamara", response.toString());
+                        Toast.makeText(getActivity().getApplicationContext(),response.toString(),Toast.LENGTH_SHORT).show();
+                        startActivity(new Intent(getActivity().getApplicationContext(),MainActivity.class));
                     }
                 },
                 new Response.ErrorListener() {
                     @Override
                     public void onErrorResponse(VolleyError error) {
                         Log.e("tamara", error.toString());
+                        Toast.makeText(getActivity().getApplicationContext(),error.toString(),Toast.LENGTH_SHORT).show();
                     }
                 }) {
 
@@ -120,7 +139,7 @@ public class LoginFragment extends Fragment {
                 HashMap<String, String> headers = new HashMap<String, String>();
                 headers.put("Content-Type", "application/json; charset=utf-8");
                 headers.put("USerFragment-agent", System.getProperty("http.agent"));
-                headers.put("authorization","eyJhbGciOiJSUzUxMiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE0ODI3ODQ3OTksImlhdCI6MTQ4MjUyNTU5OSwic3ViIjoiMCJ9.mSFLIJ2wRr1em_ANYuMw7TAFcyPah4WqUwAG1le9DEiQKIaQrXSmWxCfMqCchFg40JHT7aNhgVPd_iiLkzg_zn4C42AYZ3xezsem2cnR0WtJYsBlQqBAsRKOXWzyLa2IFl_WMT_niwbH5wR8Xub9E38Hued8A5gNQWe16MXhaK796du21kr4HukplRNixnjwPnojOpvOpUbvt5WScho43sJMW0sGBBY3QwDxE-q8HUKuiykmGzKwpS5l50NtKIqWYvfg3t0UkqJmB63ZQ0Trccii_P0ny-fFwe_J9oRtwgIgV5h7wSPJk71-XbufgejmgM_abr651ZvUakPqrVJdjw");
+                headers.put("authorization", token);
                 return headers; // headers of request (needs for https)
             }
         };
