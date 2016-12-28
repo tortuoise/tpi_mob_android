@@ -1,11 +1,7 @@
 package com.biz.stratadigm.tpi.fragments;
 
-import android.content.ActivityNotFoundException;
 import android.content.Context;
-import android.content.Intent;
 import android.content.SharedPreferences;
-import android.net.Uri;
-import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -14,10 +10,6 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.webkit.ValueCallback;
-import android.webkit.WebChromeClient;
-import android.webkit.WebSettings;
-import android.webkit.WebView;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
@@ -37,10 +29,8 @@ import com.android.volley.error.TimeoutError;
 import com.android.volley.error.VolleyError;
 import com.android.volley.request.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
-import com.biz.stratadigm.tpi.components.CustomTextView;
 import com.biz.stratadigm.tpi.tools.Constant;
 import com.biz.stratadigm.tpi.R;
-import com.biz.stratadigm.tpi.activity.MainActivity;
 import com.biz.stratadigm.tpi.components.CustomEditText;
 
 import org.json.JSONObject;
@@ -137,7 +127,7 @@ public class ThaliFragment extends Fragment {
         mButSend.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                sendThail();
+                sendThali();
             }
         });
         return view;
@@ -147,7 +137,7 @@ public class ThaliFragment extends Fragment {
     /**
      * Sending thali on server
      */
-    public void sendThail() {
+    public void sendThali() {
 
         Map<String, Object> params = new HashMap<String, Object>();
 
@@ -158,7 +148,7 @@ public class ThaliFragment extends Fragment {
         params.put("price", Integer.parseInt(price.getText().toString()));
         params.put("photo", "");
         //  params.put("action",null);
-        JsonObjectRequest stringReguest = new JsonObjectRequest(Request.Method.POST, Constant.THAILS,
+        JsonObjectRequest stringReguest = new JsonObjectRequest(Request.Method.POST, Constant.THALIS,
 
                 new JSONObject(params),
                 new Response.Listener<JSONObject>() {

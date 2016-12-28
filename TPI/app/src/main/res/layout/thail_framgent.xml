@@ -13,7 +13,7 @@
         android:textSize="27dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Make thail"/>
+        android:text="Make thali"/>
 
     <ImageView
         android:visibility="gone"
@@ -100,7 +100,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@color/blue"
-            android:text="Make thail"
+            android:text="Make thali"
             android:textColor="@color/white"
             android:textAllCaps="true"
             android:layout_margin="20dp"/>

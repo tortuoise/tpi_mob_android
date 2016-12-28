@@ -1,6 +1,5 @@
 package com.biz.stratadigm.tpi.fragments;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -10,31 +9,22 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Toast;
 
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
-import com.android.volley.error.AuthFailureError;
 import com.android.volley.error.VolleyError;
-import com.android.volley.request.JsonObjectRequest;
 import com.android.volley.request.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.biz.stratadigm.tpi.DataThali;
-import com.biz.stratadigm.tpi.DataVenue;
 import com.biz.stratadigm.tpi.R;
-import com.biz.stratadigm.tpi.activity.MainActivity;
 import com.biz.stratadigm.tpi.adapters.ThaliAdapter;
-import com.biz.stratadigm.tpi.adapters.VenueAdapter;
 import com.biz.stratadigm.tpi.tools.Constant;
 
 import org.json.JSONArray;
 import org.json.JSONException;
-import org.json.JSONObject;
 
 import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Map;
 
 /**
  * Created by tamara on 12/15/16.
@@ -63,7 +53,7 @@ public class ThaliListFragment extends Fragment {
     }
     private void getThaliList() {
 
-            final StringRequest stringRequest = new StringRequest(Request.Method.GET,Constant.THAILSLIST,
+            final StringRequest stringRequest = new StringRequest(Request.Method.GET,Constant.THALISLIST,
                     new Response.Listener<String>() {
                         @Override
                         public void onResponse(String response) {

@@ -12,11 +12,11 @@ public class Constant {
 
     public static String USER = "https://thalipriceindex.appspot.com/create/user";
     public static String VENUES = "https://thalipriceindex.appspot.com/create/venue";
-    public static String THAILS = "https://thalipriceindex.appspot.com/create/thali";
+    public static String THALIS = "https://thalipriceindex.appspot.com/create/thali";
 
     public static String USERLIST = "https://thalipriceindex.appspot.com/jsonlist/users";
     public static String VENUESLIST = "https://thalipriceindex.appspot.com/jsonlist/venues";
-    public static String THAILSLIST = "https://thalipriceindex.appspot.com/jsonlist/thalis";
+    public static String THALISLIST = "https://thalipriceindex.appspot.com/jsonlist/thalis";
 
     public static String TEST = "https://thalipriceindex.appspot.com/hello";
 
