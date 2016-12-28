@@ -33,7 +33,7 @@
             android:background="@drawable/edit_text_alert"
             android:padding="10dp"
             android:layout_margin="20dp"
-            android:hint="@string/alert_dialog_login_password"
+            android:hint="Password"
             android:layout_width="match_parent"
             android:layout_height="wrap_content" />
 
