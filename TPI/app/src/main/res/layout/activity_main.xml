@@ -29,10 +29,26 @@
         android:minHeight="?attr/actionBarSize"
         app:tabIndicatorColor="@color/white"
         />
-
+<RelativeLayout
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    <Button
+        android:id="@+id/btnout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/blue"
+        android:layout_alignParentBottom="true"
+        android:text="Sign out"
+        android:textColor="@color/white"
+        android:textAllCaps="true"
+        android:layout_margin="20dp"
+       />
     <android.support.v4.view.ViewPager android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:id="@+id/pager">
+        android:id="@+id/pager"
+        android:layout_above="@id/btnout">
+
     </android.support.v4.view.ViewPager>
 
+</RelativeLayout>
     </LinearLayout>

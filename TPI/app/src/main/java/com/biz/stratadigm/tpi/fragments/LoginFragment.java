@@ -6,6 +6,8 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.text.InputType;
+import android.text.method.PasswordTransformationMethod;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -49,6 +51,7 @@ public class LoginFragment extends Fragment {
         View view = inflater.inflate(R.layout.user_fragment, container, false);
         mEtEmail = (CustomEditText) view.findViewById(R.id.editTextEmail);
         mEtPass = (CustomEditText) view.findViewById(R.id.editTextPass);
+        mEtPass.setTransformationMethod(PasswordTransformationMethod.getInstance());
         mConfirm = (Button) view.findViewById(R.id.buttonLogin);
         sharedPreferences = getActivity().getSharedPreferences(Constant.TAG, Context.MODE_PRIVATE);
 
@@ -124,6 +127,7 @@ public class LoginFragment extends Fragment {
                         Log.e("tamara", response.toString());
                         Toast.makeText(getActivity().getApplicationContext(),response.toString(),Toast.LENGTH_SHORT).show();
                         startActivity(new Intent(getActivity().getApplicationContext(),MainActivity.class));
+                        getActivity().finish();
                     }
                 },
                 new Response.ErrorListener() {

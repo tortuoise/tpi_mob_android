@@ -70,7 +70,7 @@ public class VenueFragment extends Fragment {
         return view;
     }
     /**
-     * Make new venue on server
+     * Add new venue on server
      */
     private void sendVenue() {
 

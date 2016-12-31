@@ -10,7 +10,7 @@
         android:textSize="27dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Make venue"/>
+        android:text="Add venue"/>
 
 
     <com.biz.stratadigm.tpi.components.CustomEditText
@@ -19,7 +19,7 @@
         android:padding="10dp"
         android:background="@drawable/edit_text_alert"
         android:layout_margin="20dp"
-        android:hint="@string/alert_dialog_login_username"
+        android:hint="@string/alert_dialog_login_password"
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />
 
@@ -39,7 +39,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@color/blue"
-        android:text="Make venue"
+        android:text="Add venue"
         android:textColor="@color/white"
         android:textAllCaps="true"
         android:layout_margin="20dp"/>

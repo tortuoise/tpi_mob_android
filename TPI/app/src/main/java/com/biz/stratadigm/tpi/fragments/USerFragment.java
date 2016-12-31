@@ -4,6 +4,8 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.text.InputType;
+import android.text.method.PasswordTransformationMethod;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -43,6 +45,7 @@ public class USerFragment extends Fragment {
         View view = inflater.inflate(R.layout.user_fragment_layout, container, false);
         mEtEmail = (CustomEditText) view.findViewById(R.id.editTextEmail);
         mEtPass = (CustomEditText) view.findViewById(R.id.editTextPass);
+        mEtPass.setTransformationMethod(PasswordTransformationMethod.getInstance());
         mEtname = (CustomEditText) view.findViewById(R.id.editTextName);
         mConfirm = (Button) view.findViewById(R.id.buttonLogin);
 

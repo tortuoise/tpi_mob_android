@@ -33,19 +33,18 @@ public class JobPagerAdapter extends FragmentStatePagerAdapter {
 
         switch (position) {
             case 0:
+                tab1 = new VenueListFragment();
+                return tab1;
+            case 1:
                 tab3 = new VenueFragment();
                 return tab3;
 
-            case 1:
-                tab1 = new VenueListFragment();
-                return tab1;
             case 2:
-                tab2 = new ThaliFragment();
-                return tab2;
-
-            case 3:
                 tab4 = new ThaliListFragment();
                 return tab4;
+            case 3:
+                tab2 = new ThaliFragment();
+                return tab2;
             case 4:
                 tab5=new AddPhotoFragment();
                return tab5;

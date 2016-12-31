@@ -67,6 +67,7 @@ public class ThaliFragment extends Fragment {
         mButSend = (Button) view.findViewById(R.id.btsend);
         target = (CustomEditText) view.findViewById(R.id.taget);
         price = (CustomEditText) view.findViewById(R.id.price);
+      //  price.setInputType(InputType.NU);
         venue = (CustomEditText) view.findViewById(R.id.venue);
         venue.setInputType(InputType.TYPE_NULL);
         venue.setText(sharedPreferences.getString("venue",""));
@@ -145,7 +146,11 @@ public class ThaliFragment extends Fragment {
         params.put("venue", Integer.parseInt(venue.getText().toString()));
         params.put("limited", switcher.isChecked());
         params.put("region", region);
-        params.put("price", Integer.parseInt(price.getText().toString()));
+        if(price.getText().toString().equalsIgnoreCase("")) {
+            params.put("price", Integer.parseInt("0"));
+        } else {
+            params.put("price", Integer.parseInt(price.getText().toString()));
+        }
         params.put("photo", "");
         //  params.put("action",null);
         JsonObjectRequest stringReguest = new JsonObjectRequest(Request.Method.POST, Constant.THALIS,

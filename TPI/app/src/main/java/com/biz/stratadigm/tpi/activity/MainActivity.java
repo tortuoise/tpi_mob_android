@@ -2,6 +2,7 @@ package com.biz.stratadigm.tpi.activity;
 
 import android.Manifest;
 import android.content.Context;
+import android.content.Intent;
 import android.support.design.widget.TabLayout;
 import android.content.pm.PackageManager;
 import android.location.Location;
@@ -10,6 +11,8 @@ import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 
+import android.view.View;
+import android.widget.Button;
 import android.widget.Toast;
 
 import com.biz.stratadigm.tpi.adapters.JobPagerAdapter;
@@ -29,6 +32,7 @@ public class MainActivity extends AppCompatActivity {
     private TabLayout mTabLayout;
     private JobPagerAdapter mPagerAdapter;
     public static ViewPager mViewPagerJob;
+    private Button mBtnOut;
 
     public static double longitude;
     public static double latitude;
@@ -55,10 +59,10 @@ public class MainActivity extends AppCompatActivity {
         // Get user location and check for permission
         // Set up tab layout
         mTabLayout = (TabLayout) findViewById(R.id.tab_layout);
-        mTabLayout.addTab(mTabLayout.newTab().setText("Add venue"));
         mTabLayout.addTab(mTabLayout.newTab().setText("List of venue"));
-        mTabLayout.addTab(mTabLayout.newTab().setText("Add thali"));
+        mTabLayout.addTab(mTabLayout.newTab().setText("Add venue"));
         mTabLayout.addTab(mTabLayout.newTab().setText("List of thali"));
+        mTabLayout.addTab(mTabLayout.newTab().setText("Add thali"));
         mTabLayout.addTab(mTabLayout.newTab().setText("Add photo"));
 
         mTabLayout.setTabGravity(TabLayout.GRAVITY_FILL);
@@ -67,6 +71,8 @@ public class MainActivity extends AppCompatActivity {
         mViewPagerJob = (ViewPager) findViewById(R.id.pager);
         // mViewPagerJob.setPageTransformer(true, new StackTransformer());
         mViewPagerJob.setAdapter(mPagerAdapter);
+
+        mBtnOut = (Button) findViewById(R.id.btnout);
 
 
         addListeners();
@@ -90,6 +96,14 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void addListeners() {
+        mBtnOut.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(getApplicationContext(),StartActivity.class));
+                finish();
+            }
+        });
+
         mViewPagerJob.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(mTabLayout));
         mTabLayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
             @Override
