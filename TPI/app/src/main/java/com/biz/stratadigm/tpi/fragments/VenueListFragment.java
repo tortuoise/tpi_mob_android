@@ -11,6 +11,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
@@ -21,6 +22,7 @@ import com.android.volley.toolbox.Volley;
 import com.biz.stratadigm.tpi.DataVenue;
 import com.biz.stratadigm.tpi.R;
 import com.biz.stratadigm.tpi.adapters.VenueAdapter;
+import com.biz.stratadigm.tpi.components.CustomTextView;
 import com.biz.stratadigm.tpi.tools.Constant;
 
 import org.json.JSONArray;
@@ -41,6 +43,8 @@ public class VenueListFragment extends Fragment{
     private ArrayList<DataVenue> mListVenue=new ArrayList<>();
     private VenueAdapter mVenueAdapter;
     private SharedPreferences sharedPreferences;
+    private int offset=0;
+    private CustomTextView more,less;
 
     @Nullable
     @Override
@@ -54,11 +58,33 @@ public class VenueListFragment extends Fragment{
         mList.setLayoutManager(mLayoutMAnager);
         mList.setAdapter(mVenueAdapter);
         getVenueList();
+        more = (CustomTextView)view.findViewById(R.id.more);
+        more.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                offset = offset+20;
+                mListVenue.clear();
+                getVenueList();
+                mVenueAdapter.notifyDataSetChanged();
+            }
+        });
+        less = (CustomTextView)view.findViewById(R.id.less);
+        less.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if(offset>=20) {
+                    offset = offset - 20;
+                    mListVenue.clear();
+                    getVenueList();
+                    mVenueAdapter.notifyDataSetChanged();
+                }
+            }
+        });
         return view;
     }
     private void getVenueList() {
 
-        final StringRequest stringRequest = new StringRequest(Request.Method.GET, Constant.VENUESLIST,
+        final StringRequest stringRequest = new StringRequest(Request.Method.GET, Constant.VENUESLIST+"?offset="+offset,
                 new Response.Listener<String>() {
                     @Override
                     public void onResponse(String response) {

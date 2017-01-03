@@ -37,8 +37,10 @@ public class ThaliAdapter extends RecyclerView.Adapter<ThaliAdapter.Holder> {
             super(view);
 
             id = (CustomTextView) view.findViewById(R.id.id);
+            id.setVisibility(View.GONE);
             name = (CustomTextView) view.findViewById(R.id.name);
             submitted = (CustomTextView) view.findViewById(R.id.submitted);
+            submitted.setVisibility(View.GONE);
             target = (CustomTextView) view.findViewById(R.id.target);
             limited = (CustomTextView) view.findViewById(R.id.limited);
             region = (CustomTextView) view.findViewById(R.id.region);

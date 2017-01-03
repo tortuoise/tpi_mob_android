@@ -19,6 +19,7 @@ import com.android.volley.toolbox.Volley;
 import com.biz.stratadigm.tpi.DataThali;
 import com.biz.stratadigm.tpi.R;
 import com.biz.stratadigm.tpi.adapters.ThaliAdapter;
+import com.biz.stratadigm.tpi.components.CustomTextView;
 import com.biz.stratadigm.tpi.tools.Constant;
 
 import org.json.JSONArray;
@@ -36,6 +37,8 @@ public class ThaliListFragment extends Fragment {
     private RecyclerView.LayoutManager mLayoutMAnager;
     private ArrayList<DataThali> mListThali;
     private ThaliAdapter mVenueAdapter;
+    private int offset=0;
+    private CustomTextView less,more;
 
     @Nullable
     @Override
@@ -48,7 +51,28 @@ public class ThaliListFragment extends Fragment {
         mList.setLayoutManager(mLayoutMAnager);
         mList.setAdapter(mVenueAdapter);
         getThaliList();
-
+        more = (CustomTextView)view.findViewById(R.id.more);
+        more.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                offset = offset+20;
+                mListThali.clear();
+                getThaliList();
+                mVenueAdapter.notifyDataSetChanged();
+            }
+        });
+        less = (CustomTextView)view.findViewById(R.id.less);
+        less.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if(offset>=20) {
+                    offset = offset - 20;
+                    mListThali.clear();
+                    getThaliList();
+                    mVenueAdapter.notifyDataSetChanged();
+                }
+            }
+        });
         return view;
     }
     private void getThaliList() {

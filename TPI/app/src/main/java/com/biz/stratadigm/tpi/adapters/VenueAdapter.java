@@ -2,6 +2,7 @@ package com.biz.stratadigm.tpi.adapters;
 
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.RecyclerView;
@@ -19,6 +20,7 @@ import android.widget.LinearLayout;
 import com.biz.stratadigm.tpi.DataVenue;
 import com.biz.stratadigm.tpi.R;
 import com.biz.stratadigm.tpi.activity.MainActivity;
+import com.biz.stratadigm.tpi.activity.VenueLisstTahli;
 import com.biz.stratadigm.tpi.components.CustomTextView;
 import com.biz.stratadigm.tpi.fragments.ThaliFragment;
 import com.biz.stratadigm.tpi.tools.Constant;
@@ -37,18 +39,22 @@ public class VenueAdapter extends RecyclerView.Adapter<VenueAdapter.Holder> {
 
 
     public class Holder extends RecyclerView.ViewHolder {
-        public CustomTextView id,name,lat,lng,submitted,thalis;
+        public CustomTextView id,name,lat,lng,submitted,thalis,venueList;
         public LinearLayout mRoot;
 
         public Holder(View view) {
             super(view);
             mRoot=(LinearLayout)view.findViewById(R.id.root);
             id = (CustomTextView) view.findViewById(R.id.id);
+            id.setVisibility(View.GONE);
             name = (CustomTextView) view.findViewById(R.id.name);
             submitted = (CustomTextView) view.findViewById(R.id.submitted);
+            submitted.setVisibility(View.GONE);
             lng = (CustomTextView) view.findViewById(R.id.lng);
             lat = (CustomTextView) view.findViewById(R.id.lat);
             thalis = (CustomTextView) view.findViewById(R.id.thalis);
+            venueList = (CustomTextView) view.findViewById(R.id.list);
+            venueList.setTextColor(mContext.getResources().getColor(R.color.blue));
         }
     }
 
@@ -91,6 +97,14 @@ public class VenueAdapter extends RecyclerView.Adapter<VenueAdapter.Holder> {
                 ThaliFragment.venue.setText(venue.id);
                 editor.apply();
                 MainActivity.mViewPagerJob.setCurrentItem(2);
+            }
+        });
+        holder.venueList.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+               Intent i =new Intent(mContext.getApplicationContext(),VenueLisstTahli.class);
+                i.putExtra("id",position);
+                mContext.startActivity(i);
             }
         });
 
