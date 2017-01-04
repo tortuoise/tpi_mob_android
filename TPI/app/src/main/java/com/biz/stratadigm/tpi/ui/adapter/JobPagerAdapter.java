@@ -1,14 +1,14 @@
-package com.biz.stratadigm.tpi.adapters;
+package com.biz.stratadigm.tpi.ui.adapter;
 
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
 
-import com.biz.stratadigm.tpi.fragments.AddPhotoFragment;
-import com.biz.stratadigm.tpi.fragments.VenueFragment;
-import com.biz.stratadigm.tpi.fragments.ThaliListFragment;
-import com.biz.stratadigm.tpi.fragments.ThaliFragment;
-import com.biz.stratadigm.tpi.fragments.VenueListFragment;
+import com.biz.stratadigm.tpi.ui.fragment.AddPhotoFragment;
+import com.biz.stratadigm.tpi.ui.fragment.ThaliFragment;
+import com.biz.stratadigm.tpi.ui.fragment.ThaliListFragment;
+import com.biz.stratadigm.tpi.ui.fragment.VenueFragment;
+import com.biz.stratadigm.tpi.ui.fragment.VenueListFragment;
 
 /**
  * Created by tamara on 12/11/16.
@@ -46,8 +46,8 @@ public class JobPagerAdapter extends FragmentStatePagerAdapter {
                 tab2 = new ThaliFragment();
                 return tab2;
             case 4:
-                tab5=new AddPhotoFragment();
-               return tab5;
+                tab5 = new AddPhotoFragment();
+                return tab5;
             default:
                 return null;
         }

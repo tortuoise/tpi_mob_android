@@ -1,54 +1,62 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:orientation="vertical" android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:gravity="center"
-    android:background="@drawable/edit_text_alert">
-<LinearLayout
-    android:layout_width="match_parent"
-    android:layout_height="50dp"
-    android:background="@color/blue">
-    <com.biz.stratadigm.tpi.components.CustomTextView
+              xmlns:app="http://schemas.android.com/apk/res-auto"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              android:background="@drawable/edit_text_alert"
+              android:gravity="center"
+              android:orientation="vertical">
+
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="TPI"
-        android:textAlignment="center"
-        android:textSize="18dp"
-        android:textColor="#fff"
-        android:layout_gravity="center_horizontal|center_vertical"
-        />
-</LinearLayout>
+        android:layout_height="50dp"
+        android:background="@color/blue">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal|center_vertical"
+            android:text="TPI"
+            android:textAlignment="center"
+            android:textColor="#fff"
+            android:textSize="18dp"
+            />
+    </LinearLayout>
+
     <android.support.design.widget.TabLayout
-        android:background="@color/blue"
-        android:alpha="0.9"
-        android:layout_height="wrap_content"
-        android:layout_width="match_parent"
         android:id="@+id/tab_layout"
-        android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:alpha="0.9"
+        android:background="@color/blue"
         android:minHeight="?attr/actionBarSize"
+        android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
         app:tabIndicatorColor="@color/white"
         />
-<RelativeLayout
-    android:layout_width="match_parent"
-    android:layout_height="match_parent">
-    <Button
-        android:id="@+id/btnout"
+
+    <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@color/blue"
-        android:layout_alignParentBottom="true"
-        android:text="Sign out"
-        android:textColor="@color/white"
-        android:textAllCaps="true"
-        android:layout_margin="20dp"
-       />
-    <android.support.v4.view.ViewPager android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:id="@+id/pager"
-        android:layout_above="@id/btnout">
+        android:layout_height="match_parent">
 
-    </android.support.v4.view.ViewPager>
+        <Button
+            android:id="@+id/btnout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_margin="20dp"
+            android:background="@color/blue"
+            android:text="Sign out"
+            android:textAllCaps="true"
+            android:textColor="@color/white"
+            />
 
-</RelativeLayout>
-    </LinearLayout>
+        <android.support.v4.view.ViewPager
+            android:id="@+id/pager"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_above="@id/btnout">
+
+        </android.support.v4.view.ViewPager>
+
+    </RelativeLayout>
+</LinearLayout>

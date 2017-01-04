@@ -1,32 +1,35 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical" android:layout_width="match_parent"
-    android:layout_height="match_parent">
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              android:orientation="vertical">
 
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
         android:weightSum="1">
-        <com.biz.stratadigm.tpi.components.CustomTextView
+
+        <TextView
+            android:id="@+id/more"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
             android:layout_margin="20dp"
             android:text="Next"
             android:textAlignment="center"
-            android:layout_alignParentRight="true"
-            android:textSize="18dp"
-            android:id="@+id/more"/>
-        <com.biz.stratadigm.tpi.components.CustomTextView
+            android:textSize="18dp"/>
+
+        <TextView
+            android:id="@+id/less"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
             android:layout_margin="20dp"
+            android:layout_weight="0.66"
             android:text="Back"
             android:textAlignment="center"
-            android:layout_alignParentLeft="true"
-            android:textSize="18dp"
-            android:id="@+id/less"
-            android:layout_weight="0.66" />
+            android:textSize="18dp"/>
     </RelativeLayout>
 
     <android.support.v7.widget.RecyclerView
@@ -35,7 +38,6 @@
         android:layout_height="wrap_content">
 
     </android.support.v7.widget.RecyclerView>
-
 
 
 </LinearLayout>

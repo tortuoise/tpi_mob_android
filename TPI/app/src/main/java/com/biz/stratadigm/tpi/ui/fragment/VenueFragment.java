@@ -1,4 +1,4 @@
-package com.biz.stratadigm.tpi.fragments;
+package com.biz.stratadigm.tpi.ui.fragment;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -8,6 +8,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.android.volley.NetworkResponse;
@@ -23,11 +25,9 @@ import com.android.volley.error.TimeoutError;
 import com.android.volley.error.VolleyError;
 import com.android.volley.request.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
-import com.biz.stratadigm.tpi.activity.MainActivity;
-import com.biz.stratadigm.tpi.components.CustomEditText;
-import com.biz.stratadigm.tpi.components.CustomTextView;
-import com.biz.stratadigm.tpi.tools.Constant;
 import com.biz.stratadigm.tpi.R;
+import com.biz.stratadigm.tpi.ui.activity.MainActivity;
+import com.biz.stratadigm.tpi.tools.Constant;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -41,22 +41,22 @@ import java.util.Map;
  */
 
 public class VenueFragment extends Fragment {
-    private CustomEditText mEtName;
-    private CustomTextView mPossiton;
+    private EditText mEtName;
+    private TextView mPossiton;
     private Button mSend;
-    private HashMap<String,Float> mLocation = new HashMap<>();
+    private HashMap<String, Float> mLocation = new HashMap<>();
 
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.venue_framgent, container, false);
 
-        mEtName = (CustomEditText) view.findViewById(R.id.editTextName);
+        mEtName = (EditText) view.findViewById(R.id.editTextName);
         mSend = (Button) view.findViewById(R.id.buttonSend);
-        mPossiton = (CustomTextView) view.findViewById(R.id.possition);
+        mPossiton = (TextView) view.findViewById(R.id.possition);
         mPossiton.setText("Longitude " + MainActivity.longitude + " Latitude " + MainActivity.latitude);
-        mLocation.put("Lat",Float.parseFloat(""+MainActivity.latitude));
-        mLocation.put("Lng",Float.parseFloat(""+MainActivity.longitude));
+        mLocation.put("Lat", Float.parseFloat("" + MainActivity.latitude));
+        mLocation.put("Lng", Float.parseFloat("" + MainActivity.longitude));
 
         mSend.setOnClickListener(new View.OnClickListener() {
 
@@ -69,6 +69,7 @@ public class VenueFragment extends Fragment {
 
         return view;
     }
+
     /**
      * Add new venue on server
      */
@@ -76,7 +77,7 @@ public class VenueFragment extends Fragment {
 
 
         Map<String, Object> params = new HashMap<String, Object>();
-       // JSONObject ob = new JSONObject(mLocation);
+        // JSONObject ob = new JSONObject(mLocation);
         params.put("name", mEtName.getText().toString());
         params.put("location", mLocation);
         JsonObjectRequest stringReguest = new JsonObjectRequest(Request.Method.POST, Constant.VENUES,
@@ -88,7 +89,7 @@ public class VenueFragment extends Fragment {
                         try {
                             JSONObject o = new JSONObject(String.valueOf(response));
                             Log.e("tamara", response.toString());
-                            Toast.makeText(getActivity().getApplicationContext(),response.toString(),Toast.LENGTH_SHORT).show();
+                            Toast.makeText(getActivity().getApplicationContext(), response.toString(), Toast.LENGTH_SHORT).show();
                         } catch (JSONException e) {
                             e.printStackTrace();
                         }

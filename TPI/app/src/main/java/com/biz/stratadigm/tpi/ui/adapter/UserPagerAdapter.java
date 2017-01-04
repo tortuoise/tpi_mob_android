@@ -1,11 +1,11 @@
-package com.biz.stratadigm.tpi.adapters;
+package com.biz.stratadigm.tpi.ui.adapter;
 
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
 
-import com.biz.stratadigm.tpi.fragments.LoginFragment;
-import com.biz.stratadigm.tpi.fragments.USerFragment;
+import com.biz.stratadigm.tpi.ui.fragment.LoginFragment;
+import com.biz.stratadigm.tpi.ui.fragment.USerFragment;
 
 
 /**

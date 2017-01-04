@@ -21,6 +21,6 @@ public class Constant {
 
     public static String TEST = "https://thalipriceindex.appspot.com/hello";
 
-    public static String TAG="tpi";
+    public static String TAG = "tpi";
 }
 

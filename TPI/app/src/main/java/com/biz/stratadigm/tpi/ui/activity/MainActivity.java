@@ -1,22 +1,20 @@
-package com.biz.stratadigm.tpi.activity;
+package com.biz.stratadigm.tpi.ui.activity;
 
-import android.Manifest;
 import android.content.Context;
 import android.content.Intent;
-import android.support.design.widget.TabLayout;
 import android.content.pm.PackageManager;
 import android.location.Location;
 import android.location.LocationManager;
+import android.os.Bundle;
+import android.support.design.widget.TabLayout;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
-
 import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
 
-import com.biz.stratadigm.tpi.adapters.JobPagerAdapter;
 import com.biz.stratadigm.tpi.R;
+import com.biz.stratadigm.tpi.ui.adapter.JobPagerAdapter;
 
 
 /**
@@ -99,7 +97,7 @@ public class MainActivity extends AppCompatActivity {
         mBtnOut.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                startActivity(new Intent(getApplicationContext(),StartActivity.class));
+                startActivity(new Intent(getApplicationContext(), StartActivity.class));
                 finish();
             }
         });

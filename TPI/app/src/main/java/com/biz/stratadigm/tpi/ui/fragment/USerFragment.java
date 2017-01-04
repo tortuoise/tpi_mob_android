@@ -1,10 +1,9 @@
-package com.biz.stratadigm.tpi.fragments;
+package com.biz.stratadigm.tpi.ui.fragment;
 
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
-import android.text.InputType;
 import android.text.method.PasswordTransformationMethod;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -19,10 +18,10 @@ import com.android.volley.error.AuthFailureError;
 import com.android.volley.error.VolleyError;
 import com.android.volley.request.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
-import com.biz.stratadigm.tpi.tools.Constant;
-import com.biz.stratadigm.tpi.activity.MainActivity;
 import com.biz.stratadigm.tpi.R;
-import com.biz.stratadigm.tpi.components.CustomEditText;
+import com.biz.stratadigm.tpi.ui.activity.MainActivity;
+import android.widget.EditText;
+import com.biz.stratadigm.tpi.tools.Constant;
 
 import org.json.JSONObject;
 
@@ -31,22 +30,22 @@ import java.util.Map;
 
 /**
  * Created by tamara on 12/11/16.
- *
+ * <p>
  * Class for reigister user on server
  */
 
 public class USerFragment extends Fragment {
-    private CustomEditText mEtPass, mEtEmail,mEtname;
+    private EditText mEtPass, mEtEmail, mEtname;
     private Button mConfirm;
 
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.user_fragment_layout, container, false);
-        mEtEmail = (CustomEditText) view.findViewById(R.id.editTextEmail);
-        mEtPass = (CustomEditText) view.findViewById(R.id.editTextPass);
+        mEtEmail = (EditText) view.findViewById(R.id.editTextEmail);
+        mEtPass = (EditText) view.findViewById(R.id.editTextPass);
         mEtPass.setTransformationMethod(PasswordTransformationMethod.getInstance());
-        mEtname = (CustomEditText) view.findViewById(R.id.editTextName);
+        mEtname = (EditText) view.findViewById(R.id.editTextName);
         mConfirm = (Button) view.findViewById(R.id.buttonLogin);
 
         mConfirm.setOnClickListener(new View.OnClickListener() {
@@ -58,6 +57,7 @@ public class USerFragment extends Fragment {
         });
         return view;
     }
+
     /**
      * Method for reistration user on server. Using volley request
      */
@@ -68,7 +68,7 @@ public class USerFragment extends Fragment {
 
         params.put("email", mEtEmail.getText().toString());//param email of user
         params.put("name", mEtname.getText().toString());//param name of user
-        params.put("password",mEtPass.getText().toString());
+        params.put("password", mEtPass.getText().toString());
 
         //making json object of params
         JsonObjectRequest stringReguest = new JsonObjectRequest(Request.Method.POST, Constant.USER,
@@ -77,7 +77,7 @@ public class USerFragment extends Fragment {
                 new Response.Listener<JSONObject>() {
                     @Override
                     public void onResponse(JSONObject response) {
-                        Toast.makeText(getActivity().getApplicationContext(),response.toString(),Toast.LENGTH_SHORT).show();
+                        Toast.makeText(getActivity().getApplicationContext(), response.toString(), Toast.LENGTH_SHORT).show();
                     }
                 },
                 new Response.ErrorListener() {

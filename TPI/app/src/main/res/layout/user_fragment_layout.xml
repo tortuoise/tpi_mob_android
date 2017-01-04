@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical" android:layout_width="match_parent"
-    android:layout_height="match_parent">
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              android:orientation="vertical">
 
 
     <ImageView
@@ -9,51 +10,53 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         />
-    <com.biz.stratadigm.tpi.components.CustomTextView
-        android:layout_margin="10dp"
-        android:textAlignment="center"
-        android:textSize="27dp"
+
+    <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Add user"/>
+        android:layout_margin="10dp"
+        android:text="Add user"
+        android:textAlignment="center"
+        android:textSize="27dp"/>
 
-    <com.biz.stratadigm.tpi.components.CustomEditText
-        android:textSize="13dp"
+    <EditText
         android:id="@+id/editTextEmail"
-        android:padding="10dp"
-        android:background="@drawable/edit_text_alert"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
         android:layout_margin="20dp"
+        android:background="@drawable/edit_text_alert"
         android:hint="@string/alert_dialog_login_username"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
+        android:padding="10dp"
+        android:textSize="13dp"/>
 
-    <com.biz.stratadigm.tpi.components.CustomEditText
-        android:textSize="13dp"
+    <EditText
         android:id="@+id/editTextName"
-        android:background="@drawable/edit_text_alert"
-        android:padding="10dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
         android:layout_margin="20dp"
+        android:background="@drawable/edit_text_alert"
         android:hint="@string/alert_dialog_login_password"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
-    <com.biz.stratadigm.tpi.components.CustomEditText
-        android:textSize="13dp"
-        android:id="@+id/editTextPass"
-        android:background="@drawable/edit_text_alert"
         android:padding="10dp"
-        android:layout_margin="20dp"
-        android:hint="Password"
+        android:textSize="13dp"/>
+
+    <EditText
+        android:id="@+id/editTextPass"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
+        android:layout_height="wrap_content"
+        android:layout_margin="20dp"
+        android:background="@drawable/edit_text_alert"
+        android:hint="Password"
+        android:padding="10dp"
+        android:textSize="13dp"/>
 
 
     <Button
         android:id="@+id/buttonLogin"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_margin="20dp"
         android:background="@color/blue"
         android:text="@string/login"
-        android:textColor="@color/white"
         android:textAllCaps="true"
-        android:layout_margin="20dp"/>
+        android:textColor="@color/white"/>
 </LinearLayout>

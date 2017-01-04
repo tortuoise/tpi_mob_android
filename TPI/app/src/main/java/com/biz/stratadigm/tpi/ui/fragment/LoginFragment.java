@@ -1,4 +1,4 @@
-package com.biz.stratadigm.tpi.fragments;
+package com.biz.stratadigm.tpi.ui.fragment;
 
 import android.content.Context;
 import android.content.Intent;
@@ -6,13 +6,13 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
-import android.text.InputType;
 import android.text.method.PasswordTransformationMethod;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.Toast;
 
 import com.android.volley.Request;
@@ -24,12 +24,9 @@ import com.android.volley.request.JsonObjectRequest;
 import com.android.volley.request.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.biz.stratadigm.tpi.R;
-import com.biz.stratadigm.tpi.activity.MainActivity;
-import com.biz.stratadigm.tpi.activity.StartActivity;
-import com.biz.stratadigm.tpi.components.CustomEditText;
+import com.biz.stratadigm.tpi.ui.activity.MainActivity;
 import com.biz.stratadigm.tpi.tools.Constant;
 
-import org.apache.http.entity.StringEntity;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -41,7 +38,7 @@ import java.util.Map;
  */
 
 public class LoginFragment extends Fragment {
-    private CustomEditText mEtPass, mEtEmail;
+    private EditText mEtPass, mEtEmail;
     private Button mConfirm;
     private SharedPreferences sharedPreferences;
 
@@ -49,8 +46,8 @@ public class LoginFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.user_fragment, container, false);
-        mEtEmail = (CustomEditText) view.findViewById(R.id.editTextEmail);
-        mEtPass = (CustomEditText) view.findViewById(R.id.editTextPass);
+        mEtEmail = (EditText) view.findViewById(R.id.editTextEmail);
+        mEtPass = (EditText) view.findViewById(R.id.editTextPass);
         mEtPass.setTransformationMethod(PasswordTransformationMethod.getInstance());
         mConfirm = (Button) view.findViewById(R.id.buttonLogin);
         sharedPreferences = getActivity().getSharedPreferences(Constant.TAG, Context.MODE_PRIVATE);
@@ -59,7 +56,7 @@ public class LoginFragment extends Fragment {
             @Override
             public void onClick(View view) {
                 registerUser();
-              //  startActivity(new Intent(getActivity().getApplicationContext(), MainActivity.class));
+                //  startActivity(new Intent(getActivity().getApplicationContext(), MainActivity.class));
             }
         });
         return view;
@@ -125,8 +122,8 @@ public class LoginFragment extends Fragment {
                     @Override
                     public void onResponse(String response) {
                         Log.e("tamara", response.toString());
-                        Toast.makeText(getActivity().getApplicationContext(),response.toString(),Toast.LENGTH_SHORT).show();
-                        startActivity(new Intent(getActivity().getApplicationContext(),MainActivity.class));
+                        Toast.makeText(getActivity().getApplicationContext(), response.toString(), Toast.LENGTH_SHORT).show();
+                        startActivity(new Intent(getActivity().getApplicationContext(), MainActivity.class));
                         getActivity().finish();
                     }
                 },
@@ -134,7 +131,7 @@ public class LoginFragment extends Fragment {
                     @Override
                     public void onErrorResponse(VolleyError error) {
                         Log.e("tamara", error.toString());
-                        Toast.makeText(getActivity().getApplicationContext(),error.toString(),Toast.LENGTH_SHORT).show();
+                        Toast.makeText(getActivity().getApplicationContext(), error.toString(), Toast.LENGTH_SHORT).show();
                     }
                 }) {
 

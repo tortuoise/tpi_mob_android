@@ -1,47 +1,48 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical" android:layout_width="match_parent"
-    android:layout_height="match_parent">
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              android:orientation="vertical">
 
 
-    <com.biz.stratadigm.tpi.components.CustomTextView
-        android:layout_margin="10dp"
-        android:textAlignment="center"
-        android:textSize="27dp"
+    <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Add venue"/>
+        android:layout_margin="10dp"
+        android:text="Add venue"
+        android:textAlignment="center"
+        android:textSize="27dp"/>
 
 
-    <com.biz.stratadigm.tpi.components.CustomEditText
-        android:textSize="13dp"
+    <EditText
         android:id="@+id/editTextName"
-        android:padding="10dp"
-        android:background="@drawable/edit_text_alert"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
         android:layout_margin="20dp"
+        android:background="@drawable/edit_text_alert"
         android:hint="@string/alert_dialog_login_password"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
-
-    <com.biz.stratadigm.tpi.components.CustomTextView
-        android:textSize="13dp"
-        android:id="@+id/possition"
-        android:background="@drawable/edit_text_alert"
         android:padding="10dp"
-        android:layout_margin="20dp"
-        android:hint="Possition"
+        android:textSize="13dp"/>
+
+    <TextView
+        android:id="@+id/possition"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
+        android:layout_height="wrap_content"
+        android:layout_margin="20dp"
+        android:background="@drawable/edit_text_alert"
+        android:hint="Possition"
+        android:padding="10dp"
+        android:textSize="13dp"/>
 
 
     <Button
         android:id="@+id/buttonSend"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_margin="20dp"
         android:background="@color/blue"
         android:text="Add venue"
-        android:textColor="@color/white"
         android:textAllCaps="true"
-        android:layout_margin="20dp"/>
+        android:textColor="@color/white"/>
 
 </LinearLayout>

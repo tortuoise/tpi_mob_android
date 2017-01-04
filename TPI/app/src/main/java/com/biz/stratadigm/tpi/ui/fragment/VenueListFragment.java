@@ -1,4 +1,4 @@
-package com.biz.stratadigm.tpi.fragments;
+package com.biz.stratadigm.tpi.ui.fragment;
 
 import android.content.Context;
 import android.content.SharedPreferences;
@@ -11,7 +11,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Toast;
+import android.widget.TextView;
 
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
@@ -19,10 +19,9 @@ import com.android.volley.Response;
 import com.android.volley.error.VolleyError;
 import com.android.volley.request.StringRequest;
 import com.android.volley.toolbox.Volley;
-import com.biz.stratadigm.tpi.DataVenue;
+import com.biz.stratadigm.tpi.entity.dto.VenueDTO;
 import com.biz.stratadigm.tpi.R;
-import com.biz.stratadigm.tpi.adapters.VenueAdapter;
-import com.biz.stratadigm.tpi.components.CustomTextView;
+import com.biz.stratadigm.tpi.ui.adapter.VenueAdapter;
 import com.biz.stratadigm.tpi.tools.Constant;
 
 import org.json.JSONArray;
@@ -36,15 +35,15 @@ import java.util.ArrayList;
  * Class respresent list of venue
  */
 
-public class VenueListFragment extends Fragment{
+public class VenueListFragment extends Fragment {
 
     private RecyclerView mList;
     private RecyclerView.LayoutManager mLayoutMAnager;
-    private ArrayList<DataVenue> mListVenue=new ArrayList<>();
+    private ArrayList<VenueDTO> mListVenue = new ArrayList<>();
     private VenueAdapter mVenueAdapter;
     private SharedPreferences sharedPreferences;
-    private int offset=0;
-    private CustomTextView more,less;
+    private int offset = 0;
+    private TextView more, less;
 
     @Nullable
     @Override
@@ -52,27 +51,27 @@ public class VenueListFragment extends Fragment{
         View view = inflater.inflate(R.layout.venue_list_fragment, container, false);
 
         sharedPreferences = getActivity().getSharedPreferences(Constant.TAG, Context.MODE_PRIVATE);
-        mList=(RecyclerView)view.findViewById(R.id.venueList);
-        mVenueAdapter = new VenueAdapter(mListVenue,getActivity());
+        mList = (RecyclerView) view.findViewById(R.id.venueList);
+        mVenueAdapter = new VenueAdapter(mListVenue, getActivity());
         mLayoutMAnager = new LinearLayoutManager(getActivity().getApplicationContext(), LinearLayoutManager.VERTICAL, false);
         mList.setLayoutManager(mLayoutMAnager);
         mList.setAdapter(mVenueAdapter);
         getVenueList();
-        more = (CustomTextView)view.findViewById(R.id.more);
+        more = (TextView) view.findViewById(R.id.more);
         more.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                offset = offset+20;
+                offset = offset + 20;
                 mListVenue.clear();
                 getVenueList();
                 mVenueAdapter.notifyDataSetChanged();
             }
         });
-        less = (CustomTextView)view.findViewById(R.id.less);
+        less = (TextView) view.findViewById(R.id.less);
         less.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if(offset>=20) {
+                if (offset >= 20) {
                     offset = offset - 20;
                     mListVenue.clear();
                     getVenueList();
@@ -82,25 +81,26 @@ public class VenueListFragment extends Fragment{
         });
         return view;
     }
+
     private void getVenueList() {
 
-        final StringRequest stringRequest = new StringRequest(Request.Method.GET, Constant.VENUESLIST+"?offset="+offset,
+        final StringRequest stringRequest = new StringRequest(Request.Method.GET, Constant.VENUESLIST + "?offset=" + offset,
                 new Response.Listener<String>() {
                     @Override
                     public void onResponse(String response) {
                         try {
-                            Log.e("tamara",response);
+                            Log.e("tamara", response);
                             JSONArray response1 = new JSONArray(response);
                             for (int i = 0; i < response1.length(); i++) {
                                 String id = response1.getJSONObject(i).getString("id");
                                 String name = response1.getJSONObject(i).getString("name");
-                                String submitted=response1.getJSONObject(i).getString("submitted");
-                                JSONObject location=response1.getJSONObject(i).getJSONObject("location");
-                                String lat=location.getString("Lat");
-                                String lng=location.getString("Lng");
-                                String thalis=response1.getJSONObject(i).getString("thalis");
+                                String submitted = response1.getJSONObject(i).getString("submitted");
+                                JSONObject location = response1.getJSONObject(i).getJSONObject("location");
+                                String lat = location.getString("Lat");
+                                String lng = location.getString("Lng");
+                                String thalis = response1.getJSONObject(i).getString("thalis");
 
-                                DataVenue venue=new DataVenue(id,name,submitted,lat,lng,thalis);
+                                VenueDTO venue = new VenueDTO(id, name, submitted, lat, lng, thalis);
                                 mListVenue.add(venue);
                                 mVenueAdapter.notifyDataSetChanged();
                             }

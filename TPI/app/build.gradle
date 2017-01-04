@@ -1,4 +1,6 @@
 apply plugin: 'com.android.application'
+apply plugin: 'com.neenbedankt.android-apt'
+apply plugin: 'me.tatarka.retrolambda'
 
 android {
     compileSdkVersion 25
@@ -20,15 +22,41 @@ android {
     }
 }
 
+ext {
+    supportLibraryVersion = '25.1.0'
+    butterknifeVersion = '8.4.0'
+    jacksonVersion = '2.8.5'
+    daggerVersion = '2.7'
+    okhttpVersion = '3.5.0'
+}
+
 dependencies {
     compile fileTree(dir: 'libs', include: ['*.jar'])
+
+    compile "com.android.support:appcompat-v7:$supportLibraryVersion"
+    compile "com.android.support:design:$supportLibraryVersion"
+    compile "com.jakewharton:butterknife:$butterknifeVersion"
+    compile 'info.android15.nucleus:nucleus-support-v7:4.0.0'
+    compile "com.google.dagger:dagger:$daggerVersion"
+    compile 'io.reactivex:rxandroid:1.2.1'
+    compile 'io.reactivex:rxjava:1.2.4'
+    compile "com.squareup.okhttp3:okhttp:$okhttpVersion"
+    compile "com.squareup.okhttp3:logging-interceptor:$okhttpVersion"
+    compile 'com.squareup.retrofit2:retrofit:2.1.0'
+
+    provided 'javax.annotation:jsr250-api:1.0'
+    apt "com.google.dagger:dagger-compiler:$daggerVersion"
+    apt "com.jakewharton:butterknife-compiler:$butterknifeVersion"
+
+    // --- remove it ---
+    compile 'dev.dworks.libs:volleyplus:+'
+    compile 'com.github.bumptech.glide:glide:3.7.0'
+    // -- end remove it --
+
+
+    testCompile 'junit:junit:4.12'
+
     androidTestCompile('com.android.support.test.espresso:espresso-core:2.2.2', {
         exclude group: 'com.android.support', module: 'support-annotations'
     })
-    compile 'com.android.support:design:25.0.1'
-    compile 'com.android.support:appcompat-v7:25.0.1'
-    compile 'dev.dworks.libs:volleyplus:+'
-    compile 'com.github.bumptech.glide:glide:3.7.0'
-    testCompile 'junit:junit:4.12'
-
 }

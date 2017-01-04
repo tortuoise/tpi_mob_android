@@ -1,10 +1,10 @@
-package com.biz.stratadigm.tpi;
+package com.biz.stratadigm.tpi.entity.dto;
 
 /**
  * Created by tamara on 12/19/16.
  */
 
-public class DataThali {
+public class ThaliDTO {
     public String id;
     public String name;
     public String submitted;
@@ -18,9 +18,9 @@ public class DataThali {
     public String verified;
     public String accepted;
 
-    public DataThali(String id, String name, String submitted, String target, String limited,
-                     String region, String price, String image, String userid, String venue,
-                     String verified, String accepted) {
+    public ThaliDTO(String id, String name, String submitted, String target, String limited,
+                    String region, String price, String image, String userid, String venue,
+                    String verified, String accepted) {
         this.id = id;
         this.name = name;
         this.submitted = submitted;

@@ -16,6 +16,7 @@ import android.provider.MediaStore;
 public class FilePath {
     /**
      * Method for return file path of Gallery image
+     *
      * @param context
      * @param uri
      * @return path of the selected image file from gallery

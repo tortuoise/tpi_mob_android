@@ -1,4 +1,4 @@
-package com.biz.stratadigm.tpi.fragments;
+package com.biz.stratadigm.tpi.ui.fragment;
 
 import android.content.Context;
 import android.content.SharedPreferences;
@@ -29,9 +29,9 @@ import com.android.volley.error.TimeoutError;
 import com.android.volley.error.VolleyError;
 import com.android.volley.request.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
-import com.biz.stratadigm.tpi.tools.Constant;
 import com.biz.stratadigm.tpi.R;
-import com.biz.stratadigm.tpi.components.CustomEditText;
+import android.widget.EditText;
+import com.biz.stratadigm.tpi.tools.Constant;
 
 import org.json.JSONObject;
 
@@ -47,8 +47,8 @@ public class ThaliFragment extends Fragment {
 
     // components
     private static final int PICK_IMAGE_REQUEST = 1;
-    private CustomEditText target, price;
-    public static CustomEditText venue;
+    private EditText target, price;
+    public static EditText venue;
     private Button mButSend;
     private Switch switcher;
     private CheckBox north, west, east, south;
@@ -65,12 +65,12 @@ public class ThaliFragment extends Fragment {
         // Init components and listneres
         sharedPreferences = getActivity().getSharedPreferences(Constant.TAG, Context.MODE_PRIVATE);
         mButSend = (Button) view.findViewById(R.id.btsend);
-        target = (CustomEditText) view.findViewById(R.id.taget);
-        price = (CustomEditText) view.findViewById(R.id.price);
-      //  price.setInputType(InputType.NU);
-        venue = (CustomEditText) view.findViewById(R.id.venue);
+        target = (EditText) view.findViewById(R.id.taget);
+        price = (EditText) view.findViewById(R.id.price);
+        //  price.setInputType(InputType.NU);
+        venue = (EditText) view.findViewById(R.id.venue);
         venue.setInputType(InputType.TYPE_NULL);
-        venue.setText(sharedPreferences.getString("venue",""));
+        venue.setText(sharedPreferences.getString("venue", ""));
 
         switcher = (Switch) view.findViewById(R.id.limited);
         north = (CheckBox) view.findViewById(R.id.north);
@@ -146,7 +146,7 @@ public class ThaliFragment extends Fragment {
         params.put("venue", Integer.parseInt(venue.getText().toString()));
         params.put("limited", switcher.isChecked());
         params.put("region", region);
-        if(price.getText().toString().equalsIgnoreCase("")) {
+        if (price.getText().toString().equalsIgnoreCase("")) {
             params.put("price", Integer.parseInt("0"));
         } else {
             params.put("price", Integer.parseInt(price.getText().toString()));
@@ -159,7 +159,7 @@ public class ThaliFragment extends Fragment {
                 new Response.Listener<JSONObject>() {
                     @Override
                     public void onResponse(JSONObject response) {
-                        Toast.makeText(getActivity().getApplicationContext(),response.toString(),Toast.LENGTH_SHORT).show();
+                        Toast.makeText(getActivity().getApplicationContext(), response.toString(), Toast.LENGTH_SHORT).show();
                         Log.e("tamara", response.toString());
                     }
                 },
@@ -201,6 +201,6 @@ public class ThaliFragment extends Fragment {
     }
 
     public void selected() {
-        venue.setText(sharedPreferences.getString("venue",""));
+        venue.setText(sharedPreferences.getString("venue", ""));
     }
 }

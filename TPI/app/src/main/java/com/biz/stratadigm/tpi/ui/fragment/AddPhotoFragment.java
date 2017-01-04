@@ -1,4 +1,4 @@
-package com.biz.stratadigm.tpi.fragments;
+package com.biz.stratadigm.tpi.ui.fragment;
 
 import android.content.ActivityNotFoundException;
 import android.content.Context;
@@ -9,9 +9,7 @@ import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
-import android.util.Log;
 import android.view.LayoutInflater;
-import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.webkit.ValueCallback;
@@ -21,7 +19,7 @@ import android.webkit.WebView;
 import android.widget.Toast;
 
 import com.biz.stratadigm.tpi.R;
-import com.biz.stratadigm.tpi.activity.MainActivity;
+import com.biz.stratadigm.tpi.ui.activity.MainActivity;
 import com.biz.stratadigm.tpi.tools.Constant;
 
 /**
@@ -39,7 +37,7 @@ public class AddPhotoFragment extends Fragment {
     public static final int REQUEST_SELECT_FILE = 100;
     private final static int FILECHOOSER_RESULTCODE = 1;
     private SharedPreferences sharedPreferences;
-    public static String id="";
+    public static String id = "";
 
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent intent) {
@@ -67,11 +65,11 @@ public class AddPhotoFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
 
-        View view =inflater.inflate(R.layout.add_picture_fragment,container,false);
+        View view = inflater.inflate(R.layout.add_picture_fragment, container, false);
         mIvPicture = (WebView) view.findViewById(R.id.image);
         sharedPreferences = getActivity().getSharedPreferences(Constant.TAG, Context.MODE_PRIVATE);
         // Upload on thali id (needs id ot thali to upload image on it)
-        mIvPicture.loadUrl(Constant.UPLOAD + sharedPreferences.getString("thali","1"));
+        mIvPicture.loadUrl(Constant.UPLOAD + sharedPreferences.getString("thali", "1"));
         WebSettings mWebSettings = mIvPicture.getSettings();
         mWebSettings.setJavaScriptEnabled(true);
         mWebSettings.setSupportZoom(false);
@@ -80,15 +78,16 @@ public class AddPhotoFragment extends Fragment {
         mWebSettings.setAllowContentAccess(true);
 
         mIvPicture.setWebChromeClient(new WebChromeClient() {
-                                          // For 3.0+ Devices (Start)
-                                          // onActivityResult attached before constructor
-                                          protected void openFileChooser(ValueCallback uploadMsg, String acceptType) {
-                                              mUploadMessage = uploadMsg;
-                                              Intent i = new Intent(Intent.ACTION_GET_CONTENT);
-                                              i.addCategory(Intent.CATEGORY_OPENABLE);
-                                              i.setType("image/*");
-                                              startActivityForResult(Intent.createChooser(i, "File Browser"), FILECHOOSER_RESULTCODE);
-                                          }
+            // For 3.0+ Devices (Start)
+            // onActivityResult attached before constructor
+            protected void openFileChooser(ValueCallback uploadMsg, String acceptType) {
+                mUploadMessage = uploadMsg;
+                Intent i = new Intent(Intent.ACTION_GET_CONTENT);
+                i.addCategory(Intent.CATEGORY_OPENABLE);
+                i.setType("image/*");
+                startActivityForResult(Intent.createChooser(i, "File Browser"), FILECHOOSER_RESULTCODE);
+            }
+
             // For Lollipop 5.0+ Devices
             public boolean onShowFileChooser(WebView mWebView, ValueCallback<Uri[]> filePathCallback, WebChromeClient.FileChooserParams fileChooserParams) {
                 if (uploadMessage != null) {
@@ -133,5 +132,5 @@ public class AddPhotoFragment extends Fragment {
 
         return view;
     }
-    
+
 }
