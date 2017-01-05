@@ -37,7 +37,7 @@ public class StartActivity extends AppCompatActivity {
         tabLayout.addTab(tabLayout.newTab().setText("Registration"));
 
         tabLayout.setTabGravity(TabLayout.GRAVITY_FILL);
-        userPagerAdapter = new UserPagerAdapter(getSupportFragmentManager(), tabLayout.getTabCount());
+        userPagerAdapter = new UserPagerAdapter(getSupportFragmentManager());
 
         jobViewPager = (ViewPager) findViewById(R.id.pager);
         jobViewPager.setAdapter(userPagerAdapter);

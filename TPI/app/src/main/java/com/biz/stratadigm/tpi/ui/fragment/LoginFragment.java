@@ -6,7 +6,6 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
-import android.text.method.PasswordTransformationMethod;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -24,8 +23,8 @@ import com.android.volley.request.JsonObjectRequest;
 import com.android.volley.request.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.biz.stratadigm.tpi.R;
-import com.biz.stratadigm.tpi.ui.activity.MainActivity;
 import com.biz.stratadigm.tpi.tools.Constant;
+import com.biz.stratadigm.tpi.ui.activity.MainActivity;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -33,30 +32,35 @@ import org.json.JSONObject;
 import java.util.HashMap;
 import java.util.Map;
 
+import butterknife.BindView;
+
 /**
  * Created by tamara on 12/22/16.
  */
 
 public class LoginFragment extends Fragment {
-    private EditText mEtPass, mEtEmail;
-    private Button mConfirm;
+
+    @BindView(R.id.editTextEmail)
+    EditText emailEditText;
+
+    @BindView(R.id.editTextPass)
+    EditText passwordEditText;
+
+    @BindView(R.id.buttonLogin)
+    Button mConfirm;
+
     private SharedPreferences sharedPreferences;
 
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.user_fragment, container, false);
-        mEtEmail = (EditText) view.findViewById(R.id.editTextEmail);
-        mEtPass = (EditText) view.findViewById(R.id.editTextPass);
-        mEtPass.setTransformationMethod(PasswordTransformationMethod.getInstance());
-        mConfirm = (Button) view.findViewById(R.id.buttonLogin);
         sharedPreferences = getActivity().getSharedPreferences(Constant.TAG, Context.MODE_PRIVATE);
 
         mConfirm.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 registerUser();
-                //  startActivity(new Intent(getActivity().getApplicationContext(), MainActivity.class));
             }
         });
         return view;
@@ -70,8 +74,8 @@ public class LoginFragment extends Fragment {
 
         Map<String, String> params = new HashMap<String, String>();
 
-        params.put("email", mEtEmail.getText().toString());//param email of user
-        params.put("password", mEtPass.getText().toString());
+        params.put("email", emailEditText.getText().toString());//param email of user
+        params.put("password", passwordEditText.getText().toString());
 
         //making json object of params
         JsonObjectRequest stringReguest = new JsonObjectRequest(Request.Method.POST, "https://thalipriceindex.appspot.com/token_auth",

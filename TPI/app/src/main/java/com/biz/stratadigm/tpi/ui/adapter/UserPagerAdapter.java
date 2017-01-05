@@ -5,7 +5,7 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
 
 import com.biz.stratadigm.tpi.ui.fragment.LoginFragment;
-import com.biz.stratadigm.tpi.ui.fragment.USerFragment;
+import com.biz.stratadigm.tpi.ui.fragment.UserFragment;
 
 
 /**
@@ -13,28 +13,22 @@ import com.biz.stratadigm.tpi.ui.fragment.USerFragment;
  * Shows fragment in StartActivity
  */
 public class UserPagerAdapter extends FragmentStatePagerAdapter {
-    int mNumOfTabs;
-    LoginFragment tab1;
-    USerFragment tab2;
+    private static final int PAGE_NUMBER = 2;
+    private static final int LOGIN_TAB_POSITION = 0;
+    private static final int REGISTER_TAB_POSITION = 1;
 
-    public UserPagerAdapter(FragmentManager fm, int NumOfTabs) {
+    public UserPagerAdapter(FragmentManager fm) {
         super(fm);
-        this.mNumOfTabs = NumOfTabs;
     }
 
 
     @Override
     public Fragment getItem(int position) {
-
         switch (position) {
-            case 0:
-                tab1 = new LoginFragment();
-                return tab1;
-
-            case 1:
-                tab2 = new USerFragment();
-                return tab2;
-
+            case LOGIN_TAB_POSITION:
+                return new LoginFragment();
+            case REGISTER_TAB_POSITION:
+                return new UserFragment();
             default:
                 return null;
         }
@@ -42,7 +36,7 @@ public class UserPagerAdapter extends FragmentStatePagerAdapter {
 
     @Override
     public int getCount() {
-        return mNumOfTabs;
+        return PAGE_NUMBER;
     }
 
 }
