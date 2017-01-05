@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <TextView
+            android:layout_margin="10dp"
+            android:textAlignment="center"
+            android:textSize="27dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Add thali"/>
+
+        <ImageView
+            android:visibility="gone"
+            android:layout_margin="20dp"
+            android:layout_width="match_parent"
+            android:layout_height="120dp"
+            android:src="@drawable/add"
+            android:background="@color/blue"
+            android:id="@+id/picture"/>
+
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <Switch
+                android:layout_margin="20dp"
+                android:id="@+id/limited"
+                android:layout_width="180dp"
+                android:layout_height="wrap_content"
+                android:text="Limited"
+                />
+
+            <EditText
+                android:textSize="13dp"
+                android:id="@+id/taget"
+                android:background="@drawable/edit_text_alert"
+                android:padding="10dp"
+                android:layout_margin="20dp"
+                android:hint="Target"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"/>
+
+            <EditText
+                android:textSize="13dp"
+                android:id="@+id/price"
+                android:inputType="numberDecimal"
+                android:background="@drawable/edit_text_alert"
+                android:padding="10dp"
+                android:layout_margin="20dp"
+                android:hint="Price"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"/>
+
+            <EditText
+                android:textSize="13dp"
+                android:id="@+id/venue"
+                android:background="@drawable/edit_text_alert"
+                android:padding="10dp"
+                android:layout_margin="20dp"
+                android:hint="Venue"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"/>
+
+            <LinearLayout
+                android:layout_margin="20dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <CheckBox
+                    android:layout_weight="1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/south"
+                    android:text="South"/>
+
+                <CheckBox
+                    android:layout_weight="1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/east"
+                    android:text="East"/>
+
+                <CheckBox
+                    android:layout_weight="1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/west"
+                    android:text="West"/>
+
+                <CheckBox
+                    android:layout_weight="1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/north"
+                    android:text="North"/>
+
+            </LinearLayout>
+
+            <Button
+                android:id="@+id/btsend"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/blue"
+                android:text="Add thali"
+                android:textColor="@color/white"
+                android:textAllCaps="true"
+                android:layout_margin="20dp"/>
+        </LinearLayout>
+    </LinearLayout>
+</ScrollView>
