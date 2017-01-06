@@ -4,6 +4,9 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import android.support.annotation.Nullable;
 
+import com.annimon.stream.Optional;
+
+
 public class AppPreferences {
     private static final String FILE_NAME = "app_preferences";
 
@@ -16,8 +19,8 @@ public class AppPreferences {
     }
 
     @Nullable
-    public String getToken() {
-        return preferences.getString(PREF_TOKEN, null);
+    public Optional<String> getToken() {
+        return Optional.ofNullable(preferences.getString(PREF_TOKEN, null));
     }
 
     public void setToken(@Nullable String token) {

@@ -7,8 +7,11 @@ import android.support.annotation.Nullable;
 import com.biz.stratadigm.tpi.manager.AppSchedulers;
 import com.biz.stratadigm.tpi.ui.view.BaseView;
 
+import java.io.IOException;
+
 import nucleus.presenter.RxPresenter;
 import nucleus.presenter.delivery.Delivery;
+import retrofit2.adapter.rxjava.HttpException;
 import rx.Observable;
 import rx.Subscriber;
 
@@ -82,6 +85,18 @@ public abstract class BasePresenter<V extends BaseView> extends RxPresenter<V> {
         @Override
         public void onError(Throwable e) {
             e.printStackTrace();
+        }
+
+        @Override
+        public void onCompleted() {
+        }
+
+        protected static boolean isNetworkError(Throwable e) {
+            return (e instanceof IOException);
+        }
+
+        protected static boolean isHttpErrorWithCode(Throwable e, int code) {
+            return (e instanceof HttpException) && (((HttpException) e).code() == code);
         }
     }
 }

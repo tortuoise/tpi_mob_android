@@ -35,6 +35,11 @@ public class MainActivity extends AppCompatActivity {
     public static double longitude;
     public static double latitude;
 
+    public static Intent getStartIntent(Context context) {
+        Intent intent = new Intent(context, MainActivity.class);
+        return intent;
+    }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
