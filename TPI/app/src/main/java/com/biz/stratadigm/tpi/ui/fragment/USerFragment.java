@@ -9,6 +9,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.Toast;
 
 import com.android.volley.Request;
@@ -19,9 +20,8 @@ import com.android.volley.error.VolleyError;
 import com.android.volley.request.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
 import com.biz.stratadigm.tpi.R;
-import com.biz.stratadigm.tpi.ui.activity.MainActivity;
-import android.widget.EditText;
 import com.biz.stratadigm.tpi.tools.Constant;
+import com.biz.stratadigm.tpi.ui.activity.MainActivity;
 
 import org.json.JSONObject;
 
@@ -41,7 +41,7 @@ public class USerFragment extends Fragment {
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.user_fragment_layout, container, false);
+        View view = inflater.inflate(R.layout.fragment_registration, container, false);
         mEtEmail = (EditText) view.findViewById(R.id.editTextEmail);
         mEtPass = (EditText) view.findViewById(R.id.editTextPass);
         mEtPass.setTransformationMethod(PasswordTransformationMethod.getInstance());

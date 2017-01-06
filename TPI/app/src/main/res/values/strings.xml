@@ -5,4 +5,5 @@
     <string name="alert_dialog_login_password">Name</string>
     <string name="no_internet_connection_error">No internet connection</string>
     <string name="unexpected_error">Unknown error.</string>
+    <string name="registration_failed_error">Registration failed.</string>
 </resources>

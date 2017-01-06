@@ -2,6 +2,7 @@ package com.biz.stratadigm.tpi.manager;
 
 import com.biz.stratadigm.tpi.entity.dto.LoginDTO;
 import com.biz.stratadigm.tpi.entity.dto.LoginResponseDTO;
+import com.biz.stratadigm.tpi.entity.dto.RegisterDTO;
 
 import retrofit2.http.Body;
 import retrofit2.http.GET;
@@ -19,4 +20,7 @@ public interface ApiInterface {
 
     @GET("/hello")
     Observable<Void> checkToken();
+
+    @POST("/create/user")
+    Observable<Void> registerUser(@Body RegisterDTO registerDTO);
 }

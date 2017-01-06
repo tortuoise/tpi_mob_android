@@ -11,13 +11,12 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import com.biz.stratadigm.tpi.App;
-import com.biz.stratadigm.tpi.BuildConfig;
 import com.biz.stratadigm.tpi.R;
-import com.biz.stratadigm.tpi.di.component.DaggerLoginComponent;
-import com.biz.stratadigm.tpi.di.module.LoginModule;
-import com.biz.stratadigm.tpi.presenter.LoginPresenter;
+import com.biz.stratadigm.tpi.di.component.DaggerRegistrationComponent;
+import com.biz.stratadigm.tpi.di.module.RegistrationModule;
+import com.biz.stratadigm.tpi.presenter.RegistrationPresenter;
 import com.biz.stratadigm.tpi.ui.activity.MainActivity;
-import com.biz.stratadigm.tpi.ui.view.LoginView;
+import com.biz.stratadigm.tpi.ui.view.RegistrationView;
 
 import javax.inject.Inject;
 
@@ -27,27 +26,30 @@ import butterknife.OnClick;
 import nucleus.factory.PresenterFactory;
 
 /**
- * Created by tamara on 12/22/16.
+ * Created by tamara on 12/11/16.
  */
 
-public class LoginFragment extends BaseFragment<LoginPresenter> implements LoginView {
+public class RegistrationFragment extends BaseFragment<RegistrationPresenter> implements RegistrationView {
 
     @BindView(R.id.editTextEmail)
     EditText emailEditText;
+
+    @BindView(R.id.editTextName)
+    EditText nameEditText;
 
     @BindView(R.id.editTextPass)
     EditText passwordEditText;
 
     @BindView(R.id.buttonLogin)
-    Button mConfirm;
+    Button registerButton;
 
     @Inject
-    LoginPresenter loginPresenter;
+    RegistrationPresenter registrationPresenter;
 
     {
-        DaggerLoginComponent.builder()
+        DaggerRegistrationComponent.builder()
                 .appComponent(App.getAppComponent())
-                .loginModule(new LoginModule())
+                .registrationModule(new RegistrationModule())
                 .build()
                 .inject(this);
     }
@@ -55,38 +57,28 @@ public class LoginFragment extends BaseFragment<LoginPresenter> implements Login
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.fragment_login, container, false);
+        return inflater.inflate(R.layout.fragment_registration, container, false);
     }
 
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         ButterKnife.bind(this, view);
-        if (savedInstanceState == null) {
-            setUpDefaultFields();
-        }
         super.onViewCreated(view, savedInstanceState);
     }
 
-    private void setUpDefaultFields() {
-        if (BuildConfig.DEBUG) {
-            emailEditText.setText("fateslav@gmail.com");
-            passwordEditText.setText("test123");
-        }
+    @OnClick(R.id.buttonLogin)
+    void onRegisterButtonClicked() {
+        getPresenter().onRegisterButtonClicked();
     }
 
     @Override
-    public PresenterFactory<LoginPresenter> getPresenterFactory() {
-        return () -> loginPresenter;
-    }
-
-    @OnClick(R.id.buttonLogin)
-    void onLoginButtonClicked() {
-        getPresenter().onLoginButtonClicked();
+    public String getEmail() {
+        return emailEditText.getText().toString();
     }
 
     @Override
     public String getUsername() {
-        return emailEditText.getText().toString();
+        return nameEditText.getText().toString();
     }
 
     @Override
@@ -95,8 +87,8 @@ public class LoginFragment extends BaseFragment<LoginPresenter> implements Login
     }
 
     @Override
-    public void showAuthError() {
-        Toast.makeText(getApplicationContext(), "Invalid login or password", Toast.LENGTH_SHORT).show();
+    public void showRegistrationError() {
+        Toast.makeText(getApplicationContext(), R.string.registration_failed_error, Toast.LENGTH_SHORT).show();
     }
 
     @Override
@@ -104,5 +96,10 @@ public class LoginFragment extends BaseFragment<LoginPresenter> implements Login
         Intent intent = MainActivity.getStartIntent(getActivity());
         startActivity(intent);
         getActivity().finish();
+    }
+
+    @Override
+    public PresenterFactory<RegistrationPresenter> getPresenterFactory() {
+        return () -> registrationPresenter;
     }
 }

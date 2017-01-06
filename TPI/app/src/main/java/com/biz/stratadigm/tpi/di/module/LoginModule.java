@@ -5,6 +5,7 @@ import android.content.Context;
 import com.biz.stratadigm.tpi.di.scope.PerActivity;
 import com.biz.stratadigm.tpi.interactor.LoginInteractor;
 import com.biz.stratadigm.tpi.manager.ApiInterface;
+import com.biz.stratadigm.tpi.manager.AppPreferences;
 import com.biz.stratadigm.tpi.manager.AppSchedulers;
 import com.biz.stratadigm.tpi.presenter.LoginPresenter;
 
@@ -22,7 +23,7 @@ public class LoginModule {
 
     @PerActivity
     @Provides
-    LoginInteractor provideLoginInteractor(ApiInterface apiInterface) {
-        return new LoginInteractor(apiInterface);
+    LoginInteractor provideLoginInteractor(ApiInterface apiInterface, AppPreferences appPreferences) {
+        return new LoginInteractor(apiInterface, appPreferences);
     }
 }

@@ -5,7 +5,7 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
 
 import com.biz.stratadigm.tpi.ui.fragment.LoginFragment;
-import com.biz.stratadigm.tpi.ui.fragment.UserFragment;
+import com.biz.stratadigm.tpi.ui.fragment.RegistrationFragment;
 
 
 /**
@@ -28,7 +28,7 @@ public class UserPagerAdapter extends FragmentStatePagerAdapter {
             case LOGIN_TAB_POSITION:
                 return new LoginFragment();
             case REGISTER_TAB_POSITION:
-                return new UserFragment();
+                return new RegistrationFragment();
             default:
                 return null;
         }
