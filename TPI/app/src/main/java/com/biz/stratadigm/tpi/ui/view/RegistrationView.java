@@ -14,4 +14,6 @@ public interface RegistrationView extends BaseView {
     void showRegistrationError();
 
     void showMainScreen();
+
+    void showAutologinError();
 }

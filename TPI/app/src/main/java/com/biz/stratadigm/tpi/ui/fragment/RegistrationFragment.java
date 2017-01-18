@@ -99,6 +99,14 @@ public class RegistrationFragment extends BaseFragment<RegistrationPresenter> im
     }
 
     @Override
+    public void showAutologinError() {
+        Toast.makeText(getApplicationContext(),
+                R.string.autologin_failed_on_registration_error,
+                Toast.LENGTH_SHORT)
+                .show();
+    }
+
+    @Override
     public PresenterFactory<RegistrationPresenter> getPresenterFactory() {
         return () -> registrationPresenter;
     }

@@ -6,4 +6,5 @@
     <string name="no_internet_connection_error">No internet connection</string>
     <string name="unexpected_error">Unknown error.</string>
     <string name="registration_failed_error">Registration failed.</string>
+    <string name="autologin_failed_on_registration_error">Registration completed but autologin failed.</string>
 </resources>

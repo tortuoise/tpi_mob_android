@@ -29,7 +29,7 @@ public class MainActivity extends AppCompatActivity {
 
     private TabLayout mTabLayout;
     private JobPagerAdapter mPagerAdapter;
-    public static ViewPager mViewPagerJob;
+    private ViewPager mViewPagerJob;
     private Button mBtnOut;
 
     public static double longitude;
