@@ -6,7 +6,7 @@ android {
     compileSdkVersion 25
     buildToolsVersion "25.0.1"
     defaultConfig {
-        applicationId "com.example.tamara.test"
+        applicationId "biz.stratadigm.tpi"
         minSdkVersion 16
         targetSdkVersion 21
         useLibrary 'org.apache.http.legacy'
@@ -14,7 +14,7 @@ android {
         versionName "1.0"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
 
-        buildConfigField "String", "BASE_URL", "\"https://2.thalipriceindex.appspot.com\""
+        buildConfigField "String", "BASE_URL", "\"http://2.thalipriceindex.appspot.com\""
     }
     buildTypes {
         release {
