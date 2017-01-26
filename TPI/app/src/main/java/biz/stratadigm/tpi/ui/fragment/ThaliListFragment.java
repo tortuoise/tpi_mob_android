@@ -2,122 +2,71 @@ package biz.stratadigm.tpi.ui.fragment;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.TextView;
 
-import com.android.volley.Request;
-import com.android.volley.RequestQueue;
-import com.android.volley.Response;
-import com.android.volley.error.VolleyError;
-import com.android.volley.request.StringRequest;
-import com.android.volley.toolbox.Volley;
+import java.util.List;
 
-import org.json.JSONArray;
-import org.json.JSONException;
-
-import java.util.ArrayList;
+import javax.inject.Inject;
 
 import biz.stratadigm.tpi.R;
-import biz.stratadigm.tpi.entity.dto.ThaliDTO;
-import biz.stratadigm.tpi.tools.Constant;
+import biz.stratadigm.tpi.entity.vo.ThaliVO;
+import biz.stratadigm.tpi.presenter.ThaliListPresenter;
 import biz.stratadigm.tpi.ui.adapter.ThaliAdapter;
+import biz.stratadigm.tpi.ui.view.ThaliListView;
+import butterknife.BindView;
+import butterknife.ButterKnife;
+import nucleus.factory.PresenterFactory;
 
-/**
- * Created by tamara on 12/15/16.
- * Class represent list of thali
- */
+public class ThaliListFragment extends BaseFragment<ThaliListPresenter> implements ThaliListView {
 
-public class ThaliListFragment extends Fragment {
-    private RecyclerView mList;
-    private RecyclerView.LayoutManager mLayoutMAnager;
-    private ArrayList<ThaliDTO> mListThali;
-    private ThaliAdapter mVenueAdapter;
-    private int offset = 0;
-    private TextView less, more;
+    @BindView(R.id.thalis)
+    RecyclerView thaliRecyclerView;
+
+    @Inject
+    ThaliListPresenter thaliListPresenter;
+
+    private ThaliAdapter thaliAdapter;
+
+    public static ThaliListFragment newInstance() {
+        return new ThaliListFragment();
+    }
 
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.thali_list_fragment, container, false);
-        mListThali = new ArrayList<>();
-        mList = (RecyclerView) view.findViewById(R.id.thaliList);
-        mVenueAdapter = new ThaliAdapter(mListThali, getActivity());
-        mLayoutMAnager = new LinearLayoutManager(getActivity().getApplicationContext(), LinearLayoutManager.VERTICAL, false);
-        mList.setLayoutManager(mLayoutMAnager);
-        mList.setAdapter(mVenueAdapter);
-        getThaliList();
-        more = (TextView) view.findViewById(R.id.more);
-        more.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                offset = offset + 20;
-                mListThali.clear();
-                getThaliList();
-                mVenueAdapter.notifyDataSetChanged();
-            }
-        });
-        less = (TextView) view.findViewById(R.id.less);
-        less.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                if (offset >= 20) {
-                    offset = offset - 20;
-                    mListThali.clear();
-                    getThaliList();
-                    mVenueAdapter.notifyDataSetChanged();
-                }
-            }
-        });
-        return view;
+        return inflater.inflate(R.layout.fragment_thali_list, container, false);
     }
 
-    private void getThaliList() {
-
-        final StringRequest stringRequest = new StringRequest(Request.Method.GET, Constant.THALISLIST,
-                new Response.Listener<String>() {
-                    @Override
-                    public void onResponse(String response) {
-                        try {
-                            JSONArray response1 = new JSONArray(response);
-                            for (int i = 0; i < response1.length(); i++) {
-                                String id = response1.getJSONObject(i).getString("id");
-                                String name = response1.getJSONObject(i).getString("name");
-                                String submitted = response1.getJSONObject(i).getString("submitted");
-                                String limited = response1.getJSONObject(i).getString("limited");
-                                String region = response1.getJSONObject(i).getString("region");
-                                String price = response1.getJSONObject(i).getString("price");
-                                String image = response1.getJSONObject(i).getString("image");
-                                String userid = response1.getJSONObject(i).getString("userid");
-                                String venue = response1.getJSONObject(i).getString("venue");
-                                String verified = response1.getJSONObject(i).getString("verified");
-                                String accepted = response1.getJSONObject(i).getString("accepted");
-                                String target = response1.getJSONObject(i).getString("target");
-
-
-                                ThaliDTO thali = new ThaliDTO(id, name, submitted, target, limited, region, price,
-                                        image, userid, venue, verified, accepted);
-                                mListThali.add(thali);
-                                mVenueAdapter.notifyDataSetChanged();
-                            }
-                        } catch (JSONException e) {
-                            e.printStackTrace();
-                        }
-                    }
-                }, new Response.ErrorListener() {
-            @Override
-            public void onErrorResponse(VolleyError error) {
-                Log.e("tamara", "That didn't work!");
-            }
-        });
-        // Add the request to the RequestQueue.
-        RequestQueue requestQueue = Volley.newRequestQueue(getActivity().getApplicationContext());
-        requestQueue.add(stringRequest);//post request on queue
+    @Override
+    public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
+        ButterKnife.bind(this, view);
+        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(view.getContext());
+        thaliAdapter = new ThaliAdapter();
+        thaliRecyclerView.setLayoutManager(linearLayoutManager);
+        super.onViewCreated(view, savedInstanceState);
     }
 
+    @Override
+    public PresenterFactory getPresenterFactory() {
+        return () -> thaliListPresenter;
+    }
+
+    @Override
+    public void showSplashLoader(boolean show) {
+        thaliAdapter.showSplashLoader(true);
+    }
+
+    @Override
+    public void setThalis(List<ThaliVO> newThalis) {
+        thaliAdapter.setThalis(newThalis);
+    }
+
+    @Override
+    public void addThalis(List<ThaliVO> newThalis) {
+        thaliAdapter.addThalis(newThalis);
+    }
 }

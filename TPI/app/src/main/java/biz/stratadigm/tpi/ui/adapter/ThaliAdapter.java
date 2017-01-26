@@ -1,116 +1,85 @@
 package biz.stratadigm.tpi.ui.adapter;
 
-import android.content.Context;
-import android.content.SharedPreferences;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
-import android.view.LayoutInflater;
-import android.view.View;
 import android.view.ViewGroup;
-import android.widget.LinearLayout;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import biz.stratadigm.tpi.R;
-import biz.stratadigm.tpi.entity.dto.ThaliDTO;
-import biz.stratadigm.tpi.tools.Constant;
-import biz.stratadigm.tpi.ui.activity.MainActivity;
-import biz.stratadigm.tpi.ui.fragment.AddPhotoFragment;
+import biz.stratadigm.tpi.entity.vo.ThaliVO;
+import biz.stratadigm.tpi.ui.adapter.viewholder.BaseViewHolder;
+import biz.stratadigm.tpi.ui.adapter.viewholder.SplashProgressViewHolder;
+import butterknife.BindView;
 
-/**
- * Created by tamara on 12/19/16.
- */
+public class ThaliAdapter extends RecyclerView.Adapter<BaseViewHolder> {
+    private static final int THALI_VIEW_TYPE = 0;
+    private static final int SPLASH_VIEW_TYPE = 1;
+    // TODO: 1/21/17 create empty view holder
 
-public class ThaliAdapter extends RecyclerView.Adapter<ThaliAdapter.Holder> {
-    private ArrayList<ThaliDTO> mDataset = new ArrayList<>();
-    private Context mContext;
-    private SharedPreferences sharedPreferences;
+    private List<ThaliVO> thalis = new ArrayList<>();
+    private boolean isSplashShown = false;
 
+    @Override
+    public BaseViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+        switch (viewType) {
+            case THALI_VIEW_TYPE:
+                return new ThaliViewHolder(parent);
+            case SPLASH_VIEW_TYPE:
+                return new SplashProgressViewHolder(parent);
+        }
+        throw new IllegalStateException("Unknown viewType=" + viewType);
+    }
 
-    public class Holder extends RecyclerView.ViewHolder {
-        public TextView id, name, target, limited, region, price, image, userid, venue, verified, accepted, submitted;
-        public LinearLayout root;
-
-        public Holder(View view) {
-            super(view);
-
-            id = (TextView) view.findViewById(R.id.id);
-            id.setVisibility(View.GONE);
-            name = (TextView) view.findViewById(R.id.name);
-            submitted = (TextView) view.findViewById(R.id.submitted);
-            submitted.setVisibility(View.GONE);
-            target = (TextView) view.findViewById(R.id.target);
-            limited = (TextView) view.findViewById(R.id.limited);
-            region = (TextView) view.findViewById(R.id.region);
-            price = (TextView) view.findViewById(R.id.price);
-            userid = (TextView) view.findViewById(R.id.userid);
-            venue = (TextView) view.findViewById(R.id.venue);
-            verified = (TextView) view.findViewById(R.id.verified);
-            accepted = (TextView) view.findViewById(R.id.accepeted);
-            root = (LinearLayout) view.findViewById(R.id.root);
+    @Override
+    public void onBindViewHolder(BaseViewHolder holder, int position) {
+        if (holder instanceof ThaliViewHolder) {
+            ((ThaliViewHolder) holder).bind(thalis.get(position));
         }
     }
 
-
-    public ThaliAdapter(ArrayList<ThaliDTO> myDataset, Context context) {
-        mDataset = myDataset;
-        mContext = context;
-        sharedPreferences = mContext.getSharedPreferences(Constant.TAG, Context.MODE_PRIVATE);
-    }
-
-    // Create new views (invoked by the layout manager)
-    @Override
-    public ThaliAdapter.Holder onCreateViewHolder(ViewGroup parent,
-                                                  int viewType) {
-        // create a new view
-        View v = LayoutInflater.from(parent.getContext())
-                .inflate(R.layout.thali_item, parent, false);
-
-        ThaliAdapter.Holder vh = new ThaliAdapter.Holder(v);
-        return vh;
-    }
-
-    // Replace the contents of a view (invoked by the layout manager)
-    @Override
-    public void onBindViewHolder(final ThaliAdapter.Holder holder, final int position) {
-        // animate(holder);
-        final ThaliDTO thali = mDataset.get(position);
-        holder.id.setText("ID: " + thali.id);
-        holder.name.setText("Name: " + thali.name);
-        Log.e("name", thali.name);
-        holder.submitted.setText("Submitted: " + thali.submitted);
-        Log.e("name", thali.submitted);
-        holder.accepted.setText("Accepted: " + thali.accepted);
-        holder.verified.setText("Verified: " + thali.verified);
-        holder.venue.setText("Venue: " + thali.venue);
-        holder.userid.setText("UserID: " + thali.userid);
-        holder.limited.setText("Limited: " + thali.limited);
-        holder.price.setText("Price: " + thali.price);
-        holder.region.setText("Region: " + thali.region);
-        holder.target.setText("Target: " + thali.target);
-
-        holder.root.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                SharedPreferences.Editor editor = sharedPreferences.edit();
-                editor.putString("thali", thali.id);
-                AddPhotoFragment.id = thali.id;
-                editor.apply();
-                MainActivity.mViewPagerJob.setCurrentItem(4);
-            }
-        });
-
-
-    }
-
-    // Return the size of your dataset (invoked by the layout manager)
     @Override
     public int getItemCount() {
+        if (isSplashShown) {
+            return 1;
+        }
+        return thalis.size();
+    }
 
-        return mDataset.size();
+    public void addThalis(List<ThaliVO> newThalis) {
+        this.thalis.addAll(newThalis);
+    }
+
+    public void setThalis(List<ThaliVO> newThalis) {
+        this.thalis = new ArrayList<>(newThalis);
+        notifyDataSetChanged();
+    }
+
+    public void showSplashLoader(boolean show) {
+        isSplashShown = show;
+        notifyDataSetChanged();
+    }
+
+    class ThaliViewHolder extends BaseViewHolder {
+        @BindView(R.id.photo)
+        ImageView photoImageView;
+
+        @BindView(R.id.name)
+        TextView nameTextView;
+
+        @BindView(R.id.region)
+        TextView regionTextView;
+
+
+        public ThaliViewHolder(ViewGroup parent) {
+            super(parent, R.layout.item_thali);
+        }
+
+        public void bind(ThaliVO thali) {
+            nameTextView.setText(thali.getName());
+            regionTextView.setText(thali.getRegion());
+        }
     }
 }
-
-
-

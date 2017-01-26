@@ -45,7 +45,7 @@ public class VenueListTahli extends AppCompatActivity {
 
         mListThali = new ArrayList<>();
         mList = (RecyclerView) findViewById(R.id.venueList);
-        mVenueAdapter = new ThaliAdapter(mListThali, this);
+//        mVenueAdapter = new ThaliAdapter(mListThali, this);
         mLayoutManager = new LinearLayoutManager(getApplicationContext(), LinearLayoutManager.VERTICAL, false);
         mList.setLayoutManager(mLayoutManager);
         mList.setAdapter(mVenueAdapter);
