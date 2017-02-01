@@ -61,7 +61,7 @@ public class ThaliFragment extends Fragment {
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.thail_framgent, container, false);
+        View view = inflater.inflate(R.layout.thali_fragment, container, false);
 
         // Init components and listneres
         sharedPreferences = getActivity().getSharedPreferences(Constant.TAG, Context.MODE_PRIVATE);

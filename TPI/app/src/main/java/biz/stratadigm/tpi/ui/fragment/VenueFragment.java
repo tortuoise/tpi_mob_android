@@ -42,6 +42,7 @@ import biz.stratadigm.tpi.ui.activity.MainActivity;
  */
 
 public class VenueFragment extends Fragment {
+    private static final String TAG = "TPI";
     private EditText mEtName;
     private TextView mPossiton;
     private Button mSend;
@@ -50,7 +51,7 @@ public class VenueFragment extends Fragment {
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.venue_framgent, container, false);
+        View view = inflater.inflate(R.layout.venue_fragment, container, false);
 
         mEtName = (EditText) view.findViewById(R.id.editTextName);
         mSend = (Button) view.findViewById(R.id.buttonSend);
@@ -89,7 +90,7 @@ public class VenueFragment extends Fragment {
                     public void onResponse(JSONObject response) {
                         try {
                             JSONObject o = new JSONObject(String.valueOf(response));
-                            Log.e("tamara", response.toString());
+                            Log.v(TAG, response.toString());
                             Toast.makeText(getActivity().getApplicationContext(), response.toString(), Toast.LENGTH_SHORT).show();
                         } catch (JSONException e) {
                             e.printStackTrace();
@@ -102,20 +103,20 @@ public class VenueFragment extends Fragment {
                         NetworkResponse networkResponse = error.networkResponse;
                         // inspect type of error
                         if (networkResponse != null) {
-                            Log.e("Volley", "Error. HTTP Status Code:" + networkResponse.statusCode);
+                            Log.e(TAG, "Error. HTTP Status Code:" + networkResponse.statusCode);
                         }
                         if (error instanceof TimeoutError) {
-                            Log.e("Volley", "TimeoutError");
+                            Log.e(TAG, "TimeoutError");
                         } else if (error instanceof NoConnectionError) {
-                            Log.e("Volley", "NoConnectionError");
+                            Log.e(TAG, "NoConnectionError");
                         } else if (error instanceof AuthFailureError) {
-                            Log.e("Volley", "AuthFailureError");
+                            Log.e(TAG, "AuthFailureError");
                         } else if (error instanceof ServerError) {
-                            Log.e("Volley", "ServerError");
+                            Log.e(TAG, "ServerError");
                         } else if (error instanceof NetworkError) {
-                            Log.e("Volley", "NetworkError");
+                            Log.e(TAG, "NetworkError");
                         } else if (error instanceof ParseError) {
-                            Log.e("Volley", "ParseError");
+                            Log.e(TAG, "ParseError");
                         }
                         Toast.makeText(getActivity().getApplicationContext(), "error " + error.getLocalizedMessage(), Toast.LENGTH_SHORT).show();
                     }
