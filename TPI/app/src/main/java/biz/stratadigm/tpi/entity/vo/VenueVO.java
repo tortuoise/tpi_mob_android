@@ -1,26 +1,16 @@
 package biz.stratadigm.tpi.entity.vo;
 
 public class VenueVO {
-    private Long id;
     private String name;
     private Integer thalis;
-    private Loc loc;
+    private Location location;
 
-    public VenueVO(Long id, String name, Integer thalis, Float lat, Float lng) {
-        this.id = id;
+    public VenueVO(String name, Integer thalis, Float lat, Float lng) {
         this.name = name;
         this.thalis = thalis;
-        this.loc = new VenueVO.Loc();
-        this.loc.setLat(lat);
-        this.loc.setLng (lng);
-    }
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
+        this.location = new VenueVO.Location();
+        this.location.setLat(lat);
+        this.location.setLng (lng);
     }
 
     public String getName() {
@@ -39,15 +29,15 @@ public class VenueVO {
         this.thalis = thalis;
     }
 
-    public Loc getLoc() {
-        return loc;
+    public Location getLocation() {
+        return location;
     }
  
-    public void setLoc(Loc loc) {
-        this.loc = loc;
+    public void setLocation(Location location) {
+        this.location = location;
     }
 
-    public static class Loc {
+    public static class Location {
         private Float lat;
 
         private Float lng;

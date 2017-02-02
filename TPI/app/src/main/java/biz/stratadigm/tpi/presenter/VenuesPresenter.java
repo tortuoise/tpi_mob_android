@@ -11,6 +11,7 @@ import biz.stratadigm.tpi.manager.AppSchedulers;
 import biz.stratadigm.tpi.ui.view.VenuesView;
 import biz.stratadigm.tpi.entity.dto.VenueDTO;
 import biz.stratadigm.tpi.entity.vo.VenueVO;
+import biz.stratadigm.tpi.entity.converter.VenueConverter;
 
 public class VenuesPresenter extends BasePresenter<VenuesView> {
     
@@ -38,16 +39,7 @@ public class VenuesPresenter extends BasePresenter<VenuesView> {
 
         @Override
         public void onNext(ArrayList<VenueDTO> venues) {
-            Log.v(TAG, "VenueSubscriber.onNext");
-            ArrayList<VenueVO> vvenues = new ArrayList();
-            Log.v(TAG, ""+venues.size());
-            for (VenueDTO v : venues) {
-                //VenueVO vv = new VenueVO(v.getId(), v.getName(), 0, v.getLoc().getLat(), v.getLoc().getLng());
-                VenueVO vv = new VenueVO(v.getId(), v.getName(), 0, 0f, 0f);
-                vvenues.add(vv);
-            }
-            getView().showVenues(vvenues);
-            Log.v(TAG, ""+vvenues.size());
+            getView().showVenues(VenueConverter.toVenueVOs(venues));
         }
 
         @Override

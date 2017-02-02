@@ -93,8 +93,8 @@ public class VenueAdapter extends RecyclerView.Adapter<BaseViewHolder> {
                 Log.v(TAG, venue.getName());
                 holder.submitted.setText("Submitted: " + venue.getSubmitted());
                 Log.v(TAG, venue.getSubmitted());
-                holder.lat.setText("Lat: " + Float.toString(venue.getLoc().getLat()));
-                holder.lng.setText("Lng: " + Float.toString(venue.getLoc().getLng()));
+                holder.lat.setText("Lat: " + Float.toString(venue.getLocation().getLat()));
+                holder.lng.setText("Lng: " + Float.toString(venue.getLocation().getLng()));
                 holder.thalis.setText("Thalis: " + venue.getThalis());
 
                 holder.mRoot.setOnClickListener(new View.OnClickListener() {
@@ -159,8 +159,8 @@ public class VenueAdapter extends RecyclerView.Adapter<BaseViewHolder> {
                  Log.v(TAG, "ViewHolder " + e.toString());
                 
             }
-            //latTextView.setText(venue.getLoc().getLat().toString());
-            //lngTextView.setText(venue.getLoc().getLng().toString());
+            //latTextView.setText(venue.getLocation().getLat().toString());
+            //lngTextView.setText(venue.getLocation().getLng().toString());
         }
     }
 }

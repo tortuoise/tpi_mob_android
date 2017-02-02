@@ -16,7 +16,7 @@ public class VenueDTO {
     private String submitted;
 
     @SerializedName("loc")
-    private Loc loc;
+    private Location location;
 
     @SerializedName("thalis")
     private ArrayList<Long> thalis;
@@ -31,9 +31,9 @@ public class VenueDTO {
         this.submitted = submitted;
         //this.lat = lat;
         //this.lng = lng;
-        this.loc = new VenueDTO.Loc();
-        this.loc.setLat(lat);
-        this.loc.setLng (lng);
+        this.location = new VenueDTO.Location();
+        this.location.setLat(lat);
+        this.location.setLng (lng);
         this.thalis = thalis;
     }
 
@@ -61,12 +61,12 @@ public class VenueDTO {
         this.submitted = submitted;
     }
 
-    public Loc getLoc() {
-        return loc;
+    public Location getLocation() {
+        return location;
     }
 
-    public void setLoc(Loc loc) {
-        this.loc = loc;
+    public void setLocation(Location location) {
+        this.location = location;
     }
 
     public ArrayList<Long> getThalis() {
@@ -77,7 +77,7 @@ public class VenueDTO {
         this.thalis = thalis;
     }
 
-    public static class Loc {
+    public static class Location {
         @SerializedName("lat")
         private Float lat;
 
