@@ -15,7 +15,7 @@ public class VenueDTO {
     @SerializedName("submitted")
     private String submitted;
 
-    @SerializedName("loc")
+    @SerializedName("location")
     private Location location;
 
     @SerializedName("thalis")
@@ -78,10 +78,10 @@ public class VenueDTO {
     }
 
     public static class Location {
-        @SerializedName("lat")
+        @SerializedName("Lat")
         private Float lat;
 
-        @SerializedName("lng")
+        @SerializedName("Lng")
         private Float lng;
   
         public Float getLat() {

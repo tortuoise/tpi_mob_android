@@ -23,6 +23,7 @@ import biz.stratadigm.tpi.ui.activity.VenueListThali;
 import biz.stratadigm.tpi.ui.adapter.viewholder.BaseViewHolder;
 import biz.stratadigm.tpi.ui.fragment.ThaliFragment;
 import butterknife.BindView;
+import butterknife.ButterKnife;
 
 public class VenueAdapter extends RecyclerView.Adapter<BaseViewHolder> {
     private static final String TAG = "TPI";
@@ -149,18 +150,19 @@ public class VenueAdapter extends RecyclerView.Adapter<BaseViewHolder> {
 
         public VenueViewHolder(ViewGroup parent) {
             super(parent, R.layout.venue_item);
+            ButterKnife.bind(this, itemView);
         }
 
         public void bind(VenueVO venue) {
             Log.v(TAG, "ViewHolder " + venue.getName());
             try {
                  nameTextView.setText(venue.getName());
+                 latTextView.setText(venue.getLocation().getLat().toString());
+                 lngTextView.setText(venue.getLocation().getLng().toString());
             } catch (Exception e) {
                  Log.v(TAG, "ViewHolder " + e.toString());
                 
             }
-            //latTextView.setText(venue.getLocation().getLat().toString());
-            //lngTextView.setText(venue.getLocation().getLng().toString());
         }
     }
 }

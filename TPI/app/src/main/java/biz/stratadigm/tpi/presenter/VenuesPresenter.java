@@ -29,7 +29,6 @@ public class VenuesPresenter extends BasePresenter<VenuesView> {
     @Override
     protected void onCreate(Bundle savedState) {
         super.onCreate(savedState);
-        Log.v(TAG, "VenuesPresenter: onCreate");
 
         executeRequest(venuesInteractor.getVenues(0), new VenuesSubscriber());
 
