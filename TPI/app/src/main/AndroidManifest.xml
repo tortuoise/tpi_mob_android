@@ -25,6 +25,6 @@
         <activity
             android:name="biz.stratadigm.tpi.ui.activity.MainActivity"/>
         <activity
-            android:name="biz.stratadigm.tpi.ui.activity.VenueListTahli"/>
+            android:name="biz.stratadigm.tpi.ui.activity.VenueListThali"/>
     </application>
 </manifest>

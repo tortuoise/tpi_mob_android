@@ -29,7 +29,8 @@ import biz.stratadigm.tpi.ui.adapter.ThaliAdapter;
  * Created by tamara on 01/01/17.
  */
 
-public class VenueListTahli extends AppCompatActivity {
+public class VenueListThali extends AppCompatActivity {
+    private static final String TAG = "VenueListThali";
     private RecyclerView mList;
     private RecyclerView.LayoutManager mLayoutManager;
     private ArrayList<ThaliDTO> mListThali;
@@ -40,7 +41,7 @@ public class VenueListTahli extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_venue_lisst_tahli);
+        setContentView(R.layout.activity_venue_list_thali);
         positiion = getIntent().getExtras().getInt("id");
 
         mListThali = new ArrayList<>();
@@ -109,7 +110,7 @@ public class VenueListTahli extends AppCompatActivity {
                 }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
-                Log.e("tamara", "That didn't work!");
+                Log.v(TAG, "That didn't work!");
             }
         });
         // Add the request to the RequestQueue.
