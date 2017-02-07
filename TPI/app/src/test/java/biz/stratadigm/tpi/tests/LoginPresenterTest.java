@@ -1,4 +1,4 @@
-package com.biz.stratadigm.tpi.tests;
+package biz.stratadigm.tpi.tests;
 
 import org.junit.Test;
 import org.mockito.Mock;

@@ -1,4 +1,4 @@
-package com.biz.stratadigm.tpi;
+package biz.stratadigm.tpi;
 
 import org.junit.Test;
 

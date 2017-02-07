@@ -34,7 +34,10 @@ public class VenueDTO {
         this.location = new VenueDTO.Location();
         this.location.setLat(lat);
         this.location.setLng (lng);
-        this.thalis = thalis;
+        if (thalis != null) 
+            this.thalis = thalis;
+        else 
+            this.thalis = new ArrayList();
     }
 
     public Long getId() {

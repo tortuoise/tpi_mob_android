@@ -1,4 +1,4 @@
-package com.biz.stratadigm.tpi.tests;
+package biz.stratadigm.tpi.presenter;
 
 import android.content.Context;
 import android.support.annotation.CallSuper;

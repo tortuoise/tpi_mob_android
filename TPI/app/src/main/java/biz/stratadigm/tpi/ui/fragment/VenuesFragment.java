@@ -122,7 +122,6 @@ public class VenuesFragment extends BaseFragment<VenuesPresenter> implements Ven
 
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
-        Log.v(TAG, "VenuesFragment: onViewCreated");
         ButterKnife.bind(this, view);
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(view.getContext());
         mVenueAdapter = new VenueAdapter();
@@ -176,7 +175,6 @@ public class VenuesFragment extends BaseFragment<VenuesPresenter> implements Ven
 
     @Override
     public void showVenues(List<VenueVO> newVenues) {
-        Log.v(TAG, "showVenues: "+newVenues.size());
         mVenueAdapter.setVenues(newVenues);
     }
 
