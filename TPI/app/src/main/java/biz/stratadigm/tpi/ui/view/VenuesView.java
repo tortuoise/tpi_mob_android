@@ -16,4 +16,6 @@ public interface VenuesView extends BaseView {
     void addVenues(List<VenueVO> newVenues);
 
     void showAuthError();
+
+    void showStartScreen();
 }

@@ -44,19 +44,19 @@ import biz.stratadigm.tpi.ui.activity.MainActivity;
 public class VenueFragment extends Fragment {
     private static final String TAG = "TPI";
     private EditText mEtName;
-    private TextView mPossiton;
+    private TextView mPositon;
     private Button mSend;
     private HashMap<String, Float> mLocation = new HashMap<>();
 
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.venue_fragment, container, false);
+        View view = inflater.inflate(R.layout.fragment_venue, container, false);
 
         mEtName = (EditText) view.findViewById(R.id.editTextName);
         mSend = (Button) view.findViewById(R.id.buttonSend);
-        mPossiton = (TextView) view.findViewById(R.id.possition);
-        mPossiton.setText("Longitude " + MainActivity.longitude + " Latitude " + MainActivity.latitude);
+        mPositon = (TextView) view.findViewById(R.id.position);
+        mPositon.setText("Longitude " + MainActivity.longitude + " Latitude " + MainActivity.latitude);
         mLocation.put("Lat", Float.parseFloat("" + MainActivity.latitude));
         mLocation.put("Lng", Float.parseFloat("" + MainActivity.longitude));
 
@@ -76,7 +76,6 @@ public class VenueFragment extends Fragment {
      * Add new venue on server
      */
     private void sendVenue() {
-
 
         Map<String, Object> params = new HashMap<String, Object>();
         // JSONObject ob = new JSONObject(mLocation);

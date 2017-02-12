@@ -1,8 +1,12 @@
 package biz.stratadigm.tpi.ui.activity;
 
+import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.TabLayout;
 import android.support.v4.view.ViewPager;
+import android.support.v7.widget.Toolbar;
+import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 
 import biz.stratadigm.tpi.R;
@@ -25,10 +29,23 @@ public class StartActivity extends AppCompatActivity {
 
     private UserPagerAdapter userPagerAdapter;
 
+    public static Intent getStartIntent(Context context) {
+        Intent intent = new Intent(context, StartActivity.class);
+        return intent;
+    }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_start);
+
+        Toolbar myToolbar = (Toolbar) findViewById(R.id.my_toolbar);
+        setSupportActionBar(myToolbar);
+        ActionBar ab = getSupportActionBar();
+        ab.setHomeAsUpIndicator(R.drawable.ic_menu);
+        ab.setDisplayHomeAsUpEnabled(true);
+
+
         ButterKnife.bind(this);
 
         //seting up tab layout and view pager

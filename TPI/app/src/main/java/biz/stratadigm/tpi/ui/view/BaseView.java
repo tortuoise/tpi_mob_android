@@ -4,4 +4,5 @@ public interface BaseView {
     void showNetworkError();
 
     void showUnexpectedError();
+
 }

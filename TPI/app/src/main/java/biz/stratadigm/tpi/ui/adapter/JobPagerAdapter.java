@@ -28,7 +28,6 @@ public class JobPagerAdapter extends FragmentStatePagerAdapter {
     public JobPagerAdapter(FragmentManager fm, int NumOfTabs) {
         super(fm);
         this.PAGE_NUMBER = NumOfTabs;
-        Log.v(TAG, "JobPagerAdapter");
     }
 
 

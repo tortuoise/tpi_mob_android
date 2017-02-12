@@ -98,4 +98,5 @@ public abstract class BasePresenter<V extends BaseView> extends RxPresenter<V> {
             return (e instanceof HttpException) && (((HttpException) e).code() == code);
         }
     }
+
 }

@@ -11,7 +11,11 @@ import biz.stratadigm.tpi.entity.vo.ThaliVO;
 public interface ThaliListView extends BaseView {
     void showSplashLoader(boolean show);
 
+    void showThalis(List<ThaliVO> newThalis);
+
     void setThalis(List<ThaliVO> newThalis);
 
     void addThalis(List<ThaliVO> newThalis);
+
+    void showAuthError();
 }

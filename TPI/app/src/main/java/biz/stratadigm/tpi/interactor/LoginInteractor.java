@@ -5,14 +5,15 @@ import biz.stratadigm.tpi.manager.ApiInterface;
 import biz.stratadigm.tpi.manager.AppPreferences;
 import rx.Observable;
 
-public class LoginInteractor {
+public class LoginInteractor extends BaseInteractor {
 
-    private final ApiInterface apiInterface;
-    private final AppPreferences appPreferences;
+    //private final ApiInterface apiInterface;
+    //private final AppPreferences appPreferences;
 
     public LoginInteractor(ApiInterface apiInterface, AppPreferences appPreferences) {
-        this.apiInterface = apiInterface;
-        this.appPreferences = appPreferences;
+        //this.apiInterface = apiInterface;
+        //this.appPreferences = appPreferences;
+        super(apiInterface, appPreferences);
     }
 
     public Observable<Void> login(String login, String password) {
@@ -20,8 +21,8 @@ public class LoginInteractor {
         loginDTO.setEmail(login);
         loginDTO.setPassword(password);
 
-        return apiInterface.login(loginDTO)
-                .doOnNext(loginResponseDTO -> appPreferences.setToken(loginResponseDTO.getToken()))
-                .flatMap(loginResponseDTO -> apiInterface.checkToken());
+        return getApiInterface().login(loginDTO)
+                .doOnNext(loginResponseDTO -> getAppPreferences().setToken(loginResponseDTO.getToken()))
+                .flatMap(loginResponseDTO -> getApiInterface().checkToken());
     }
 }

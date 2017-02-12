@@ -65,7 +65,7 @@ public class VenueAdapter extends RecyclerView.Adapter<BaseViewHolder> {
                                      int viewType) {
         // create a new view
         /*View v = LayoutInflater.from(parent.getContext())
-                .inflate(R.layout.venue_item, parent, false);
+                .inflate(R.layout.item_venue, parent, false);
 
         Holder vh = new Holder(v);
         return vh;
@@ -149,7 +149,7 @@ public class VenueAdapter extends RecyclerView.Adapter<BaseViewHolder> {
 
 
         public VenueViewHolder(ViewGroup parent) {
-            super(parent, R.layout.venue_item);
+            super(parent, R.layout.item_venue);
             ButterKnife.bind(this, itemView);
         }
 

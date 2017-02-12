@@ -65,7 +65,8 @@ public class AddPhotoFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
 
-        View view = inflater.inflate(R.layout.add_picture_fragment, container, false);
+        View view = inflater.inflate(R.layout.fragment_add_pic, container, false);
+        setHasOptionsMenu(true);
         mIvPicture = (WebView) view.findViewById(R.id.image);
         sharedPreferences = getActivity().getSharedPreferences(Constant.TAG, Context.MODE_PRIVATE);
         // Upload on thali id (needs id ot thali to upload image on it)

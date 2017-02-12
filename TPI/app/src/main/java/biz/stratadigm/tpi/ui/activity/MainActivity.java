@@ -8,25 +8,29 @@ import android.location.LocationManager;
 import android.os.Bundle;
 import android.support.design.widget.TabLayout;
 import android.support.v4.view.ViewPager;
+import android.support.v7.widget.Toolbar;
+import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
+import android.view.Menu;
+import android.view.MenuItem;
+import android.view.MenuInflater;
+import android.support.v7.widget.PopupMenu;
 import android.widget.Button;
 import android.widget.Toast;
 
+import javax.inject.Inject;
+
 import biz.stratadigm.tpi.R;
 import biz.stratadigm.tpi.ui.adapter.JobPagerAdapter;
+import biz.stratadigm.tpi.ui.view.MenuView;
+import biz.stratadigm.tpi.presenter.MenuPresenter;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-/**
- * Starting activity.
- * Activity shows 4 fragment on for venue and thali
- * Use client current location and send it on server
- */
 public class MainActivity extends AppCompatActivity {
-
 
     private static final int PERMISSION_ACCESS_COARSE_LOCATION = 1;
     private static final String TAG = "TPI";
@@ -37,8 +41,11 @@ public class MainActivity extends AppCompatActivity {
     @BindView(R.id.pager)
     ViewPager jobViewPager;
 
-    @BindView(R.id.btnout)
-    Button btnOut;
+    //@BindView(R.id.btnout)
+    //Button btnOut;
+
+    @BindView(R.id.my_toolbar)
+    Toolbar myToolbar;
 
     private JobPagerAdapter mPagerAdapter;
 
@@ -56,8 +63,12 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         ButterKnife.bind(this);
 
-        Log.v(TAG, "MainActivity:onCreate");
+        setSupportActionBar(myToolbar);
+        ActionBar ab = getSupportActionBar();
+        ab.setHomeAsUpIndicator(R.drawable.ic_menu);
+        ab.setDisplayHomeAsUpEnabled(true);
 
+        // Get user location and check for permission
         LocationManager locationManager;
         locationManager = (LocationManager) getSystemService
                 (Context.LOCATION_SERVICE);
@@ -73,26 +84,23 @@ public class MainActivity extends AppCompatActivity {
 
         }
 
-        // Get user location and check for permission
         // Set up tab layout
-        tabLayout.addTab(tabLayout.newTab().setText("List of venue"));
-        tabLayout.addTab(tabLayout.newTab().setText("Add venue"));
-        tabLayout.addTab(tabLayout.newTab().setText("List of thali"));
-        tabLayout.addTab(tabLayout.newTab().setText("Add thali"));
-        tabLayout.addTab(tabLayout.newTab().setText("Add photo"));
+        tabLayout.addTab(tabLayout.newTab().setText("Venues"));
+        tabLayout.addTab(tabLayout.newTab().setText("Add Venue"));
+        tabLayout.addTab(tabLayout.newTab().setText("Thalis"));
+        tabLayout.addTab(tabLayout.newTab().setText("Add Thali"));
+        tabLayout.addTab(tabLayout.newTab().setText("Add Image"));
 
         tabLayout.setTabGravity(TabLayout.GRAVITY_FILL);
         mPagerAdapter = new JobPagerAdapter(getSupportFragmentManager(), 5);
 
-        jobViewPager = (ViewPager) findViewById(R.id.pager);
+        //jobViewPager = (ViewPager) findViewById(R.id.pager);
         // jobViewPager.setPageTransformer(true, new StackTransformer());
         jobViewPager.setAdapter(mPagerAdapter);
 
         addListeners();
-        Log.v(TAG, "MainActivity:onCreate Listeners added");
 
     }
-
 
     @Override
     public void onRequestPermissionsResult(int requestCode, String[] permissions, int[] grantResults) {
@@ -109,25 +117,39 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void addListeners() {
-        btnOut.setOnClickListener(new View.OnClickListener() {
+        /*btnOut.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 startActivity(new Intent(getApplicationContext(), StartActivity.class));
                 finish();
             }
-        });
+        });*/
 
         jobViewPager.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(tabLayout));
         tabLayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
             @Override
             public void onTabSelected(TabLayout.Tab tab) {
+                try {
                 mPagerAdapter.getItem(tab.getPosition()).onAttach(getApplicationContext());
                 jobViewPager.setCurrentItem(tab.getPosition());
+                if (tab.getPosition() == 1) {
+                        Log.v(TAG, "ONE");
+                }
+                if (tab.getPosition() == 2) {
+                        Log.v(TAG, "TWO");
+                }
+                } catch (Exception e) {
+                    Log.v(TAG, e.toString());
+                }
 
             }
 
             @Override
             public void onTabUnselected(TabLayout.Tab tab) {
+                try {
+                } catch (Exception e) {
+                    Log.v(TAG, e.toString());
+                }
 
             }
 
@@ -137,4 +159,12 @@ public class MainActivity extends AppCompatActivity {
             }
         });
     }
+
+    /*@Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.fragment_menu_main, menu);
+        return true;
+    }*/
+
 }

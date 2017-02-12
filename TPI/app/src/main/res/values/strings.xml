@@ -7,4 +7,19 @@
     <string name="unexpected_error">Unknown error.</string>
     <string name="registration_failed_error">Registration failed.</string>
     <string name="autologin_failed_on_registration_error">Registration completed but autologin failed.</string>
+    <string name="no_thalis_found">No Thalis Found.</string>
+    <string name="no_venues_found">No Venues Found.</string>
+    <string name="logout">Logout</string>
+    <string name="action_settings">Settings</string>
+    <string name="action_logout">Logout</string>
+    <string name="menu_filter">Filter</string>
+
+    <string-array name="filter_array">
+        <item>@string/filter_mine</item>
+        <item>@string/filter_nearby</item>
+        <item>@string/filter_all</item>
+    </string-array>
+    <string name="filter_all">All</string>
+    <string name="filter_nearby">Nearby</string>
+    <string name="filter_mine">Mine</string>
 </resources>

@@ -109,7 +109,7 @@
                 android:id="@+id/btsend"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="@color/blue"
+                android:background="?attr/colorPrimaryDark"
                 android:text="Add thali"
                 android:textColor="@color/white"
                 android:textAllCaps="true"

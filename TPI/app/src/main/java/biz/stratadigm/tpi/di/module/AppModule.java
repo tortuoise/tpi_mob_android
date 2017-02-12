@@ -5,6 +5,9 @@ import android.content.Context;
 import biz.stratadigm.tpi.di.scope.PerApplication;
 import biz.stratadigm.tpi.manager.AppPreferences;
 import biz.stratadigm.tpi.manager.AppSchedulers;
+import biz.stratadigm.tpi.manager.ApiInterface;
+import biz.stratadigm.tpi.interactor.BaseInteractor;
+import biz.stratadigm.tpi.presenter.MenuPresenter;
 import dagger.Module;
 import dagger.Provides;
 import rx.android.schedulers.AndroidSchedulers;
@@ -35,4 +38,6 @@ public class AppModule {
     AppSchedulers provideAppSchedulers() {
         return new AppSchedulers(AndroidSchedulers.mainThread(), Schedulers.io());
     }
+
+
 }

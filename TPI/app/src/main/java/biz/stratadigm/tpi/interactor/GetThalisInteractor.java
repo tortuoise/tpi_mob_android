@@ -11,7 +11,7 @@ public class GetThalisInteractor {
         this.apiInterface = apiInterface;
     }
 
-    public Observable<ThaliDTO> getThalis(int offset) {
-        return apiInterface.getThalis(offset);
-    }
+    //public Observable<ThaliDTO> getThalis(int offset) {
+    //    return apiInterface.getThalis(offset);
+    //}
 }

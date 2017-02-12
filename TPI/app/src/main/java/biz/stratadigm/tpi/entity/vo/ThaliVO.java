@@ -6,6 +6,15 @@ public class ThaliVO {
     private String region;
     private String imageUrl;
     private Long venueId;
+    private Integer price;
+
+    public ThaliVO(String name, String region, String imageUrl, Integer price){
+        if (name == "") this.name = "Standard Thali";
+        else this.name = name;
+        this.region = region;
+        this.imageUrl = imageUrl;
+        this.price = price;
+    }
 
     public Long getId() {
         return id;
@@ -45,5 +54,13 @@ public class ThaliVO {
 
     public void setVenueId(Long venueId) {
         this.venueId = venueId;
+    }
+
+    public Integer getPrice() {
+        return this.price;
+    }
+
+    public void setPrice(Integer price) {
+        this.price = price;
     }
 }

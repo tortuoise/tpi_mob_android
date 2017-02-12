@@ -1,5 +1,7 @@
 package biz.stratadigm.tpi.manager;
 
+import android.graphics.Bitmap;
+
 import biz.stratadigm.tpi.entity.dto.LoginDTO;
 import biz.stratadigm.tpi.entity.dto.LoginResponseDTO;
 import biz.stratadigm.tpi.entity.dto.RegisterDTO;
@@ -8,6 +10,9 @@ import biz.stratadigm.tpi.entity.dto.VenueDTO;
 import retrofit2.http.Body;
 import retrofit2.http.GET;
 import retrofit2.http.POST;
+import retrofit2.http.DELETE;
+import retrofit2.http.Header;
+import retrofit2.http.Path;
 import retrofit2.http.Query;
 import rx.Observable;
 import java.util.ArrayList;
@@ -24,6 +29,9 @@ public interface ApiInterface {
     @GET("/hello")
     Observable<Void> checkToken();
 
+    @DELETE("/auth_token")
+    Observable<Void> logout();
+
     @POST("/user")
     Observable<Void> registerUser(@Body RegisterDTO registerDTO);
 
@@ -31,5 +39,11 @@ public interface ApiInterface {
     Observable<ArrayList<VenueDTO>> getVenues(@Query("offset") int offset);
 
     @GET("/thalis")
-    Observable<ThaliDTO> getThalis(@Query("offset") int offset);
+    Observable<ArrayList<ThaliDTO>> getThalis(@Query("offset") int offset);
+
+    @GET("/thalis")
+    Observable<ArrayList<ThaliDTO>> getThalisByVenue(@Query("offset") int offset, @Query("venue") int venueid);
+    
+    @GET("/thali/{id}/image")
+    Observable<Bitmap> getThaliImage(@Path("id") int id);
 }

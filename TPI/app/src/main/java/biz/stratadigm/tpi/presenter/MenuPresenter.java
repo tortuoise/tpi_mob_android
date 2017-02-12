@@ -6,37 +6,44 @@ import android.util.Log;
 
 import java.net.HttpURLConnection;
 import java.util.ArrayList;
+import javax.inject.Inject;
 
-import biz.stratadigm.tpi.interactor.ThaliListInteractor;
+import biz.stratadigm.tpi.interactor.BaseInteractor;
 import biz.stratadigm.tpi.manager.AppSchedulers;
-import biz.stratadigm.tpi.ui.view.ThaliListView;
-import biz.stratadigm.tpi.entity.dto.ThaliDTO;
-import biz.stratadigm.tpi.entity.converter.ThaliConverter;
+import biz.stratadigm.tpi.ui.view.MenuView;
 
-public class ThaliListPresenter extends BasePresenter<ThaliListView> {
-
+public class MenuPresenter extends BasePresenter<MenuView> {
+    
     private static final String TAG = "TPI";
-    private final ThaliListInteractor thaliListInteractor;
+    
+    @Inject BaseInteractor menuInteractor;
 
-    public ThaliListPresenter(Context applicationContext,
+    public MenuPresenter(Context applicationContext,
                               AppSchedulers appSchedulers,
-                              ThaliListInteractor thaliListInteractor) {
+                              BaseInteractor menuInteractor) {
         super(applicationContext, appSchedulers);
-        this.thaliListInteractor = thaliListInteractor;
+        this.menuInteractor = menuInteractor;
     }
 
     @Override
     protected void onCreate(Bundle savedState) {
         super.onCreate(savedState);
-        executeRequest(thaliListInteractor.getThalisByVenue(0, 1), new ThalisSubscriber());
+
+        //executeRequest(menuInteractor.logout(), new MenuSubscriber());
 
     }
 
-    private class ThalisSubscriber extends SimpleSubscriber<ArrayList<ThaliDTO>> {
+    public void logout() {
+        executeRequest(menuInteractor.logout(), new MenuSubscriber());
+            getView().showStartScreen();
+    }
+
+    private class MenuSubscriber extends SimpleSubscriber<Void> {
 
         @Override
-        public void onNext(ArrayList<ThaliDTO> thalis) {
-            getView().showThalis(ThaliConverter.toThaliVOs(thalis));
+        public void onNext(Void avoid) {
+        Log.v(TAG, "Finishing");
+            getView().showStartScreen();
         }
 
         @Override
@@ -47,10 +54,8 @@ public class ThaliListPresenter extends BasePresenter<ThaliListView> {
             } else if (isHttpErrorWithCode(e, HttpURLConnection.HTTP_UNAUTHORIZED)) {
                 getView().showAuthError();
             } else {
-                Log.v(TAG, e.toString());
                 getView().showUnexpectedError();
             }
         }
     }
-
 }

@@ -2,14 +2,14 @@
 
 Simple Android app for TPI data collection  
 
-##[Contents](#contents){#contents}
+##[Contents](#contents)
 - [Architecture](#arch)
 - [Plugins](#plugins)
 - [Dependencies](#depends)
 - [Testing](#test)
 - [Entities](#entities)
 
-##[Architecture](#arch){#arch}
+##Architecture
 
 + Activity: 2 activities - MainActivity (crud functions) & StartActivity (login/register)
 + Fragment: 
@@ -31,11 +31,11 @@ Simple Android app for TPI data collection
     - VenueVO
 
 
-##[Plugins](#plugins){#plugins}
+##Plugins
 
 + retrolambda: it allows you to use some java7 and java8 features like lambdas, try-catch with resources, static functions in interfaces. Lambdas is the most useful feature. If an interface contains only ONE method, you can create anonymous class of it in a very short way.
 
-##[Dependencies](#depends){#depends}
+##Dependencies
 
 + nucleus
 It's an adapter for Nucleus Rx subscribers. A little confusing to use because it provides an error and a successful result in the same entity. 
@@ -58,8 +58,10 @@ Also Rx events survive orientation changes when delivering with Nucleus. That's 
 
 
 
-##[Entities](#entities){#entities}
+##Entities
 
 Names which end with "VO" are View Objects and their intention is only to hold minimal data that should be displayed and this data should be prepared to be shown easily (without additional complex business logic). It's made so as to make adapters more scalable, i.e. if an api interface changes, you will only need to change converters from DTO to VO
 
-
+##TODO
++ The presenter is injected into Fragment using dagger but the Interactor is conventionally included in the Presenter. Maybe inject that as well ?
++ 

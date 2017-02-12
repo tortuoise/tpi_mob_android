@@ -7,15 +7,19 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import java.util.List;
 
 import javax.inject.Inject;
 
+import biz.stratadigm.tpi.App;
 import biz.stratadigm.tpi.R;
+import biz.stratadigm.tpi.di.component.DaggerThaliListComponent;
 import biz.stratadigm.tpi.entity.vo.ThaliVO;
 import biz.stratadigm.tpi.presenter.ThaliListPresenter;
 import biz.stratadigm.tpi.ui.adapter.ThaliAdapter;
+import biz.stratadigm.tpi.di.module.ThaliListModule;
 import biz.stratadigm.tpi.ui.view.ThaliListView;
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -28,6 +32,13 @@ public class ThaliListFragment extends BaseFragment<ThaliListPresenter> implemen
 
     @Inject
     ThaliListPresenter thaliListPresenter;
+    {
+        DaggerThaliListComponent.builder()
+                .appComponent(App.getAppComponent())
+                .thaliListModule(new ThaliListModule())
+                .build()
+                .inject(this);
+    }
 
     private ThaliAdapter thaliAdapter;
 
@@ -38,6 +49,7 @@ public class ThaliListFragment extends BaseFragment<ThaliListPresenter> implemen
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+        setHasOptionsMenu(true);
         return inflater.inflate(R.layout.fragment_thali_list, container, false);
     }
 
@@ -47,6 +59,7 @@ public class ThaliListFragment extends BaseFragment<ThaliListPresenter> implemen
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(view.getContext());
         thaliAdapter = new ThaliAdapter();
         thaliRecyclerView.setLayoutManager(linearLayoutManager);
+        thaliRecyclerView.setAdapter(thaliAdapter);
         super.onViewCreated(view, savedInstanceState);
     }
 
@@ -66,7 +79,17 @@ public class ThaliListFragment extends BaseFragment<ThaliListPresenter> implemen
     }
 
     @Override
+    public void showThalis(List<ThaliVO> newThalis) {
+        thaliAdapter.showThalis(newThalis);
+    }
+
+    @Override
     public void addThalis(List<ThaliVO> newThalis) {
         thaliAdapter.addThalis(newThalis);
+    }
+
+    @Override
+    public void showAuthError() {
+        Toast.makeText(getApplicationContext(), "Invalid login or password", Toast.LENGTH_SHORT).show();
     }
 }

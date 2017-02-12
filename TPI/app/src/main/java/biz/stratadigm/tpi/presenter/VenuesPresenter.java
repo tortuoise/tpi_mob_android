@@ -22,7 +22,6 @@ public class VenuesPresenter extends BasePresenter<VenuesView> {
                               AppSchedulers appSchedulers,
                               VenuesInteractor venuesInteractor) {
         super(applicationContext, appSchedulers);
-        Log.v(TAG, "VenuesPresenter: ctor");
         this.venuesInteractor = venuesInteractor;
     }
 

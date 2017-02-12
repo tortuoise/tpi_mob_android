@@ -1,6 +1,7 @@
 package biz.stratadigm.tpi.ui.fragment;
 
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -11,7 +12,12 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.Menu;
+import android.view.MenuItem;
+import android.view.MenuInflater;
+import android.support.v7.widget.PopupMenu;
 import android.widget.TextView;
+import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.android.volley.Request;
@@ -36,10 +42,12 @@ import biz.stratadigm.tpi.di.component.DaggerVenuesComponent;
 import biz.stratadigm.tpi.entity.dto.VenueDTO;
 import biz.stratadigm.tpi.entity.vo.VenueVO;
 import biz.stratadigm.tpi.tools.Constant;
+import biz.stratadigm.tpi.ui.activity.StartActivity;
 import biz.stratadigm.tpi.ui.adapter.VenueAdapter;
 import biz.stratadigm.tpi.ui.view.VenuesView;
 import biz.stratadigm.tpi.di.module.VenuesModule;
 import biz.stratadigm.tpi.presenter.VenuesPresenter;
+import biz.stratadigm.tpi.presenter.MenuPresenter;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import nucleus.factory.PresenterFactory;
@@ -51,6 +59,15 @@ public class VenuesFragment extends BaseFragment<VenuesPresenter> implements Ven
 
     @BindView(R.id.venueList)
     RecyclerView mList;
+
+    @BindView(R.id.less)
+    ImageView less;
+
+    @BindView(R.id.more)
+    ImageView more;
+
+    @Inject
+    MenuPresenter menuPresenter;
 
     @Inject
     VenuesPresenter venuesPresenter;
@@ -67,7 +84,6 @@ public class VenuesFragment extends BaseFragment<VenuesPresenter> implements Ven
     private VenueAdapter mVenueAdapter;
     private SharedPreferences sharedPreferences;
     private int offset = 0;
-    private TextView more, less;
 
     //public static VenuesFragment newInstance() {
     //    return new VenuesFragment();
@@ -83,7 +99,6 @@ public class VenuesFragment extends BaseFragment<VenuesPresenter> implements Ven
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_venues, container, false);
 
-        Log.v(TAG, "VenuesFragment: onCreateView");
                 /*
                 sharedPreferences = getActivity().getSharedPreferences(Constant.TAG, Context.MODE_PRIVATE);
                 //mList = (RecyclerView) view.findViewById(R.id.venueList);
@@ -116,6 +131,7 @@ public class VenuesFragment extends BaseFragment<VenuesPresenter> implements Ven
                     }
                 });
                 */
+        setHasOptionsMenu(true);
         
         return view;
     }
@@ -187,4 +203,74 @@ public class VenuesFragment extends BaseFragment<VenuesPresenter> implements Ven
     public void showAuthError() {
         Toast.makeText(getApplicationContext(), "Invalid login or password", Toast.LENGTH_SHORT).show();
     }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.menu_filter:
+                try {
+                showFilteringPopUpMenu();
+                } catch (Exception e) {
+                    Log.v(TAG, e.toString());   
+                }
+                break;
+            case R.id.action_settings:
+                break;
+            case R.id.action_logout:
+                try {
+                        menuPresenter.logout();
+                } catch (Exception e) {
+                        Log.v(TAG, e.toString());
+                        showStartScreen();
+                }
+                break;
+         }
+         return true;
+    }
+  
+    @Override
+    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+        //MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.fragment_menu_main, menu);
+    }
+
+    public void showFilteringPopUpMenu() {
+        PopupMenu popup = new PopupMenu(getApplicationContext(), getActivity().findViewById(R.id.menu_filter));
+        try {
+        popup.getMenuInflater().inflate(R.menu.filter_items, popup.getMenu());
+        } catch (Exception e) {
+             Log.v(TAG, e.toString());
+        }
+        popup.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
+            public boolean onMenuItemClick(MenuItem item) {
+                switch (item.getItemId()) {
+                    case R.id.mine:
+                        //mPresenter.setFiltering(TasksFilterType.ACTIVE_TASKS);
+                        break;
+                    case R.id.nearby:
+                        //mPresenter.setFiltering(TasksFilterType.COMPLETED_TASKS);
+                        break;
+                    default:
+                        //mPresenter.setFiltering(TasksFilterType.ALL_TASKS);
+                        break;
+                }
+                //mPresenter.loadTasks(false);
+                return true;
+            }
+        });
+
+        popup.show();
+    }
+
+    @Override
+    public void showStartScreen() {
+        Log.v(TAG, "Finished");
+        Intent intent = StartActivity.getStartIntent(getActivity());
+        startActivity(intent);
+        //startActivity(new Intent(getApplicationContext(), StartActivity.class));
+        getActivity().finish();
+        //startActivity(new Intent(getApplicationContext(), StartActivity.class));
+        //finish();
+    }
+
 }
