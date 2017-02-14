@@ -29,20 +29,18 @@ public class MenuPresenter extends BasePresenter<MenuView> {
     protected void onCreate(Bundle savedState) {
         super.onCreate(savedState);
 
-        //executeRequest(menuInteractor.logout(), new MenuSubscriber());
 
     }
 
     public void logout() {
         executeRequest(menuInteractor.logout(), new MenuSubscriber());
-            getView().showStartScreen();
+            //getView().showStartScreen();
     }
 
     private class MenuSubscriber extends SimpleSubscriber<Void> {
 
         @Override
         public void onNext(Void avoid) {
-        Log.v(TAG, "Finishing");
             getView().showStartScreen();
         }
 

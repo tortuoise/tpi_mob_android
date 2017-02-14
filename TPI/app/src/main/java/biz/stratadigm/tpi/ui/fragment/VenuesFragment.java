@@ -66,8 +66,8 @@ public class VenuesFragment extends BaseFragment<VenuesPresenter> implements Ven
     @BindView(R.id.more)
     ImageView more;
 
-    @Inject
-    MenuPresenter menuPresenter;
+    //@Inject
+    //MenuPresenter menuPresenter;
 
     @Inject
     VenuesPresenter venuesPresenter;
@@ -218,10 +218,11 @@ public class VenuesFragment extends BaseFragment<VenuesPresenter> implements Ven
                 break;
             case R.id.action_logout:
                 try {
-                        menuPresenter.logout();
+                        //menuPresenter.logout();
+                        venuesPresenter.logout();
                 } catch (Exception e) {
                         Log.v(TAG, e.toString());
-                        showStartScreen();
+                        //showStartScreen();
                 }
                 break;
          }

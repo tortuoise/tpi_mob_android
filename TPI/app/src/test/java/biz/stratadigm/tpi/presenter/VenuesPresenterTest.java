@@ -2,6 +2,8 @@ package biz.stratadigm.tpi.presenter;
 
 import android.os.Bundle;
 
+import java.util.ArrayList;
+
 import biz.stratadigm.tpi.interactor.VenuesInteractor;
 import biz.stratadigm.tpi.presenter.VenuesPresenter;
 import biz.stratadigm.tpi.ui.view.VenuesView;
@@ -17,6 +19,8 @@ import static org.mockito.Matchers.anyList;
 import static org.mockito.Mockito.doReturn;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
+
+import biz.stratadigm.tpi.entity.dto.VenueDTO;
     
 
 public class VenuesPresenterTest extends BasePresenterTest {
@@ -40,17 +44,29 @@ public class VenuesPresenterTest extends BasePresenterTest {
 
 
     @Test
-    public void showUnexpectedError() {
-        doReturn(Observable.just(null))
+    public void shouldShowListOnCreation() {
+        doReturn(Observable.just(new ArrayList<VenueDTO>()))
+                .when(venuesInteractorMock).getVenues(0);
+
+        venuesPresenter.onCreate(mock(Bundle.class));
+        verify(venuesViewMock).showVenues(anyList());
+    }
+
+    @Test
+    public void shouldShowErrorWhenUnexpectedErrorOccurs() {
+        doReturn(Observable.error(new Exception()))
                 .when(venuesInteractorMock).getVenues(0);
 
         venuesPresenter.onCreate(mock(Bundle.class));
         verify(venuesViewMock).showUnexpectedError();
-
-        //verify(venuesViewMock).showVenues(anyList());
     }
 
+    @Test
+    public void shouldShowStartScreenOnLogout() {
+        doReturn(Observable.just(null))
+                .when(venuesInteractorMock).logout();
 
-
-
+        venuesPresenter.logout();
+        verify(venuesViewMock).showStartScreen();
+    }
 }

@@ -28,9 +28,15 @@ public class VenuesPresenter extends BasePresenter<VenuesView> {
     @Override
     protected void onCreate(Bundle savedState) {
         super.onCreate(savedState);
+        Log.v(TAG, "VenuesPresenter.onCreate");
 
         executeRequest(venuesInteractor.getVenues(0), new VenuesSubscriber());
 
+    }
+
+    public void logout() {
+        executeRequest(venuesInteractor.logout(), new MenuSubscriber());
+            //getView().showStartScreen();
     }
 
     private class VenuesSubscriber extends SimpleSubscriber<ArrayList<VenueDTO>> {
@@ -49,6 +55,26 @@ public class VenuesPresenter extends BasePresenter<VenuesView> {
                 getView().showAuthError();
             } else {
                 Log.v(TAG, e.toString());
+                getView().showUnexpectedError();
+            }
+        }
+    }
+
+    private class MenuSubscriber extends SimpleSubscriber<Void> {
+
+        @Override
+        public void onNext(Void avoid) {
+            getView().showStartScreen();
+        }
+
+        @Override
+        public void onError(Throwable e) {
+            super.onError(e);
+            if (isNetworkError(e)) {
+                getView().showNetworkError();
+            } else if (isHttpErrorWithCode(e, HttpURLConnection.HTTP_UNAUTHORIZED)) {
+                getView().showAuthError();
+            } else {
                 getView().showUnexpectedError();
             }
         }
