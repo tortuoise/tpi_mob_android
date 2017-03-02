@@ -1,6 +1,7 @@
 package biz.stratadigm.tpi.di.component;
 
 import android.content.Context;
+import android.app.Activity;
 
 import biz.stratadigm.tpi.di.module.AppModule;
 import biz.stratadigm.tpi.di.module.NetworkModule;
@@ -20,4 +21,6 @@ public interface AppComponent {
     AppPreferences appPreferences();
 
     ApiInterface apiInterface();
+
+    void inject(Activity mainActivity);
 }

@@ -13,7 +13,7 @@ import biz.stratadigm.tpi.ui.fragment.VenuesFragment;
 
 /**
  * Created by tamara on 12/11/16.
- * Shows fragment in MainActivity
+ * Shows fragment in BrowseActivity
  */
 public class JobPagerAdapter extends FragmentStatePagerAdapter {
     

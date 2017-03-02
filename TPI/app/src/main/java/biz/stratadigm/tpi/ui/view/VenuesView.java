@@ -11,9 +11,17 @@ import biz.stratadigm.tpi.entity.vo.VenueVO;
 public interface VenuesView extends BaseView {
     //void showSplashLoader(boolean show);
 
+    public void showMineFilterLabel();
+
+    public void showNearbyFilterLabel();
+
+    public void showAllFilterLabel();
+
     void showVenues(List<VenueVO> newVenues);
 
     void addVenues(List<VenueVO> newVenues);
+
+    void showAddVenue();
 
     void showAuthError();
 

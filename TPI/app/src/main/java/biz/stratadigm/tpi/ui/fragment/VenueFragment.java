@@ -34,7 +34,7 @@ import java.util.Map;
 
 import biz.stratadigm.tpi.R;
 import biz.stratadigm.tpi.tools.Constant;
-import biz.stratadigm.tpi.ui.activity.MainActivity;
+import biz.stratadigm.tpi.ui.activity.BrowseActivity;
 
 /**
  * Created by tamara on 12/11/16.
@@ -43,6 +43,7 @@ import biz.stratadigm.tpi.ui.activity.MainActivity;
 
 public class VenueFragment extends Fragment {
     private static final String TAG = "TPI";
+    public static final String ARGUMENT_EDIT_VENUE_ID = "EDIT_VENUE_ID";
     private EditText mEtName;
     private TextView mPositon;
     private Button mSend;
@@ -51,14 +52,14 @@ public class VenueFragment extends Fragment {
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_venue, container, false);
+        View view = inflater.inflate(R.layout.fragment_venue_add, container, false);
 
         mEtName = (EditText) view.findViewById(R.id.editTextName);
         mSend = (Button) view.findViewById(R.id.buttonSend);
         mPositon = (TextView) view.findViewById(R.id.position);
-        mPositon.setText("Longitude " + MainActivity.longitude + " Latitude " + MainActivity.latitude);
-        mLocation.put("Lat", Float.parseFloat("" + MainActivity.latitude));
-        mLocation.put("Lng", Float.parseFloat("" + MainActivity.longitude));
+        mPositon.setText("Longitude " + BrowseActivity.longitude + " Latitude " + BrowseActivity.latitude);
+        mLocation.put("Lat", Float.parseFloat("" + BrowseActivity.latitude));
+        mLocation.put("Lng", Float.parseFloat("" + BrowseActivity.longitude));
 
         mSend.setOnClickListener(new View.OnClickListener() {
 
@@ -90,7 +91,7 @@ public class VenueFragment extends Fragment {
                         try {
                             JSONObject o = new JSONObject(String.valueOf(response));
                             Log.v(TAG, response.toString());
-                            Toast.makeText(getActivity().getApplicationContext(), response.toString(), Toast.LENGTH_SHORT).show();
+                            Toast.makeText(getActivity().getApplicationContext(), response.toString(), Toast.LENGTH_LONG).show();
                         } catch (JSONException e) {
                             e.printStackTrace();
                         }
@@ -117,7 +118,7 @@ public class VenueFragment extends Fragment {
                         } else if (error instanceof ParseError) {
                             Log.e(TAG, "ParseError");
                         }
-                        Toast.makeText(getActivity().getApplicationContext(), "error " + error.getLocalizedMessage(), Toast.LENGTH_SHORT).show();
+                        Toast.makeText(getActivity().getApplicationContext(), "error " + error.getLocalizedMessage(), Toast.LENGTH_LONG).show();
                     }
                 }) {
 

@@ -3,8 +3,6 @@ package biz.stratadigm.tpi.ui.activity;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
-import android.location.Location;
-import android.location.LocationManager;
 import android.os.Bundle;
 import android.support.design.widget.TabLayout;
 import android.support.v4.view.ViewPager;
@@ -16,6 +14,9 @@ import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.MenuInflater;
+import android.support.v4.view.GravityCompat;
+import android.support.v4.widget.DrawerLayout;
+import android.support.design.widget.NavigationView;
 import android.support.v7.widget.PopupMenu;
 import android.widget.Button;
 import android.widget.Toast;
@@ -23,81 +24,67 @@ import android.widget.Toast;
 import javax.inject.Inject;
 
 import biz.stratadigm.tpi.R;
+import biz.stratadigm.tpi.App;
 import biz.stratadigm.tpi.ui.adapter.JobPagerAdapter;
 import biz.stratadigm.tpi.ui.view.MenuView;
+import biz.stratadigm.tpi.ui.fragment.ThaliFragment;
+import biz.stratadigm.tpi.ui.fragment.ThaliListFragment;
 import biz.stratadigm.tpi.presenter.MenuPresenter;
+import biz.stratadigm.tpi.util.ActivityUtils;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-public class MainActivity extends AppCompatActivity {
+public class AddEditThaliActivity extends AppCompatActivity {
 
     private static final int PERMISSION_ACCESS_COARSE_LOCATION = 1;
+    public static final int REQUEST_ADD_THALI = 1;
     private static final String TAG = "TPI";
-
-    @BindView(R.id.tab_layout)
-    TabLayout tabLayout;
-
-    @BindView(R.id.pager)
-    ViewPager jobViewPager;
-
-    //@BindView(R.id.btnout)
-    //Button btnOut;
 
     @BindView(R.id.my_toolbar)
     Toolbar myToolbar;
-
-    private JobPagerAdapter mPagerAdapter;
 
     public static double longitude;
     public static double latitude;
 
     public static Intent getStartIntent(Context context) {
-        Intent intent = new Intent(context, MainActivity.class);
+        Intent intent = new Intent(context, AddEditThaliActivity.class);
         return intent;
     }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.activity_add);
         ButterKnife.bind(this);
+
+        //((App)getApplication()).getAppComponent().inject(this); // locationManager should now be available
 
         setSupportActionBar(myToolbar);
         ActionBar ab = getSupportActionBar();
-        ab.setHomeAsUpIndicator(R.drawable.ic_menu);
         ab.setDisplayHomeAsUpEnabled(true);
+        ab.setDisplayShowHomeEnabled(true);
 
-        // Get user location and check for permission
-        LocationManager locationManager;
-        locationManager = (LocationManager) getSystemService
-                (Context.LOCATION_SERVICE);
-
-        Location location = locationManager.getLastKnownLocation
-                (LocationManager.PASSIVE_PROVIDER);
-
-        if (location != null) {
-            latitude = location.getLatitude();
-            longitude = location.getLongitude();
-
-        } else {
-
+        // Add fragment to activity
+        try {
+        ThaliFragment thaliFragment = (ThaliFragment) getSupportFragmentManager().findFragmentById(R.id.contentFrame);
+        String thaliId = getIntent().getStringExtra(ThaliFragment.ARGUMENT_EDIT_THALI_ID);
+        if (thaliFragment == null) {
+                thaliFragment = new ThaliFragment();
+                if (getIntent().hasExtra(ThaliFragment.ARGUMENT_EDIT_THALI_ID)) {
+                    ab.setTitle(R.string.edit_thali);
+                    Bundle bundle = new Bundle();
+                    bundle.putString(ThaliFragment.ARGUMENT_EDIT_THALI_ID, thaliId);
+                    thaliFragment.setArguments(bundle);
+                } else {
+                    ab.setTitle(R.string.new_thali);
+                }
+                ActivityUtils.addFragmentToActivity(getSupportFragmentManager(), thaliFragment, R.id.contentFrame);
         }
-
-        // Set up tab layout
-        tabLayout.addTab(tabLayout.newTab().setText("Venues"));
-        tabLayout.addTab(tabLayout.newTab().setText("Add Venue"));
-        tabLayout.addTab(tabLayout.newTab().setText("Thalis"));
-        tabLayout.addTab(tabLayout.newTab().setText("Add Thali"));
-        tabLayout.addTab(tabLayout.newTab().setText("Add Image"));
-
-        tabLayout.setTabGravity(TabLayout.GRAVITY_FILL);
-        mPagerAdapter = new JobPagerAdapter(getSupportFragmentManager(), 5);
-
-        //jobViewPager = (ViewPager) findViewById(R.id.pager);
-        // jobViewPager.setPageTransformer(true, new StackTransformer());
-        jobViewPager.setAdapter(mPagerAdapter);
-
+        } catch (Exception e) {
+                Log.v(TAG,  "addFragmentToActivity " + e.toString());
+        }
+        
         addListeners();
 
     }
@@ -109,7 +96,7 @@ public class MainActivity extends AppCompatActivity {
                 if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
                     // All good!
                 } else {
-                    Toast.makeText(this, "Need your location!", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(this, "Need your location!", Toast.LENGTH_LONG).show();
                 }
 
                 break;
@@ -125,7 +112,7 @@ public class MainActivity extends AppCompatActivity {
             }
         });*/
 
-        jobViewPager.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(tabLayout));
+        /*jobViewPager.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(tabLayout));
         tabLayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
             @Override
             public void onTabSelected(TabLayout.Tab tab) {
@@ -157,14 +144,23 @@ public class MainActivity extends AppCompatActivity {
             public void onTabReselected(TabLayout.Tab tab) {
                 mPagerAdapter.getItem(tab.getPosition()).onAttach(getApplicationContext());
             }
-        });
+        });*/
     }
 
-    /*@Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        MenuInflater inflater = getMenuInflater();
-        inflater.inflate(R.menu.fragment_menu_main, menu);
-        return true;
-    }*/
+    //@Override
+    //public boolean onCreateOptionsMenu(Menu menu) {
+        //MenuInflater inflater = getMenuInflater();
+        //inflater.inflate(R.menu.fragment_menu_main, menu);
+        //return true;
+    //}
 
+    //@Override
+    //public boolean onOptionsItemSelected(MenuItem item) {
+    //}
+
+    @Override
+    public boolean onSupportNavigateUp() {
+        onBackPressed();
+        return true;
+    }
 }

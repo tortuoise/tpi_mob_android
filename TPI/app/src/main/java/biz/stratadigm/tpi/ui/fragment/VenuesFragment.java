@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -15,17 +16,10 @@ import android.view.ViewGroup;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.MenuInflater;
-import android.support.v7.widget.PopupMenu;
+import android.widget.PopupMenu;
 import android.widget.TextView;
 import android.widget.ImageView;
 import android.widget.Toast;
-
-import com.android.volley.Request;
-import com.android.volley.RequestQueue;
-import com.android.volley.Response;
-import com.android.volley.error.VolleyError;
-import com.android.volley.request.StringRequest;
-import com.android.volley.toolbox.Volley;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -43,19 +37,22 @@ import biz.stratadigm.tpi.entity.dto.VenueDTO;
 import biz.stratadigm.tpi.entity.vo.VenueVO;
 import biz.stratadigm.tpi.tools.Constant;
 import biz.stratadigm.tpi.ui.activity.StartActivity;
+import biz.stratadigm.tpi.ui.activity.AddEditVenueActivity;
 import biz.stratadigm.tpi.ui.adapter.VenueAdapter;
 import biz.stratadigm.tpi.ui.view.VenuesView;
 import biz.stratadigm.tpi.di.module.VenuesModule;
 import biz.stratadigm.tpi.presenter.VenuesPresenter;
+import biz.stratadigm.tpi.presenter.VenuesFilterType;
 import biz.stratadigm.tpi.presenter.MenuPresenter;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import nucleus.factory.PresenterFactory;
 
-//public class VenuesFragment extends Fragment {
 public class VenuesFragment extends BaseFragment<VenuesPresenter> implements VenuesView {
 
     private static final String TAG = "TPI";
+    public final static String ARG_OFFSET = "offset";
+    private boolean refreshed = true;
 
     @BindView(R.id.venueList)
     RecyclerView mList;
@@ -63,11 +60,11 @@ public class VenuesFragment extends BaseFragment<VenuesPresenter> implements Ven
     @BindView(R.id.less)
     ImageView less;
 
+    @BindView(R.id.venuesFilterLabel)
+    TextView venuesFilterLabelView;
+
     @BindView(R.id.more)
     ImageView more;
-
-    //@Inject
-    //MenuPresenter menuPresenter;
 
     @Inject
     VenuesPresenter venuesPresenter;
@@ -80,18 +77,45 @@ public class VenuesFragment extends BaseFragment<VenuesPresenter> implements Ven
     }
    
     private RecyclerView.LayoutManager mLayoutMAnager;
-    //private ArrayList<VenueDTO> mListVenue = new ArrayList<>();
     private VenueAdapter mVenueAdapter;
     private SharedPreferences sharedPreferences;
     private int offset = 0;
 
-    //public static VenuesFragment newInstance() {
-    //    return new VenuesFragment();
-    //}
+    OnVenueSelectedListener venueSelect;
+
+    //Container activity must implement this interface so fragment can deliver messages.
+    public interface OnVenueSelectedListener {
+        public void onVenueSelect(int position, String name);
+        public void onVenueLongSelect(int position, String name);
+    }
+
+    @Override 
+    public void onAttach(Context activity) {
+        super.onAttach(activity);
+        refreshed = true;
+        Bundle args = getArguments();
+        if (args != null) {
+            offset = args.getInt(ARG_OFFSET);
+            venuesPresenter.setOffset(offset);
+        } 
+        else  
+            venuesPresenter.setOffset(offset); 
+        try {
+            venueSelect = (OnVenueSelectedListener) activity;
+        } catch (Exception e) {
+            Log.v(TAG, e.toString());
+            throw new ClassCastException(activity.toString() + "must implement OnVenueSelectedListener");
+        }
+    }
 
     @Override
     public PresenterFactory<VenuesPresenter> getPresenterFactory() {
         return () -> venuesPresenter;
+    }
+
+    @Override 
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
     }
 
     @Nullable
@@ -99,94 +123,74 @@ public class VenuesFragment extends BaseFragment<VenuesPresenter> implements Ven
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_venues, container, false);
 
-                /*
-                sharedPreferences = getActivity().getSharedPreferences(Constant.TAG, Context.MODE_PRIVATE);
-                //mList = (RecyclerView) view.findViewById(R.id.venueList);
-                //mVenueAdapter = new VenueAdapter(mListVenue, getActivity());
-                mLayoutMAnager = new LinearLayoutManager(getActivity().getApplicationContext(), LinearLayoutManager.VERTICAL, false);
-                mList.setLayoutManager(mLayoutMAnager);
-                mList.setAdapter(mVenueAdapter);
-                getVenueList();
-                
-                more = (TextView) view.findViewById(R.id.more);
-                more.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View view) {
-                        offset = offset + 20;
-                        mListVenue.clear();
-                        getVenueList();
-                        mVenueAdapter.notifyDataSetChanged();
-                    }
-                });
-                less = (TextView) view.findViewById(R.id.less);
-                less.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View view) {
-                        if (offset >= 20) {
-                            offset = offset - 20;
-                            mListVenue.clear();
-                            getVenueList();
-                            mVenueAdapter.notifyDataSetChanged();
-                        }
-                    }
-                });
-                */
         setHasOptionsMenu(true);
-        
+
+        if (!refreshed) {
+            venuesPresenter.refresh(); 
+            refreshed = true;
+        }
+
+        ButterKnife.bind(this, view);
+
+        // Set up floating action button
+        FloatingActionButton fab =
+                (FloatingActionButton) getActivity().findViewById(R.id.fab_add_task);
+ 
+        fab.setImageResource(R.drawable.ic_add);
+        fab.setOnClickListener(new View.OnClickListener() {
+             @Override
+             public void onClick(View v) {
+                 //mPresenter.addNewVenue();
+                 showAddVenue();
+             }
+        });
+
         return view;
     }
 
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
-        ButterKnife.bind(this, view);
+        Log.v(TAG, "VenuesFragment.onViewCreated");
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(view.getContext());
         mVenueAdapter = new VenueAdapter();
         mList.setLayoutManager(linearLayoutManager);
         mList.setAdapter(mVenueAdapter);
-        super.onViewCreated(view, savedInstanceState);
-    }
-
-    private void getVenueList() {
-        /*Log.v(TAG, "getVenueList");
-        final StringRequest stringRequest = new StringRequest(Request.Method.GET, Constant.VENUESLIST + "?offset=" + offset,
-                new Response.Listener<String>() {
-                    @Override
-                    public void onResponse(String response) {
-                        try {
-                            JSONArray response1 = new JSONArray(response);
-                            for (int i = 0; i < response1.length(); i++) {
-                                JSONObject ith = response1.getJSONObject(i);
-                                Long id = ith.getLong("id");
-                                String name = ith.getString("name");
-                                String submitted = ith.getString("submitted");
-                                JSONObject location = ith.getJSONObject("location");
-                                Float lat = new Float(location.getDouble("Lat"));
-                                Float lng = new Float(location.getDouble("Lng"));
-                                ArrayList<Long> ithalis = new ArrayList<Long>();
-                                if (!ith.isNull("thalis")) {
-                                    JSONArray thalis = ith.getJSONArray("thalis");
-                                    for (int j = 0; j < thalis.length(); j++)
-                                        ithalis.add(new Long(thalis.getInt(j)));
-                                }
-                                VenueDTO venue = new VenueDTO(id, name, submitted, lat, lng, ithalis);
-                                mListVenue.add(venue);
-                                mVenueAdapter.notifyDataSetChanged();
-                            }
-                        } catch (JSONException e) {
-                            Log.v(TAG, e.toString() );
-                            e.printStackTrace();
-                        }
+        mList.addOnItemTouchListener(
+            new RecyclerItemClickListener(view.getContext(), mList,new RecyclerItemClickListener.OnItemClickListener() {
+                @Override public void onItemClick(View view, int position) {
+                    try {
+                        venueSelect.onVenueSelect(venuesPresenter.getCache().get(position).getId().intValue(), venuesPresenter.getCache().get(position).getName());
+                    } catch (Exception e) {
+                        Log.v(TAG, e.toString());
                     }
-                }, new Response.ErrorListener() {
+                    //Toast.makeText(getApplicationContext(), "Clicked" + position, Toast.LENGTH_LONG).show();
+                }
+                @Override public void onLongItemClick(View view, int position) {
+                    venueSelect.onVenueLongSelect(venuesPresenter.getCache().get(position).getId().intValue(), venuesPresenter.getCache().get(position).getName());   
+                }
+            })
+        );
+        more.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onErrorResponse(VolleyError error) {
-                Log.e(TAG, "That didn't work!");
+            public void onClick(View view) {
+                offset = venuesPresenter.getOffset() + 20;
+                venuesPresenter.setOffset(offset);
+                venuesPresenter.refresh();
+                mVenueAdapter.notifyDataSetChanged();
             }
         });
-        // Add the request to the RequestQueue.
-        RequestQueue requestQueue = Volley.newRequestQueue(getActivity().getApplicationContext());
-        requestQueue.add(stringRequest);//post request on queue
-        */
+        less.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                offset = venuesPresenter.getOffset() - 20;
+                offset = offset <= 0 ? 0 : offset;
+                venuesPresenter.setOffset(offset);
+                venuesPresenter.refresh();
+                mVenueAdapter.notifyDataSetChanged();
+            }
+        });
+        refreshed = false;
+        super.onViewCreated(view, savedInstanceState);
     }
 
     @Override
@@ -200,19 +204,37 @@ public class VenuesFragment extends BaseFragment<VenuesPresenter> implements Ven
     }
 
     @Override
+    public void showAddVenue() {
+        Intent intent = new Intent(getContext(), AddEditVenueActivity.class);
+        startActivityForResult(intent, AddEditVenueActivity.REQUEST_ADD_VENUE);
+    }
+
+
+    @Override
     public void showAuthError() {
-        Toast.makeText(getApplicationContext(), "Invalid login or password", Toast.LENGTH_SHORT).show();
+        Toast.makeText(getApplicationContext(), "Invalid login or password", Toast.LENGTH_LONG).show();
+    }
+
+    @Override
+    public void showMineFilterLabel() {
+        venuesFilterLabelView.setText(getResources().getString(R.string.filter_mine));
+    }
+  
+    @Override
+    public void showNearbyFilterLabel() {
+        venuesFilterLabelView.setText(getResources().getString(R.string.filter_nearby));
+    }
+  
+    @Override
+    public void showAllFilterLabel() {
+        venuesFilterLabelView.setText(getResources().getString(R.string.filter_all));
     }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.menu_filter:
-                try {
                 showFilteringPopUpMenu();
-                } catch (Exception e) {
-                    Log.v(TAG, e.toString());   
-                }
                 break;
             case R.id.action_settings:
                 break;
@@ -232,27 +254,26 @@ public class VenuesFragment extends BaseFragment<VenuesPresenter> implements Ven
     @Override
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
         //MenuInflater inflater = getMenuInflater();
-        inflater.inflate(R.menu.fragment_menu_main, menu);
+        inflater.inflate(R.menu.venues, menu);
     }
 
     public void showFilteringPopUpMenu() {
         PopupMenu popup = new PopupMenu(getApplicationContext(), getActivity().findViewById(R.id.menu_filter));
-        try {
-        popup.getMenuInflater().inflate(R.menu.filter_items, popup.getMenu());
-        } catch (Exception e) {
-             Log.v(TAG, e.toString());
-        }
+        popup.getMenuInflater().inflate(R.menu.items_filter, popup.getMenu());
         popup.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
             public boolean onMenuItemClick(MenuItem item) {
                 switch (item.getItemId()) {
                     case R.id.mine:
-                        //mPresenter.setFiltering(TasksFilterType.ACTIVE_TASKS);
+                        venuesPresenter.setFiltering(VenuesFilterType.MINE_VENUES);
+                        venuesPresenter.refresh(); 
                         break;
                     case R.id.nearby:
-                        //mPresenter.setFiltering(TasksFilterType.COMPLETED_TASKS);
+                        venuesPresenter.setFiltering(VenuesFilterType.NEARBY_VENUES);
+                        venuesPresenter.refresh(); 
                         break;
                     default:
-                        //mPresenter.setFiltering(TasksFilterType.ALL_TASKS);
+                        venuesPresenter.setFiltering(VenuesFilterType.ALL_VENUES);
+                        venuesPresenter.refresh(); 
                         break;
                 }
                 //mPresenter.loadTasks(false);

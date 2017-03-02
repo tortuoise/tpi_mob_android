@@ -18,7 +18,7 @@ import biz.stratadigm.tpi.R;
 import biz.stratadigm.tpi.di.component.DaggerLoginComponent;
 import biz.stratadigm.tpi.di.module.LoginModule;
 import biz.stratadigm.tpi.presenter.LoginPresenter;
-import biz.stratadigm.tpi.ui.activity.MainActivity;
+import biz.stratadigm.tpi.ui.activity.BrowseActivity;
 import biz.stratadigm.tpi.ui.view.LoginView;
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -100,7 +100,7 @@ public class LoginFragment extends BaseFragment<LoginPresenter> implements Login
 
     @Override
     public void showMainScreen() {
-        Intent intent = MainActivity.getStartIntent(getActivity());
+        Intent intent = BrowseActivity.getStartIntent(getActivity());
         startActivity(intent);
         getActivity().finish();
     }

@@ -8,37 +8,38 @@
               android:background="#e9e9e9"
               android:orientation="vertical">
 
-    <TextView
+    <!--<TextView
         android:id="@+id/id"
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginLeft="20dp"
         android:layout_marginRight="20dp"
         android:layout_marginTop="10dp"
-        android:textSize="@dimen/text_size"/>
+        android:textSize="@dimen/text_size"/>-->
 
     <TextView
         android:id="@+id/name"
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginLeft="20dp"
         android:layout_marginRight="20dp"
         android:layout_marginTop="10dp"
+        android:textAppearance="@style/TextAppearance.AppCompat.Title"
         android:textSize="@dimen/text_size"/>
 
 
-    <TextView
+    <!--<TextView
         android:id="@+id/submitted"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginLeft="20dp"
         android:layout_marginRight="20dp"
         android:layout_marginTop="10dp"
-        android:textSize="@dimen/text_size"/>
+        android:textSize="@dimen/text_size"/>-->
 
     <TextView
         android:id="@+id/lng"
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginLeft="20dp"
         android:layout_marginRight="20dp"
@@ -47,7 +48,7 @@
 
     <TextView
         android:id="@+id/lat"
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginLeft="20dp"
         android:layout_marginRight="20dp"
@@ -58,18 +59,18 @@
         android:id="@+id/thalis"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
         android:layout_margin="@dimen/margin_right"
         android:textSize="@dimen/text_size"/>
 
-    <TextView
+    <!--<TextView
         android:id="@+id/list"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
         android:layout_margin="20dp"
         android:layout_marginLeft="20dp"
         android:layout_marginRight="20dp"
         android:layout_marginTop="10dp"
         android:text="List of thalis"
-        android:textSize="@dimen/text_size"/>
+        android:textSize="@dimen/text_size"/>-->
 </LinearLayout>

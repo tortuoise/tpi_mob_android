@@ -1,6 +1,7 @@
 package biz.stratadigm.tpi.ui.adapter;
 
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -12,10 +13,13 @@ import biz.stratadigm.tpi.R;
 import biz.stratadigm.tpi.entity.vo.ThaliVO;
 import biz.stratadigm.tpi.ui.adapter.viewholder.BaseViewHolder;
 import biz.stratadigm.tpi.ui.adapter.viewholder.SplashProgressViewHolder;
+import biz.stratadigm.tpi.tools.Constant;
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import com.squareup.picasso.Picasso;
 
 public class ThaliAdapter extends RecyclerView.Adapter<BaseViewHolder> {
+    private static final String TAG = "TPI";
     private static final int THALI_VIEW_TYPE = 0;
     private static final int SPLASH_VIEW_TYPE = 1;
     // TODO: 1/21/17 create empty view holder
@@ -87,6 +91,14 @@ public class ThaliAdapter extends RecyclerView.Adapter<BaseViewHolder> {
         }
 
         public void bind(ThaliVO thali) {
+            try {
+                if (thali.getImageUrl() != "") {
+                    Picasso.with(photoImageView.getContext()).load(Constant.THALIS + "/" + thali.getImageUrl() + "/image").resize(photoImageView.getMaxWidth(), photoImageView.getMaxHeight()).into(photoImageView);
+                    Log.v(TAG, "Getting: " + thali.getImageUrl());
+                }
+            } catch (Exception e) {
+                Log.v(TAG, e.toString());
+            }
             nameTextView.setText(thali.getName());
             regionTextView.setText(thali.getRegion());
             priceTextView.setText(" Rs. " + thali.getPrice());

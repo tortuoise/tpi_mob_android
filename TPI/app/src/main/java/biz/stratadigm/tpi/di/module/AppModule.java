@@ -1,6 +1,8 @@
 package biz.stratadigm.tpi.di.module;
 
+import static android.content.Context.LOCATION_SERVICE;
 import android.content.Context;
+import android.location.LocationManager;
 
 import biz.stratadigm.tpi.di.scope.PerApplication;
 import biz.stratadigm.tpi.manager.AppPreferences;
@@ -12,6 +14,7 @@ import dagger.Module;
 import dagger.Provides;
 import rx.android.schedulers.AndroidSchedulers;
 import rx.schedulers.Schedulers;
+import javax.inject.Singleton;
 
 @Module
 public class AppModule {
@@ -39,5 +42,10 @@ public class AppModule {
         return new AppSchedulers(AndroidSchedulers.mainThread(), Schedulers.io());
     }
 
+    @Provides
+    @Singleton
+    LocationManager provideLocationManager(){
+        return (LocationManager) applicationContext.getSystemService(LOCATION_SERVICE);
+    }
 
 }

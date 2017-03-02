@@ -20,7 +20,7 @@ import android.widget.Toast;
 
 import biz.stratadigm.tpi.R;
 import biz.stratadigm.tpi.tools.Constant;
-import biz.stratadigm.tpi.ui.activity.MainActivity;
+import biz.stratadigm.tpi.ui.activity.BrowseActivity;
 
 /**
  * Created by tamara on 12/23/16.
@@ -52,9 +52,9 @@ public class AddPhotoFragment extends Fragment {
         } else if (requestCode == FILECHOOSER_RESULTCODE) {
             if (null == mUploadMessage)
                 return;
-            // Use MainActivity.RESULT_OK if you're implementing WebView inside Fragment
+            // Use BrowseActivity.RESULT_OK if you're implementing WebView inside Fragment
             // Use RESULT_OK only if you're implementing WebView inside an Activity
-            Uri result = intent == null || resultCode != MainActivity.RESULT_OK ? null : intent.getData();
+            Uri result = intent == null || resultCode != BrowseActivity.RESULT_OK ? null : intent.getData();
             mUploadMessage.onReceiveValue(result);
             mUploadMessage = null;
         } else

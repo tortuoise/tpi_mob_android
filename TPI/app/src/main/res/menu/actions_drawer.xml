@@ -13,18 +13,17 @@
   ~ See the License for the specific language governing permissions and
   ~ limitations under the License.
   -->
-<menu xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
     <item
-        android:id="@+id/menu_filter"
-        android:title="@string/menu_filter"
-        android:icon="@drawable/ic_filter_list"
-        app:showAsAction="always" />
-    <!-- Settings, should always be in the overflow -->
-    <item android:id="@+id/action_settings"
-          android:title="@string/action_settings"
-          app:showAsAction="never"/>
-    <item android:id="@+id/action_logout"
-          android:title="@string/action_logout"
-          app:showAsAction="never"/>
+        android:id="@+id/list_navigation_menu_item"
+        android:icon="@drawable/ic_list"
+        android:textColor="?attr/colorPrimaryDark"
+        android:title="@string/list_title" />
+    <item
+        android:id="@+id/statistics_navigation_menu_item"
+        android:icon="@drawable/ic_statistics"
+        android:textColor="?attr/colorPrimaryDark"
+        android:title="@string/statistics_title" />
 </menu>

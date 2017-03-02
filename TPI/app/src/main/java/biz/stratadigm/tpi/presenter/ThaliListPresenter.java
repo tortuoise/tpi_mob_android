@@ -17,6 +17,8 @@ public class ThaliListPresenter extends BasePresenter<ThaliListView> {
 
     private static final String TAG = "TPI";
     private final ThaliListInteractor thaliListInteractor;
+    private int currentPosition = 0;
+    private String currentVenueName;
 
     public ThaliListPresenter(Context applicationContext,
                               AppSchedulers appSchedulers,
@@ -28,7 +30,7 @@ public class ThaliListPresenter extends BasePresenter<ThaliListView> {
     @Override
     protected void onCreate(Bundle savedState) {
         super.onCreate(savedState);
-        executeRequest(thaliListInteractor.getThalisByVenue(0, 1), new ThalisSubscriber());
+        executeRequest(thaliListInteractor.getThalisByVenue(0, getCurrentPosition()), new ThalisSubscriber());
 
     }
 
@@ -36,6 +38,7 @@ public class ThaliListPresenter extends BasePresenter<ThaliListView> {
 
         @Override
         public void onNext(ArrayList<ThaliDTO> thalis) {
+            showFilterLabel();
             getView().showThalis(ThaliConverter.toThaliVOs(thalis));
         }
 
@@ -51,6 +54,26 @@ public class ThaliListPresenter extends BasePresenter<ThaliListView> {
                 getView().showUnexpectedError();
             }
         }
+    }
+
+    private void showFilterLabel() {
+        getView().showThalisFilterLabel(currentVenueName);
+    }
+
+    public int getCurrentPosition() {
+        return currentPosition;
+    }
+
+    public void setCurrentPosition(int currentPosition) {
+        this.currentPosition = currentPosition;
+    }
+
+    public String getCurrentVenueName() {
+        return currentVenueName;
+    }
+
+    public void setCurrentVenueName(String currentVenueName) {
+        this.currentVenueName = currentVenueName;
     }
 
 }

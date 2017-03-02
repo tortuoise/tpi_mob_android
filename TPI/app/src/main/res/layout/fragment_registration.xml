@@ -15,7 +15,7 @@
             android:layout_height="wrap_content"
             android:layout_margin="10dp"
             android:text="Add user"
-            android:textAlignment="center"
+            android:gravity="center"
             android:textSize="27dp"/>
 
         <android.support.design.widget.TextInputLayout
@@ -69,7 +69,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="20dp"
-            android:background="?attr/colorPrimaryDark"
+            android:background="?attr/colorPrimary"
             android:text="@string/login"
             android:textAllCaps="true"
             android:textColor="@color/white"/>

@@ -17,7 +17,7 @@ import biz.stratadigm.tpi.R;
 import biz.stratadigm.tpi.di.component.DaggerRegistrationComponent;
 import biz.stratadigm.tpi.di.module.RegistrationModule;
 import biz.stratadigm.tpi.presenter.RegistrationPresenter;
-import biz.stratadigm.tpi.ui.activity.MainActivity;
+import biz.stratadigm.tpi.ui.activity.BrowseActivity;
 import biz.stratadigm.tpi.ui.view.RegistrationView;
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -92,7 +92,7 @@ public class RegistrationFragment extends BaseFragment<RegistrationPresenter> im
 
     @Override
     public void showMainScreen() {
-        Intent intent = MainActivity.getStartIntent(getActivity());
+        Intent intent = BrowseActivity.getStartIntent(getActivity());
         startActivity(intent);
         getActivity().finish();
     }

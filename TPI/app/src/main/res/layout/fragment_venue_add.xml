@@ -30,7 +30,7 @@
         android:layout_height="wrap_content"
         android:layout_margin="20dp"
         android:background="@drawable/edit_text_alert"
-        android:hint="Possition"
+        android:hint="Position"
         android:padding="10dp"
         android:textSize="13dp"/>
 

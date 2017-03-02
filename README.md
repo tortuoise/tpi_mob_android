@@ -56,11 +56,19 @@ Also Rx events survive orientation changes when delivering with Nucleus. That's 
 
 + [roboelectric](roboelectric.org): Robolectric is a unit test framework that de-fangs the Android SDK jar so you can test-drive the development of your Android app. Tests run inside the JVM on your workstation in seconds.
 
++ [mockito](https://static.javadoc.io/org.mockito/mockito-core/2.7.5/org/mockito/Mockito.html) is used to mock objects to test Presenters & Views. The use of a MVP architecture allows the Presenters, Views and Interactors to be tested independent of UI elements.  
 
 
 ##Entities
 
 Names which end with "VO" are View Objects and their intention is only to hold minimal data that should be displayed and this data should be prepared to be shown easily (without additional complex business logic). It's made so as to make adapters more scalable, i.e. if an api interface changes, you will only need to change converters from DTO to VO
+
+##Lifecycle
+
+onAttach
+onCreate
+onCreateView
+onViewCreated
 
 ##TODO
 + The presenter is injected into Fragment using dagger but the Interactor is conventionally included in the Presenter. Maybe inject that as well ?

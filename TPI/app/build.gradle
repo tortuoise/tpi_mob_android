@@ -35,6 +35,7 @@ ext {
     daggerVersion = '2.7'
     okhttpVersion = '3.5.0'
     retrofitVersion = '2.1.0'
+    guavaVersion = '19.0'
 }
 
 dependencies {
@@ -52,10 +53,12 @@ dependencies {
     compile "com.squareup.retrofit2:retrofit:$retrofitVersion"
     compile "com.squareup.retrofit2:converter-gson:$retrofitVersion"
     compile "com.squareup.retrofit2:adapter-rxjava:$retrofitVersion"
+    compile 'com.squareup.picasso:picasso:2.5.2'
     compile "com.android.support:support-annotations:$supportLibraryVersion"
     compile 'com.google.code.gson:gson:2.8.0'
     compile 'com.annimon:stream:1.1.4'
     compile 'com.squareup.picasso:picasso:2.5.2'
+    compile "com.google.guava:guava:$guavaVersion"
 
     provided 'javax.annotation:jsr250-api:1.0'
     apt "com.google.dagger:dagger-compiler:$daggerVersion"

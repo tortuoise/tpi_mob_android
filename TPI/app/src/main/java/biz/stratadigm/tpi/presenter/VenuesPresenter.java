@@ -4,6 +4,7 @@ import android.content.Context;
 import android.os.Bundle;
 import android.util.Log;
 import java.net.HttpURLConnection;
+import java.util.List;
 import java.util.ArrayList;
 
 import biz.stratadigm.tpi.interactor.VenuesInteractor;
@@ -17,6 +18,9 @@ public class VenuesPresenter extends BasePresenter<VenuesView> {
     
     private static final String TAG = "TPI";
     private final VenuesInteractor venuesInteractor;
+    private int offset = 0;
+    private ArrayList<VenueDTO> cache;
+    private VenuesFilterType currentFilter = VenuesFilterType.ALL_VENUES;
 
     public VenuesPresenter(Context applicationContext,
                               AppSchedulers appSchedulers,
@@ -28,9 +32,19 @@ public class VenuesPresenter extends BasePresenter<VenuesView> {
     @Override
     protected void onCreate(Bundle savedState) {
         super.onCreate(savedState);
-        Log.v(TAG, "VenuesPresenter.onCreate");
 
-        executeRequest(venuesInteractor.getVenues(0), new VenuesSubscriber());
+        executeRequest(venuesInteractor.getVenues(offset), new VenuesSubscriber());
+
+    }
+
+    public void refresh() {
+
+        executeRequest(venuesInteractor.getVenues(offset), new VenuesSubscriber());
+        try {
+            showFilterLabel();
+        } catch (Exception e) {
+            Log.v(TAG, e.toString());
+        }
 
     }
 
@@ -39,10 +53,28 @@ public class VenuesPresenter extends BasePresenter<VenuesView> {
             //getView().showStartScreen();
     }
 
+    public int getOffset() {
+        return offset;
+    }
+
+    public void setOffset(int offset) { 
+        this.offset = offset;
+    }
+
+    public List<VenueDTO> getCache() {
+        return cache;
+    }
+
     private class VenuesSubscriber extends SimpleSubscriber<ArrayList<VenueDTO>> {
 
         @Override
         public void onNext(ArrayList<VenueDTO> venues) {
+            cache = venues;
+            try {
+                showFilterLabel();
+            } catch (Exception e) {
+                Log.v(TAG, e.toString());
+            }
             getView().showVenues(VenueConverter.toVenueVOs(venues));
         }
 
@@ -73,10 +105,35 @@ public class VenuesPresenter extends BasePresenter<VenuesView> {
             if (isNetworkError(e)) {
                 getView().showNetworkError();
             } else if (isHttpErrorWithCode(e, HttpURLConnection.HTTP_UNAUTHORIZED)) {
-                getView().showAuthError();
+                getView().showStartScreen(); // go back to start screen regarless of error
+                //getView().showAuthError();
             } else {
-                getView().showUnexpectedError();
+                //getView().showUnexpectedError();
+                getView().showStartScreen(); // go back to start screen regarless of error
+
             }
         }
+    }
+
+    private void showFilterLabel() {
+        switch (currentFilter) {
+            case NEARBY_VENUES:
+                getView().showNearbyFilterLabel();
+                break;
+            case MINE_VENUES:
+                getView().showMineFilterLabel();
+                break;
+            default:
+                getView().showAllFilterLabel();
+                break;
+         }
+      }
+
+    public VenuesFilterType getFiltering() {
+        return currentFilter;
+    }
+
+    public void setFiltering(VenuesFilterType filter) {
+        this.currentFilter = filter;
     }
 }

@@ -18,7 +18,7 @@ import biz.stratadigm.tpi.R;
 import biz.stratadigm.tpi.entity.dto.VenueDTO;
 import biz.stratadigm.tpi.entity.vo.VenueVO;
 import biz.stratadigm.tpi.tools.Constant;
-import biz.stratadigm.tpi.ui.activity.MainActivity;
+import biz.stratadigm.tpi.ui.activity.BrowseActivity;
 import biz.stratadigm.tpi.ui.activity.VenueListThali;
 import biz.stratadigm.tpi.ui.adapter.viewholder.BaseViewHolder;
 import biz.stratadigm.tpi.ui.fragment.ThaliFragment;
@@ -105,7 +105,7 @@ public class VenueAdapter extends RecyclerView.Adapter<BaseViewHolder> {
                         editor.putString("venue", Long.toString(venue.getId()));
                         ThaliFragment.venue.setText(Long.toString(venue.getId()));
                         editor.apply();
-                        MainActivity.jobViewPager.setCurrentItem(2);
+                        BrowseActivity.jobViewPager.setCurrentItem(2);
                     }
                 });
                 holder.venueList.setOnClickListener(new View.OnClickListener() {
