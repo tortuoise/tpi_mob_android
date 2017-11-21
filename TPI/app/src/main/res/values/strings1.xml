@@ -1,10 +1,10 @@
 <resources>
     <!--<string name="app_name">Memeify</string>-->
-    <string name="lets_memeify">Lets Memeify!</string>
+    <string name="lets_memeify">Upload!</string>
 
-    <string name="stage_one">Stage one of Memeification. Tap the picture below to take a photo.</string>
-    <string name="looking_good">Hey that\'s a good picture! Lets move to the next stage.</string>
-    <string name="select_a_picture">Select a picture to Memeify!</string>
+    <string name="stage_one"> Tap the picture below to take a photo.</string>
+    <string name="looking_good">Hey that\'s a good picture! Lets upload.</string>
+    <string name="select_a_picture">Select a picture to upload!</string>
 
     <string name="stage_two">Stage two of Memeification. Enter the text you want to appear on your photo.</string>
     <string name="top_text_filler">MOAR HAIR?</string>

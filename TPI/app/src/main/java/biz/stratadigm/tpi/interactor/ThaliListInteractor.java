@@ -16,7 +16,7 @@ public class ThaliListInteractor extends BaseInteractor{
         super(apiInterface, appPreferences);
     }
 
-    public Observable<ArrayList<ThaliDTO>> getThalisByVenue(int offset, int venueid) {
+    public Observable<ArrayList<ThaliDTO>> getThalisByVenue(int offset, long venueid) {
         return getApiInterface().getThalisByVenue(offset, venueid);
     }
 }

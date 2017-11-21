@@ -1,6 +1,7 @@
 package biz.stratadigm.tpi.ui.fragment;
 
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -44,6 +45,7 @@ import javax.inject.Inject;
 
 import biz.stratadigm.tpi.App;
 import biz.stratadigm.tpi.R;
+import biz.stratadigm.tpi.ui.activity.TakePictureActivity;
 import biz.stratadigm.tpi.ui.view.ThaliView;
 import biz.stratadigm.tpi.di.component.DaggerThaliComponent;
 import biz.stratadigm.tpi.di.module.ThaliModule;
@@ -60,6 +62,8 @@ import biz.stratadigm.tpi.tools.Constant;
 public class ThaliFragment extends BaseFragment<ThaliPresenter> implements ThaliView, OnItemSelectedListener{
 
     public static final String ARGUMENT_EDIT_THALI_ID = "EDIT_THALI_ID";
+    public static final String ARGUMENT_VIEW_THALI_ID = "VIEW_THALI_ID";
+    public static final String ARGUMENT_ADD_THALI_VENUEID = "ADD_THALI_VENUEID";
     private static final String TAG = "TPI";
     // components
     private static final int PICK_IMAGE_REQUEST = 1;
@@ -69,9 +73,11 @@ public class ThaliFragment extends BaseFragment<ThaliPresenter> implements Thali
     private Button mButSend;
     private Switch switcher;
     private CheckBox north, west, east, south;
-    private String region;
+    private String region, target;
     private String filePath;
     private SharedPreferences sharedPreferences;
+    private long venueId;
+
     @Inject
     ThaliPresenter thaliPresenter;
     {
@@ -86,9 +92,10 @@ public class ThaliFragment extends BaseFragment<ThaliPresenter> implements Thali
     @Override
     public void onAttach(Context activity) {
         super.onAttach(activity);
-        Bundle args = getArguments();
+        Bundle args = getActivity().getIntent().getExtras();
         if (args != null) {
-            //thaliListPresenter.setCurrentPosition(args.getInt(ARG_POSITION)); 
+            venueId = args.getLong(ARGUMENT_ADD_THALI_VENUEID); 
+            Log.v(TAG, "Getting intent args: " + venueId);
             //thaliListPresenter.setCurrentVenueName(args.getString(ARG_NAME)); 
         } //else if (thaliListPresenter.getCurrentPosition() != -1) {
             //thaliListPresenter.setCurrentPosition(0); 
@@ -131,7 +138,8 @@ public class ThaliFragment extends BaseFragment<ThaliPresenter> implements Thali
         venueTextView = (TextView) view.findViewById(R.id.venue);
         thaliIdTextView = (TextView) view.findViewById(R.id.thaliId);
         venueTextView.setInputType(InputType.TYPE_NULL);
-        venueTextView.setText(sharedPreferences.getString("venue", ""));
+        venueTextView.setText(""+venueId);
+        //venueTextView.setText(sharedPreferences.getString("venue", ""));
 
         switcher = (Switch) view.findViewById(R.id.limited);
         north = (CheckBox) view.findViewById(R.id.north);
@@ -214,6 +222,10 @@ public class ThaliFragment extends BaseFragment<ThaliPresenter> implements Thali
      * Sending thali on server
      */
     public void sendThali() {
+        if (!verify())
+            Toast.makeText(getApplicationContext(), "Incomplete data", Toast.LENGTH_LONG).show();
+        else 
+            thaliPresenter.onCreateButtonClicked();
     /*
         Map<String, Object> params = new HashMap<String, Object>();
 
@@ -287,7 +299,7 @@ public class ThaliFragment extends BaseFragment<ThaliPresenter> implements Thali
 
     @Override
     public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-
+        target = (String) parent.getItemAtPosition(position);
     }
 
     @Override 
@@ -329,6 +341,7 @@ public class ThaliFragment extends BaseFragment<ThaliPresenter> implements Thali
     public Long getVenue() {
         return Long.parseLong(venueTextView.getText().toString());
     }
+
     @Override
     public Long getUserId() {
         return 1L;
@@ -341,12 +354,26 @@ public class ThaliFragment extends BaseFragment<ThaliPresenter> implements Thali
     }
 
     @Override
-    public void showTakePhoto() {
-
+    public void showTakePhoto(long id) {
+        Toast.makeText(getApplicationContext(), "Thanks for the input " + id , Toast.LENGTH_LONG).show();
+        Intent intent = new Intent(getContext(), TakePictureActivity.class);
+        intent.putExtra(TakePictureActivity.ARG_ADD_PIC_THALI_ID, id);
+        try {
+        startActivity(intent);
+        getActivity().finish();
+        } catch (Exception e) {
+            Log.v(TAG, e.toString());
+        }
     }
     
     @Override
     public void showAuthError() {
         Toast.makeText(getApplicationContext(), "Invalid credentials", Toast.LENGTH_LONG).show();
+    }
+
+    public boolean verify() {
+        if (getName() == "" || getTarget() == null || getRegion() == "" || getPrice() == 0 )
+            return false;
+        return true;
     }
 }

@@ -16,14 +16,6 @@
             android:layout_height="wrap_content"
             android:text="Add thali"/>
 
-        <ImageView
-            android:visibility="gone"
-            android:layout_margin="20dp"
-            android:layout_width="match_parent"
-            android:layout_height="120dp"
-            android:src="@drawable/add"
-            android:background="@color/colorPrimary"
-            android:id="@+id/picture"/>
 
         <RelativeLayout
             android:layout_width="match_parent"
@@ -38,15 +30,17 @@
                 android:layout_alignParentLeft="true"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"/>
-            <TextView
-                android:id="@+id/thaliId"
+            <EditText
+                android:id="@+id/price"
                 android:textSize="13dp"
-                android:text="Id: "
+                android:inputType="numberDecimal"
+                android:background="@drawable/edit_text_alert"
                 android:padding="10dp"
                 android:layout_margin="20dp"
+                android:hint="Price in Rupees ... "
+                android:layout_alignParentRight="true"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentRight="true"/>
+                android:layout_height="wrap_content"/>
         </RelativeLayout>
 
         <LinearLayout
@@ -86,30 +80,6 @@
                     android:layout_height="wrap_content"/>-->
             </RelativeLayout>
 
-            <RelativeLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content">
-                <EditText
-                    android:id="@+id/price"
-                    android:textSize="13dp"
-                    android:inputType="numberDecimal"
-                    android:background="@drawable/edit_text_alert"
-                    android:padding="10dp"
-                    android:layout_margin="20dp"
-                    android:hint="Price in Rupees ... "
-                    android:layout_alignParentLeft="true"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"/>
-                <TextView
-                    android:id="@+id/venue"
-                    android:textSize="13dp"
-                    android:padding="10dp"
-                    android:layout_margin="20dp"
-                    android:hint="Venue"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_alignParentRight="true"/>
-            </RelativeLayout>
 
 
             <LinearLayout
@@ -148,15 +118,50 @@
 
             </LinearLayout>
 
-            <Button
-                android:id="@+id/btsend"
+            <RelativeLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:background="?attr/colorPrimaryDark"
-                android:text="Add thali"
-                android:textColor="@color/white"
-                android:textAllCaps="true"
-                android:layout_margin="20dp"/>
+                android:layout_height="wrap_content">
+                <!--<ImageView
+                    android:id="@+id/add_photo"
+                    android:layout_margin="20dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/ic_add_a_photo_black_24dp"
+                    android:layout_alignParentLeft="true"/>-->
+                <Button
+                    android:id="@+id/btsend"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="?attr/colorPrimaryDark"
+                    android:text="Add Thali"
+                    android:textColor="@color/white"
+                    android:textAllCaps="true"
+                    android:layout_centerInParent="true"
+                    android:layout_margin="20dp"/>
+
+            </RelativeLayout>
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+                <TextView
+                    android:id="@+id/thaliId"
+                    android:textSize="13dp"
+                    android:text="Id: "
+                    android:padding="10dp"
+                    android:layout_margin="20dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentLeft="true"/>
+                <TextView
+                    android:id="@+id/venue"
+                    android:textSize="13dp"
+                    android:padding="10dp"
+                    android:layout_margin="20dp"
+                    android:hint="Venue"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"/>
+            </RelativeLayout>
         </LinearLayout>
     </LinearLayout>
 </ScrollView>

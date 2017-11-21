@@ -7,6 +7,7 @@ import java.net.HttpURLConnection;
 import biz.stratadigm.tpi.interactor.ThaliInteractor;
 import biz.stratadigm.tpi.manager.AppSchedulers;
 import biz.stratadigm.tpi.ui.view.ThaliView;
+import biz.stratadigm.tpi.entity.dto.ThaliDTO;
 
 public class ThaliPresenter extends BasePresenter<ThaliView> {
     private final ThaliInteractor thaliInteractor;
@@ -23,8 +24,7 @@ public class ThaliPresenter extends BasePresenter<ThaliView> {
         Boolean limited = getView().getLimited();
         Integer price = getView().getPrice();
         Long venue = getView().getVenue();
-        Long userId = getView().getUserId();
-        executeRequest(thaliInteractor.createThali(name, region, target, limited, price, venue, userId), new ThaliSubscriber());
+        executeRequest(thaliInteractor.createThali(name, region, target, limited, price, venue), new ThaliSubscriber());
     }
 
     public void onEditButtonClicked() {
@@ -36,14 +36,13 @@ public class ThaliPresenter extends BasePresenter<ThaliView> {
         Integer price = getView().getPrice();
         Long venue = getView().getVenue();
         Long userId = getView().getUserId();
-        executeRequest(thaliInteractor.editThali(id, name, region, target, limited, price, venue, userId), new ThaliSubscriber());
+        executeRequest(thaliInteractor.editThali(id, name, region, target, limited, price, venue), new ThaliSubscriber());
     }
 
-    private class ThaliSubscriber extends SimpleSubscriber<Void> {
-
+    private class ThaliSubscriber extends SimpleSubscriber<ThaliDTO> {
         @Override
-        public void onNext(Void aVoid) {
-            getView().showTakePhoto();
+        public void onNext(ThaliDTO aThali) {
+            getView().showTakePhoto(aThali.getId());
         }
 
         @Override
@@ -58,4 +57,5 @@ public class ThaliPresenter extends BasePresenter<ThaliView> {
             }
         }
     }
+
 }

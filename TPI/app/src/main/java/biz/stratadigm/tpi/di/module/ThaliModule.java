@@ -8,6 +8,7 @@ import biz.stratadigm.tpi.manager.ApiInterface;
 import biz.stratadigm.tpi.manager.AppPreferences;
 import biz.stratadigm.tpi.manager.AppSchedulers;
 import biz.stratadigm.tpi.presenter.ThaliPresenter;
+import biz.stratadigm.tpi.presenter.ThaliPicturePresenter;
 import dagger.Module;
 import dagger.Provides;
 
@@ -24,5 +25,11 @@ public class ThaliModule {
     @Provides
     ThaliInteractor provideThaliInteractor(ApiInterface apiInterface, AppPreferences appPreferences) {
         return new ThaliInteractor(apiInterface, appPreferences);
+    }
+
+    @PerActivity
+    @Provides
+    ThaliPicturePresenter provideThaliPicturePresenter(Context context, AppSchedulers appSchedulers, ThaliInteractor thaliInteractor) {
+        return new ThaliPicturePresenter(context, appSchedulers, thaliInteractor);
     }
 }

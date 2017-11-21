@@ -17,7 +17,7 @@ public class ThaliListPresenter extends BasePresenter<ThaliListView> {
 
     private static final String TAG = "TPI";
     private final ThaliListInteractor thaliListInteractor;
-    private int currentPosition = 0;
+    private long currentPosition = 0;
     private String currentVenueName;
 
     public ThaliListPresenter(Context applicationContext,
@@ -35,7 +35,6 @@ public class ThaliListPresenter extends BasePresenter<ThaliListView> {
     }
 
     private class ThalisSubscriber extends SimpleSubscriber<ArrayList<ThaliDTO>> {
-
         @Override
         public void onNext(ArrayList<ThaliDTO> thalis) {
             showFilterLabel();
@@ -60,11 +59,11 @@ public class ThaliListPresenter extends BasePresenter<ThaliListView> {
         getView().showThalisFilterLabel(currentVenueName);
     }
 
-    public int getCurrentPosition() {
+    public long getCurrentPosition() {
         return currentPosition;
     }
 
-    public void setCurrentPosition(int currentPosition) {
+    public void setCurrentPosition(long currentPosition) {
         this.currentPosition = currentPosition;
     }
 

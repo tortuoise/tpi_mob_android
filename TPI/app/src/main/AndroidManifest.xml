@@ -31,6 +31,8 @@
         <activity
             android:name="biz.stratadigm.tpi.ui.activity.AddEditThaliActivity"/>
         <activity
+            android:name="biz.stratadigm.tpi.ui.activity.TakePictureActivity"/>
+        <activity
             android:name="biz.stratadigm.tpi.ui.activity.StatisticsActivity"/>
         <activity
             android:name="biz.stratadigm.tpi.ui.activity.VenueListThali"/>

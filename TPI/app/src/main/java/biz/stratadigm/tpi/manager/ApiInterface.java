@@ -13,7 +13,10 @@ import retrofit2.http.POST;
 import retrofit2.http.PUT;
 import retrofit2.http.DELETE;
 import retrofit2.http.Header;
+import okhttp3.MultipartBody;
 import retrofit2.http.Path;
+import retrofit2.http.Multipart;
+import retrofit2.http.Part;
 import retrofit2.http.Query;
 import rx.Observable;
 import java.util.ArrayList;
@@ -43,14 +46,19 @@ public interface ApiInterface {
     Observable<ArrayList<ThaliDTO>> getThalis(@Query("offset") int offset);
 
     @GET("/thalis")
-    Observable<ArrayList<ThaliDTO>> getThalisByVenue(@Query("offset") int offset, @Query("venue") int venueid);
+    Observable<ArrayList<ThaliDTO>> getThalisByVenue(@Query("offset") int offset, @Query("venue") long venueid);
     
     @GET("/thali/{id}/image")
     Observable<Bitmap> getThaliImage(@Path("id") int id);
 
     @POST("/thali")
-    Observable<Void> createThali(@Body ThaliDTO thaliDTO);
+    Observable<ThaliDTO> createThali(@Body ThaliDTO thaliDTO);
 
     @PUT("/thali/{id}")
-    Observable<Void> editThali(@Path("id") long id, @Body ThaliDTO thaliDTO);
+    Observable<ThaliDTO> editThali(@Path("id") long id, @Body ThaliDTO thaliDTO);
+
+    @Multipart
+    @POST("/upload/{id}")
+    Observable<Void> submitThaliPicture(@Path("id") long id, @Part MultipartBody.Part picture);
+
 }

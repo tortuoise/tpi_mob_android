@@ -28,7 +28,7 @@ public interface ThaliView extends BaseView {
 
     void showThali();
     
-    void showTakePhoto();
+    void showTakePhoto(long id);
 
     void showAuthError();
 }

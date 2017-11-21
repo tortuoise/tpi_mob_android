@@ -11,8 +11,14 @@ Simple Android app for TPI data collection
 
 ##Architecture
 
-+ Activity: 2 activities - MainActivity (crud functions) & StartActivity (login/register)
++ Activity: 
+  - StartActivity (login/register)
+  - BrowseActivity (browse venues/thalis)
+  - AddEditVenueActivity (add venue)
+  - AddEditThaliActivity (add thali)
+  - TakePictureActivity (
 + Fragment: 
+  - 
 + Presenter: 
   + Subscriber/rx.Observer
 + Interactor
@@ -58,6 +64,11 @@ Also Rx events survive orientation changes when delivering with Nucleus. That's 
 
 + [mockito](https://static.javadoc.io/org.mockito/mockito-core/2.7.5/org/mockito/Mockito.html) is used to mock objects to test Presenters & Views. The use of a MVP architecture allows the Presenters, Views and Interactors to be tested independent of UI elements.  
 
+http://stackoverflow.com/questions/16694786/how-to-customize-a-spinner-in-android?noredirect=1&lq=1
+http://mrhaki.blogspot.co.uk/2010/09/gradle-goodness-changing-gradle-user.html
+https://developer.android.com/guide/topics/ui/controls/spinner.html
+https://developer.android.com/reference/android/graphics/BitmapFactory.html
+https://developer.android.com/reference/android/R.attr.html
 
 ##Entities
 

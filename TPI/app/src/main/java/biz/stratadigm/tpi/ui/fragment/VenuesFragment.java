@@ -85,7 +85,7 @@ public class VenuesFragment extends BaseFragment<VenuesPresenter> implements Ven
 
     //Container activity must implement this interface so fragment can deliver messages.
     public interface OnVenueSelectedListener {
-        public void onVenueSelect(int position, String name);
+        public void onVenueSelect(long position, String name);
         public void onVenueLongSelect(int position, String name);
     }
 
@@ -159,7 +159,7 @@ public class VenuesFragment extends BaseFragment<VenuesPresenter> implements Ven
             new RecyclerItemClickListener(view.getContext(), mList,new RecyclerItemClickListener.OnItemClickListener() {
                 @Override public void onItemClick(View view, int position) {
                     try {
-                        venueSelect.onVenueSelect(venuesPresenter.getCache().get(position).getId().intValue(), venuesPresenter.getCache().get(position).getName());
+                        venueSelect.onVenueSelect(venuesPresenter.getCache().get(position).getId(), venuesPresenter.getCache().get(position).getName());
                     } catch (Exception e) {
                         Log.v(TAG, e.toString());
                     }

@@ -75,10 +75,10 @@ public class ThaliListFragment extends BaseFragment<ThaliListPresenter> implemen
         super.onAttach(activity);
         Bundle args = getArguments();
         if (args != null) {
-            thaliListPresenter.setCurrentPosition(args.getInt(ARG_POSITION)); 
+            thaliListPresenter.setCurrentPosition(args.getLong(ARG_POSITION)); 
             thaliListPresenter.setCurrentVenueName(args.getString(ARG_NAME)); 
         } else if (thaliListPresenter.getCurrentPosition() != -1) {
-            thaliListPresenter.setCurrentPosition(0); 
+            thaliListPresenter.setCurrentPosition(0L); 
             thaliListPresenter.setCurrentVenueName(getResources().getString(R.string.unknown)); 
         }
     }
@@ -120,7 +120,7 @@ public class ThaliListFragment extends BaseFragment<ThaliListPresenter> implemen
     @Override
     public void onSaveInstanceState(Bundle outState) {
         super.onSaveInstanceState(outState);
-        outState.putInt(ARG_POSITION, thaliListPresenter.getCurrentPosition() /*mCurrentPosition*/ );
+        outState.putLong(ARG_POSITION, thaliListPresenter.getCurrentPosition() /*mCurrentPosition*/ );
         outState.putString(ARG_NAME, thaliListPresenter.getCurrentVenueName() /*mCurrentPosition*/ );
     }
 
@@ -157,7 +157,15 @@ public class ThaliListFragment extends BaseFragment<ThaliListPresenter> implemen
     @Override
     public void showAddThali() {
         Intent intent = new Intent(getContext(), AddEditThaliActivity.class);
+        intent.putExtra(ThaliFragment.ARGUMENT_ADD_THALI_VENUEID, thaliListPresenter.getCurrentPosition());
         startActivityForResult(intent, AddEditThaliActivity.REQUEST_ADD_THALI);
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent intent) {
+        super.onActivityResult(requestCode, resultCode, intent);
+        if (requestCode == AddEditThaliActivity.REQUEST_ADD_THALI && resultCode == getActivity().RESULT_OK) 
+            Toast.makeText(getApplicationContext(), "Thanks for the thali data", Toast.LENGTH_LONG).show();
     }
 
     @Override

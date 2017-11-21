@@ -254,14 +254,14 @@ public class BrowseActivity extends AppCompatActivity implements VenuesFragment.
                 });
     }
 
-    public void onVenueSelect(int position, String name) {
+    public void onVenueSelect(long position, String name) {
         //ThaliListFragment thaliListFragment = (ThaliListFragment) getSupportFragmentManager().findFragmentById(R..fragment_thali_list);
         //if (thaliListFragment != null) {
 
         //} else {
             ThaliListFragment thaliListFragment = ThaliListFragment.newInstance();
             Bundle args = new Bundle();
-            args.putInt(ThaliListFragment.ARG_POSITION, position);
+            args.putLong(ThaliListFragment.ARG_POSITION, position);
             args.putString(ThaliListFragment.ARG_NAME, name);
             thaliListFragment.setArguments(args);
             ActivityUtils.replaceFragmentInActivity(getSupportFragmentManager(), thaliListFragment, R.id.contentFrame);
